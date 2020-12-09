@@ -35,15 +35,40 @@ public class SpawnMap : MonoBehaviour
             }
             else if (blockType == 1)
             {
-                //Spawn pavement
-                //Random number of vertical pavement blocks
+                //Spawn river
+                //Random number of vertical river blocks
                 var blockLength = Random.Range(0, 5);
                 for (float j = 0; j < blockLength; j++)
                 {
+                    var canSpawn = Random.Range(0, 2);
                     for (float x = -5; x < 20; x = x + 1.9f)
                     {
-                        //Spawn 20 blocks horizontally
-                        Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
+                        //Create rivers responsible for spawning logs first
+
+                        if (x == -5)
+                        {
+                            GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
+                            riverObj.GetComponent<SpawnRiver>().spawnRight = true;
+                            if (canSpawn == 0)
+                            {
+                                riverObj.GetComponent<SpawnRiver>().canSpawn = true;
+                            }
+                        }
+                        else if (x > 17)
+                        {
+                            GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
+                            riverObj.GetComponent<SpawnRiver>().spawnRight = false;
+                            if (canSpawn == 1)
+                            {
+                                riverObj.GetComponent<SpawnRiver>().canSpawn = true;
+                            }
+                        }
+                        else
+                        {
+                            //Spawn 20 blocks horizontally
+                            GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
+                            riverObj.GetComponent<SpawnRiver>().canSpawn = false;
+                        }
                     }
                     currentZ += 2f;
                 }

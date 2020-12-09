@@ -22,7 +22,7 @@ public class SpawnCar : MonoBehaviour
         var shouldSpawn = Random.Range(0, 999);
         var carType = Random.Range(0, 2);
         //1/3 probability every frame of spawning a car
-        if (shouldSpawn == 0 && Time.time >= currentTime + 2f)
+        if (shouldSpawn == 0 && Time.time >= currentTime + 0.2f)
         {
             //Only allow spawning once in a while to prevent car collision
             currentTime = Time.time;
