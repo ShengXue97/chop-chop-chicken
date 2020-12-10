@@ -10,7 +10,7 @@ public class CharacterMovement : MonoBehaviour
     public Animator anim;
     public Transform movePoint;
     public LayerMask whatStopsMovement;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 20f;
     [SerializeField]
     public TextMeshProUGUI scoreText;
     [SerializeField]
@@ -54,7 +54,7 @@ public class CharacterMovement : MonoBehaviour
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, 200f * Time.deltaTime);
         if (Vector3.Distance(transform.position, movePoint.position) <= 0.05F)
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)

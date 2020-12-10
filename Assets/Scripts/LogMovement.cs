@@ -32,6 +32,6 @@ public class LogMovement : MonoBehaviour
 
         Vector3 newPos = gameObject.transform.position;
         newPos.x += yValue;
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime);
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * 3f);
     }
 }
