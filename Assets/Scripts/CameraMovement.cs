@@ -5,28 +5,28 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public GameObject playerObj;
-    public Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerObj.transform.position.z - 0.5 >= gameObject.transform.position.z)
+        Debug.Log(playerObj.transform.position.z + ";" + gameObject.transform.position.z);
+        if (playerObj.transform.position.z - 30.5 >= gameObject.transform.position.z)
         {
             //Only follow player if the player is not moving backwards
-            Vector3 newPos = Vector3.Lerp(gameObject.transform.position, playerObj.transform.position, Time.deltaTime);
-            gameObject.transform.position = new Vector3(newPos.x, 1, newPos.z);
+            Vector3 newPos = gameObject.transform.position;
+            //Camera should be 30f z behind player.
+            newPos.z = playerObj.transform.position.z - 30f;
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, newPos, Time.deltaTime);
         }
         else
         {
             Vector3 newPos = gameObject.transform.position;
             newPos.z += 1f;
-            Vector3 newDir = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime);
-            gameObject.transform.position = new Vector3(newDir.x, 1, newDir.z);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime);
         }
 
     }

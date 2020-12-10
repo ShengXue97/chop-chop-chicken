@@ -43,9 +43,9 @@ public class CharacterMovement : MonoBehaviour
         if (!meshRenderer.isVisible && Time.timeSinceLevelLoad > 0.1)
         {
             //Dead if player is not visible by any cameras
-            EditorUtility.DisplayDialog("Info", "You died", "Ok");
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            // EditorUtility.DisplayDialog("Info", "You died", "Ok");
+            // Scene scene = SceneManager.GetActiveScene();
+            // SceneManager.LoadScene(scene.name);
         }
 
         if (Physics.OverlapSphere(movePoint.position, 0.2f, whatStopsMovement).Length != 0)

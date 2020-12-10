@@ -14,6 +14,12 @@ public class LogMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.x < -40 || transform.position.x > 45)
+        {
+            //Outside of screen, destroy!
+            Destroy(gameObject);
+        }
+
         float yValue = 1f;
         if (movingRight)
         {
