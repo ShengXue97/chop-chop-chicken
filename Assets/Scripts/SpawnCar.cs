@@ -26,7 +26,7 @@ public class SpawnCar : MonoBehaviour
             //Only allow spawning once in a while to prevent car collision
             currentTime = Time.timeSinceLevelLoad;
             Vector3 newPos = transform.position;
-            newPos.z -= 2f;
+            newPos.y += 2f;
             if (carType == 0 && spawnRight)
             {
                 GameObject car = Instantiate(car1, newPos, Quaternion.identity);

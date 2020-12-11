@@ -10,6 +10,8 @@ public class CharacterMovement : MonoBehaviour
     public Animator anim;
     public Transform movePoint;
     public LayerMask whatStopsMovement;
+    public LayerMask waterLayer;
+    public LayerMask logLayer;
     public float moveSpeed = 20f;
     [SerializeField]
     public TextMeshProUGUI scoreText;
@@ -40,6 +42,7 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Input.GetAxisRaw("Vertical"));
         if (!meshRenderer.isVisible && Time.timeSinceLevelLoad > 0.1)
         {
             //Dead if player is not visible by any cameras
@@ -47,6 +50,18 @@ public class CharacterMovement : MonoBehaviour
             // Scene scene = SceneManager.GetActiveScene();
             // SceneManager.LoadScene(scene.name);
         }
+
+        if (Physics.OverlapSphere(gameObject.transform.position, 0.2f, waterLayer).Length != 0)
+        {
+            if (Physics.OverlapSphere(gameObject.transform.position, 0.5f, logLayer).Length == 0)
+            {
+                //If on water but not on logs, die!
+                EditorUtility.DisplayDialog("Info", "You died", "Ok");
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
+            }
+        }
+
 
         if (Physics.OverlapSphere(movePoint.position, 0.2f, whatStopsMovement).Length != 0)
         {

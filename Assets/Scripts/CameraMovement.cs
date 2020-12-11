@@ -13,7 +13,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerObj.transform.position.z + ";" + gameObject.transform.position.z);
         if (playerObj.transform.position.z - 30.5 >= gameObject.transform.position.z)
         {
             //Only follow player if the player is not moving backwards
