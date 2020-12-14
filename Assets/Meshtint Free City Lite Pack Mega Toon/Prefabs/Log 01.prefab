@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2256100185446383116}
   - component: {fileID: 2256100185446383117}
   - component: {fileID: 9095228840008350709}
+  - component: {fileID: 6435772877533901880}
   m_Layer: 9
   m_Name: Log 01
   m_TagString: Untagged
@@ -46,6 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingRight: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!65 &9095228840008350709
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54,11 +58,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2256100185446383118}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.21702175, y: 1, z: 0.8426195}
   m_Center: {x: -0.25532603, y: 0, z: -0.003407022}
+--- !u!54 &6435772877533901880
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256100185446383118}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2256100186085409583
 GameObject:
   m_ObjectHideFlags: 0

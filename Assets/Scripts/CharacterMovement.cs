@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
     public Animator anim;
     public Transform movePoint;
     public LayerMask whatStopsMovement;
+    public LayerMask vehicleLayer;
     public LayerMask waterLayer;
     public LayerMask logLayer;
     public float moveSpeed = 20f;
@@ -23,6 +24,8 @@ public class CharacterMovement : MonoBehaviour
     private int zPos = 0;
     private int zMax = 0;
     private int highscore = 0;
+    private bool canMoveHorizontal = true;
+    private bool canMoveVertical = true;
 
     // Start is called before the first frame update
     void Start()
@@ -42,13 +45,24 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Input.GetAxisRaw("Vertical"));
         if (!meshRenderer.isVisible && Time.timeSinceLevelLoad > 0.1)
         {
             //Dead if player is not visible by any cameras
             // EditorUtility.DisplayDialog("Info", "You died", "Ok");
             // Scene scene = SceneManager.GetActiveScene();
             // SceneManager.LoadScene(scene.name);
+        }
+
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 0f)
+        {
+            //Prevents holding down arrow keys to move, must release
+            canMoveHorizontal = true;
+        }
+
+        if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 0f)
+        {
+            //Prevents holding down arrow keys to move, must release
+            canMoveVertical = true;
         }
 
         if (Physics.OverlapSphere(gameObject.transform.position, 0.2f, waterLayer).Length != 0)
@@ -63,17 +77,19 @@ public class CharacterMovement : MonoBehaviour
         }
 
 
-        if (Physics.OverlapSphere(movePoint.position, 0.2f, whatStopsMovement).Length != 0)
+        if (Physics.OverlapSphere(movePoint.position, 0.2f, vehicleLayer).Length != 0)
         {
             EditorUtility.DisplayDialog("Info", "You died", "Ok");
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }
+
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, 200f * Time.deltaTime);
         if (Vector3.Distance(transform.position, movePoint.position) <= 0.05F)
         {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f && canMoveHorizontal)
             {
+                canMoveHorizontal = false;
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal") * 2, 0f, 0f), 0.2f, whatStopsMovement).Length == 0)
                 {
                     if (Input.GetAxisRaw("Horizontal") == -1f)
@@ -87,15 +103,16 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("Hop", true);
                     movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal") * 2, 0f, 0f);
                 }
-                else
+                if (Physics.OverlapSphere(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal") * 2, 0f, 0f), 0.2f, vehicleLayer).Length != 0)
                 {
                     EditorUtility.DisplayDialog("Info", "You died", "Ok");
                     Scene scene = SceneManager.GetActiveScene();
                     SceneManager.LoadScene(scene.name);
                 }
             }
-            else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
+            else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f && canMoveVertical)
             {
+                canMoveVertical = false;
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, Input.GetAxisRaw("Vertical") * 2), 0.2f, whatStopsMovement).Length == 0)
                 {
                     if (Input.GetAxisRaw("Vertical") == -1f)
@@ -122,7 +139,7 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("Hop", true);
                     movePoint.position += new Vector3(0f, 0f, Input.GetAxisRaw("Vertical") * 2);
                 }
-                else
+                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, Input.GetAxisRaw("Vertical") * 2), 0.2f, vehicleLayer).Length != 0)
                 {
                     EditorUtility.DisplayDialog("Info", "You died", "Ok");
                     Scene scene = SceneManager.GetActiveScene();

@@ -5,12 +5,34 @@ using UnityEngine;
 public class LogMovement : MonoBehaviour
 {
     public bool movingRight;
+    public LayerMask playerLayer;
+    public GameObject playerObj;
+    public bool playerOnLog;
     // Start is called before the first frame update
     void Start()
     {
-
+        playerOnLog = false;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Debug.Log(other.name + " enter");
+            playerOnLog = true;
+            playerObj = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Debug.Log(other.name + " exit");
+            playerOnLog = false;
+            playerObj = null;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -33,5 +55,12 @@ public class LogMovement : MonoBehaviour
         Vector3 newPos = gameObject.transform.position;
         newPos.x += yValue;
         gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * 3f);
+
+        // if (playerOnLog)
+        // {
+        //     Vector3 playerPos = playerObj.transform.position;
+        //     playerPos.x += 2f;
+        //     playerObj.transform.position = playerPos;
+        // }
     }
 }

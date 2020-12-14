@@ -11,7 +11,7 @@ public class SpawnMap : MonoBehaviour
     public GameObject river2;
     public GameObject road1;
     public GameObject road2;
-    public GameObject tree;
+    public GameObject tree1;
     public int prevGrass;
     public int prevRoad;
     public int prevRiver;
@@ -20,15 +20,15 @@ public class SpawnMap : MonoBehaviour
     void Start()
     {
         float currentZ = 0f;
-        for (float i = 0; i < 100; i++)
+        for (float i = 0; i < 1000; i++)
         {
             //Spawn 20 different types of blocks in total
             int blockType;
 
             if (i <= 10)
             {
-                //No river for the first 10 blocks
-                blockType = Random.Range(0, 2);
+                //No river and road for the first 10 blocks
+                blockType = 0;
             }
             else
             {
@@ -39,7 +39,7 @@ public class SpawnMap : MonoBehaviour
             {
                 //Spawn grass
                 //Random number of vertical grass blocks
-                var blockLength = Random.Range(0, 5);
+                var blockLength = Random.Range(0, 3);
                 for (float j = 0; j < blockLength; j++)
                 {
                     GameObject grass;
@@ -60,6 +60,14 @@ public class SpawnMap : MonoBehaviour
                         //Spawn 20 blocks horizontally
                         GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
                         grassObj.transform.parent = gameObject.transform;
+
+                        var shouldSpawnTree = Random.Range(0, 10);
+                        if (shouldSpawnTree == 0)
+                        {
+                            GameObject treeObj = Instantiate(tree1, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                            treeObj.transform.parent = gameObject.transform;
+                        }
+
                     }
                     currentZ += 2f;
                 }
@@ -69,7 +77,7 @@ public class SpawnMap : MonoBehaviour
             {
                 //Spawn road
                 //Random number of vertical road blocks
-                var blockLength = Random.Range(0, 5);
+                var blockLength = Random.Range(0, 3);
                 for (float j = 0; j < blockLength; j++)
                 {
                     var canSpawn = Random.Range(0, 2);
@@ -100,7 +108,7 @@ public class SpawnMap : MonoBehaviour
                                 roadObj.GetComponent<SpawnCar>().enabled = false;
                             }
                         }
-                        else if (x > 27)
+                        else if (x > (30f - 1.9f))
                         {
                             GameObject roadObj = Instantiate(road, new Vector3(x, -2f, currentZ), Quaternion.Euler(new Vector3(0, -90, 0)));
                             roadObj.transform.parent = gameObject.transform;
@@ -126,10 +134,9 @@ public class SpawnMap : MonoBehaviour
             {
                 //Spawn river
                 //Random number of vertical river blocks
-                var blockLength = Random.Range(0, 5);
+                var blockLength = Random.Range(0, 3);
                 for (float j = 0; j < blockLength; j++)
                 {
-                    var canSpawn = Random.Range(0, 2);
                     GameObject river;
                     //Alternate between lighter and darker shades of grass
                     if (prevRiver == 0)
@@ -151,17 +158,17 @@ public class SpawnMap : MonoBehaviour
                             GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
                             riverObj.transform.parent = gameObject.transform;
                             riverObj.GetComponent<SpawnRiver>().spawnRight = true;
-                            if (canSpawn == 0)
+                            if (prevRiver == 0)
                             {
                                 riverObj.GetComponent<SpawnRiver>().canSpawn = true;
                             }
                         }
-                        else if (x > 27)
+                        else if (x > (30f - 1.9f))
                         {
                             GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
                             riverObj.transform.parent = gameObject.transform;
                             riverObj.GetComponent<SpawnRiver>().spawnRight = false;
-                            if (canSpawn == 1)
+                            if (prevRiver == 1)
                             {
                                 riverObj.GetComponent<SpawnRiver>().canSpawn = true;
                             }

@@ -5,9 +5,11 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public GameObject playerObj;
+    public float cameraMovementSpeed;
     // Start is called before the first frame update
     void Start()
     {
+        cameraMovementSpeed = 2f;
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class CameraMovement : MonoBehaviour
         {
             Vector3 newPos = gameObject.transform.position;
             newPos.z += 1f;
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * cameraMovementSpeed);
         }
 
     }

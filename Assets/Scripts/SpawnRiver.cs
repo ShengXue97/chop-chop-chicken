@@ -8,14 +8,16 @@ public class SpawnRiver : MonoBehaviour
     public bool canSpawn = false;
     public bool spawnRight;
     public GameObject log1;
-    private float currentTime = -999999f;
+    private float currentTime = -9999999f;
     private MeshRenderer meshRenderer;
+    private int maxProbability;
     private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         anim = GetComponent<Animator>();
+        maxProbability = 3;
     }
 
     // Update is called once per frame
@@ -35,11 +37,19 @@ public class SpawnRiver : MonoBehaviour
             return;
         }
 
-        var shouldSpawn = Random.Range(0, 50);
+        var shouldSpawn = Random.Range(0, maxProbability);
         var logType = Random.Range(0, 2);
-        //1/3 probability every frame of spawning a log
-        if (shouldSpawn == 0 && Time.timeSinceLevelLoad >= currentTime + 10.2f)
+
+        if (maxProbability > 1)
         {
+            //Become more likely to spawn logs every frame
+            maxProbability--;
+        }
+
+        //1/3 probability every frame of spawning a log
+        if (shouldSpawn == 0 && Time.timeSinceLevelLoad > currentTime + 3.2f)
+        {
+            maxProbability = 3;
             //Only allow spawning once in a while to prevent log collision
             currentTime = Time.timeSinceLevelLoad;
             Vector3 newPos = transform.position;
