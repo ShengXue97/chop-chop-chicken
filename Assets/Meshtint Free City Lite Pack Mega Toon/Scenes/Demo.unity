@@ -199,6 +199,7 @@ MonoBehaviour:
   moveSpeed: 5
   scoreText: {fileID: 1313896923}
   maxScoreText: {fileID: 1413702641}
+  zPos: 0
 --- !u!95 &163697477 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 95943282229431942, guid: 312b31977ed9b2d48a14849ebb8c7fb3, type: 3}
@@ -315,7 +316,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 748a38ca2c119d54a965a9bb44242596, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 748a38ca2c119d54a965a9bb44242596, type: 3}
       propertyPath: m_LocalScale.x
@@ -490,7 +491,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3492344093595105385, guid: afa636edb218e0d4abf5a7c2ce4fdd73, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3492344093595105385, guid: afa636edb218e0d4abf5a7c2ce4fdd73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -818,6 +819,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413702639}
   m_CullTransparentMesh: 0
+--- !u!1001 &1475668391
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.48
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.79605
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.41
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
+      propertyPath: m_Name
+      value: LEAF
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9241d34b89e858b469e6a6c35cae3d27, type: 3}
 --- !u!1001 &1543982822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -827,7 +885,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 301455f7fa62fe642a83e3cd951edc9b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 301455f7fa62fe642a83e3cd951edc9b, type: 3}
       propertyPath: m_LocalScale.x
@@ -951,7 +1009,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1581862617
 GameObject:
@@ -982,6 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e5f17a38921f84caad501c439390c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 163697473}
   grass1: {fileID: 6165276756094284832, guid: ecb9f8ec41254e24b94795cd21c3972a, type: 3}
   grass2: {fileID: 2853340163563363684, guid: a5e84c554435f2045804a5662408f1e4, type: 3}
   pavement: {fileID: 1613741771339326, guid: 0a4826ceac178804b82101f1d354cbc5, type: 3}
@@ -1005,7 +1064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1672215195
 PrefabInstance:
@@ -1168,7 +1227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4303844821561524, guid: 312b31977ed9b2d48a14849ebb8c7fb3, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4303844821561524, guid: 312b31977ed9b2d48a14849ebb8c7fb3, type: 3}
       propertyPath: m_LocalScale.x
@@ -1589,7 +1648,7 @@ RectTransform:
   - {fileID: 1313896922}
   - {fileID: 1413702640}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1701,7 +1760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4456014852200085448, guid: f1c60f574d5bc054fab491cbd6cb73af, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4456014852200085448, guid: f1c60f574d5bc054fab491cbd6cb73af, type: 3}
       propertyPath: m_LocalScale.x

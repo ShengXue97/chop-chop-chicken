@@ -21,7 +21,7 @@ public class CharacterMovement : MonoBehaviour
     private MeshRenderer meshRenderer;
 
 
-    private int zPos = 0;
+    public int zPos = 0;
     private int zMax = 0;
     private int highscore = 0;
     private bool canMoveHorizontal = true;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnMap : MonoBehaviour
 {
+    public GameObject player;
     public GameObject grass1;
     public GameObject grass2;
     public GameObject pavement;
@@ -15,17 +16,36 @@ public class SpawnMap : MonoBehaviour
     public int prevGrass;
     public int prevRoad;
     public int prevRiver;
+    private float currentZ;
 
     // Start is called before the first frame update
     void Start()
     {
-        float currentZ = 0f;
-        for (float i = 0; i < 1000; i++)
+        currentZ = 0f;
+        spawnNextBatch();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Times 2 because each block is 2f long in z axis
+        int zPos = player.GetComponent<CharacterMovement>().zPos * 2;
+        if (zPos > currentZ - 80)
+        {
+            spawnNextBatch();
+        }
+        Debug.Log(zPos + ";" + currentZ);
+        //Debug.Log(zPos);
+    }
+
+    void spawnNextBatch()
+    {
+        for (float i = 0; i < 100; i++)
         {
             //Spawn 20 different types of blocks in total
             int blockType;
 
-            if (i <= 10)
+            if (currentZ <= 20)
             {
                 //No river and road for the first 10 blocks
                 blockType = 0;
@@ -185,12 +205,5 @@ public class SpawnMap : MonoBehaviour
                 }
             }
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
