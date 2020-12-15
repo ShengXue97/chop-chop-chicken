@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4456014852200085448}
   - component: {fileID: 4205315984056995873}
+  - component: {fileID: 5456527428686672107}
   m_Layer: 10
   m_Name: NUSLogo
   m_TagString: Untagged
@@ -45,6 +46,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.9845796, y: 1.2357626, z: 0.5197729}
   m_Center: {x: -0.030037642, y: 0.1178813, z: 0.0407874}
+--- !u!114 &5456527428686672107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3935338254088301938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca63f92c9c07fdc4ca50dd445ca2c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5409081172499305899
 GameObject:
   m_ObjectHideFlags: 0
