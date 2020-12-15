@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tree
+  - Snail
+  - Carrot
   layers:
   - Default
   - TransparentFX

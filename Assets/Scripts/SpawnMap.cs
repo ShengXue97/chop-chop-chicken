@@ -13,6 +13,8 @@ public class SpawnMap : MonoBehaviour
     public GameObject road1;
     public GameObject road2;
     public GameObject tree1;
+
+    public GameObject carrot;
     public int prevGrass;
     public int prevRoad;
     public int prevRiver;
@@ -111,6 +113,16 @@ public class SpawnMap : MonoBehaviour
                         {
                             GameObject treeObj = Instantiate(tree1, new Vector3(x, 0f, currentZ), Quaternion.identity);
                             treeObj.transform.parent = gameObject.transform;
+                        }
+                        else
+                        {
+                            var shouldSpawnCarrot = Random.Range(0, 50);
+                            if (shouldSpawnCarrot == 0)
+                            {
+                                GameObject carrotObj = Instantiate(carrot, new Vector3(x, 0.22f, currentZ), Quaternion.identity);
+                                carrotObj.transform.rotation = Quaternion.Euler(-6, -90, 0);
+                                carrotObj.transform.parent = gameObject.transform;
+                            }
                         }
 
                     }

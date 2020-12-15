@@ -48,7 +48,6 @@ public class SnailMovement : MonoBehaviour
     {
         if (other.tag == "Tree")
         {
-            Debug.Log("oh no");
             canMove = false;
             anim.SetBool("Idle", true);
         }

@@ -24,6 +24,7 @@ public class CharacterMovement : MonoBehaviour
     public int zPos = 0;
     private int zMax = 0;
     private int highscore = 0;
+    private int score = 0;
     private bool canMoveHorizontal = true;
     private bool canMoveVertical = true;
 
@@ -70,7 +71,7 @@ public class CharacterMovement : MonoBehaviour
             if (Physics.OverlapSphere(gameObject.transform.position, 0.5f, logLayer).Length == 0)
             {
                 //If on water but not on logs, die!
-                EditorUtility.DisplayDialog("Info", "You died", "Ok");
+                //EditorUtility.DisplayDialog("Info", "You died", "Ok");
                 Scene scene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(scene.name);
             }
@@ -79,7 +80,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (Physics.OverlapSphere(movePoint.position, 0.2f, vehicleLayer).Length != 0)
         {
-            EditorUtility.DisplayDialog("Info", "You died", "Ok");
+            //EditorUtility.DisplayDialog("Info", "You died", "Ok");
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }
@@ -105,7 +106,7 @@ public class CharacterMovement : MonoBehaviour
                 }
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal") * 2, 0f, 0f), 0.2f, vehicleLayer).Length != 0)
                 {
-                    EditorUtility.DisplayDialog("Info", "You died", "Ok");
+                    //EditorUtility.DisplayDialog("Info", "You died", "Ok");
                     Scene scene = SceneManager.GetActiveScene();
                     SceneManager.LoadScene(scene.name);
                 }
@@ -123,15 +124,16 @@ public class CharacterMovement : MonoBehaviour
                     else
                     {
                         zPos += 1;
+                        score += 1;
                         if (zPos > zMax)
                         {
                             zMax = zPos;
-                            scoreText.text = "Score: " + zMax;
-                            if (zMax > highscore)
+                            scoreText.text = "Score: " + score;
+                            if (score > highscore)
                             {
-                                PlayerPrefs.SetInt("highscore", zMax);
-                                highscore = zMax;
-                                maxScoreText.text = "Top: " + zMax;
+                                PlayerPrefs.SetInt("highscore", score);
+                                highscore = score;
+                                maxScoreText.text = "Top: " + score;
                             }
                         }
                         gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -141,7 +143,7 @@ public class CharacterMovement : MonoBehaviour
                 }
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, Input.GetAxisRaw("Vertical") * 2), 0.2f, vehicleLayer).Length != 0)
                 {
-                    EditorUtility.DisplayDialog("Info", "You died", "Ok");
+                    //EditorUtility.DisplayDialog("Info", "You died", "Ok");
                     Scene scene = SceneManager.GetActiveScene();
                     SceneManager.LoadScene(scene.name);
                 }
@@ -151,6 +153,29 @@ public class CharacterMovement : MonoBehaviour
                 anim.SetBool("Hop", false);
             }
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Carrot")
+        {
+            score += 10;
+            Destroy(other.gameObject);
+        }
+        else if (other.tag == "Snail")
+        {
+            score += 20;
+            Destroy(other.gameObject);
+        }
+
+        scoreText.text = "Score: " + score;
+        if (score > highscore)
+        {
+            PlayerPrefs.SetInt("highscore", score);
+            highscore = score;
+            maxScoreText.text = "Top: " + score;
+        }
+
     }
 }
 

@@ -59,6 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRight: 0
   snail: {fileID: 6655860720321530869, guid: b8aab4e395989c9428b4f2992f67c4fa, type: 3}
+  carrot: {fileID: 368314170403831595, guid: ac0627c1a010ea742a3e3e49e21e6848, type: 3}
 --- !u!1 &6491044008858478013
 GameObject:
   m_ObjectHideFlags: 0
