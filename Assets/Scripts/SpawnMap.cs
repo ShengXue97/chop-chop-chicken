@@ -34,7 +34,7 @@ public class SpawnMap : MonoBehaviour
         {
             spawnNextBatch();
         }
-        Debug.Log(zPos + ";" + currentZ);
+        // Debug.Log(zPos + ";" + currentZ);
         //Debug.Log(zPos);
     }
 
@@ -62,6 +62,7 @@ public class SpawnMap : MonoBehaviour
                 var blockLength = Random.Range(0, 3);
                 for (float j = 0; j < blockLength; j++)
                 {
+                    var canSpawn = Random.Range(0, 2);
                     GameObject grass;
                     //Alternate between lighter and darker shades of grass
                     if (prevGrass == 0)
@@ -78,8 +79,32 @@ public class SpawnMap : MonoBehaviour
                     for (float x = -20; x < 30; x = x + 1.9f)
                     {
                         //Spawn 20 blocks horizontally
-                        GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
-                        grassObj.transform.parent = gameObject.transform;
+                        if (x == -20)
+                        {
+                            GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                            grassObj.transform.parent = gameObject.transform;
+                            grassObj.GetComponent<SpawnFood>().spawnRight = true;
+                            if (canSpawn == 0)
+                            {
+                                grassObj.GetComponent<SpawnFood>().enabled = false;
+                            }
+                        }
+                        else if (x > (30f - 1.9f))
+                        {
+                            GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                            grassObj.transform.parent = gameObject.transform;
+                            grassObj.GetComponent<SpawnFood>().spawnRight = false;
+                            if (canSpawn == 1)
+                            {
+                                grassObj.GetComponent<SpawnFood>().enabled = false;
+                            }
+                        }
+                        else
+                        {
+                            GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                            grassObj.transform.parent = gameObject.transform;
+                            grassObj.GetComponent<SpawnFood>().enabled = false;
+                        }
 
                         var shouldSpawnTree = Random.Range(0, 10);
                         if (shouldSpawnTree == 0)
