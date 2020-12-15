@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRight: 0
-  car1: {fileID: 1394382416345726, guid: 8da2fa4410a3c384badf2e8d8d2f56f3, type: 3}
-  car2: {fileID: 1252161886584478, guid: 1bbc73fc330e07c4bafc7099fe33b4bd, type: 3}
+  car1: {fileID: 8579966274384277236, guid: a58b8a64b0d167d418650670ce6a0e67, type: 3}
+  car2: {fileID: 6958194751533685499, guid: c770f37dbe977fe49bf48fe11f9f14d0, type: 3}
 --- !u!1 &7225488575456509855
 GameObject:
   m_ObjectHideFlags: 0
