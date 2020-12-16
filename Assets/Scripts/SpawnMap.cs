@@ -13,6 +13,7 @@ public class SpawnMap : MonoBehaviour
     public GameObject road1;
     public GameObject road2;
     public GameObject tree1;
+    public GameObject questionText;
 
     public GameObject carrot;
     public int prevGrass;
@@ -167,6 +168,10 @@ public class SpawnMap : MonoBehaviour
                 {
                     grassObj.GetComponent<SpawnFood>().enabled = false;
                 }
+
+                GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 49f, -6.6f, currentZ + 6.5f), Quaternion.identity);
+                questionTextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+                questionTextObj.transform.SetParent(gameObject.transform, false);
             }
             else if (x > (30f - 1.9f))
             {
