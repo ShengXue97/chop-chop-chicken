@@ -755,6 +755,7 @@ MonoBehaviour:
   road2: {fileID: 3329728403298569669, guid: 17b9761463d81194d8282252d4710647, type: 3}
   tree1: {fileID: 1314636615204992, guid: a4892b7c79196cc43885f89cd881ea0d, type: 3}
   questionText: {fileID: 8335202223752391589, guid: 2cdcbd493cbeccf4b898244cecd85a3c, type: 3}
+  answerText: {fileID: 8618617796240421906, guid: b31b24a7f02188b4eb461d6b0781694f, type: 3}
   carrot: {fileID: 368314170403831595, guid: ac0627c1a010ea742a3e3e49e21e6848, type: 3}
   prevGrass: 0
   prevRoad: 0
