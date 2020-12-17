@@ -124,9 +124,9 @@ public class CharacterMovement : MonoBehaviour
                     else
                     {
                         zPos += 1;
-                        score += 1;
                         if (zPos > zMax)
                         {
+                            score += 1;
                             zMax = zPos;
                             scoreText.text = "Score: " + score;
                             if (score > highscore)
@@ -164,7 +164,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (other.tag == "Snail")
         {
-            score += 20;
+            score += 15;
             Destroy(other.gameObject);
         }
 
@@ -176,6 +176,18 @@ public class CharacterMovement : MonoBehaviour
             maxScoreText.text = "Top: " + score;
         }
 
+    }
+
+    public void changeScore(int scoreDiff)
+    {
+        score += scoreDiff;
+        scoreText.text = "Score: " + score;
+        if (score > highscore)
+        {
+            PlayerPrefs.SetInt("highscore", score);
+            highscore = score;
+            maxScoreText.text = "Top: " + score;
+        }
     }
 }
 

@@ -1,18 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpawnMap : MonoBehaviour
 {
     public GameObject player;
     public GameObject grass1;
     public GameObject grass2;
+    public GameObject hill1;
+    public GameObject hill2;
     public GameObject pavement;
     public GameObject river1;
     public GameObject river2;
     public GameObject road1;
     public GameObject road2;
     public GameObject tree1;
+    public GameObject button;
     public GameObject questionText;
     public GameObject answerText;
 
@@ -22,10 +26,92 @@ public class SpawnMap : MonoBehaviour
     public int prevRiver;
     private float currentZ;
     private int currentRow;
+    private int currentQuestion;
     public string[] mapList = new string[90];
+    public List<string> questionList;
+
+    public List<string> answer1List;
+
+    public List<string> answer2List;
+
+    public List<int> correctList;
+    public List<string> answeredQuestions;
+
     // Start is called before the first frame update
     void Start()
     {
+        questionList = new List<string>() {
+        "Which app can be used to submit a question to IT Care?",
+        "What is the name of IT Care chatbot?",
+        "Where can IT Care chatbot be found?",
+        "Is there a website/portal to reset my password?",
+        "I can perform a reset of my NUS-ID password via a self-service web portal",
+        "Is there a website/portal to change my NUS-ID password?",
+        "I can change my NUS-ID password via a self-service web portal",
+        "What should I do if I forgot my NUS-ID password?",
+        "What is the mobile app to access NUSafe and declare temperature?",
+        "NUS IT recently deployed Trend Micro Email Security to help protect against advanced email borne threats.",
+        "What should I do if I receive a suspected phishing email?",
+        "I can configure 2FA soft token in more than one mobile device.",
+        "Can I buy desktops and laptops from IT Care?",
+        "I should _______ my password when the password is expired.",
+        "What is the minimum length for NUS password?",
+        "How often do I have to change my password?",
+        "Which password provides better security?",
+        "Which email address looks more suspicious?",
+        "Which can I do in nTouch?",
+        "What is the name of NUS IT mascot?"
+        };
+
+        answer1List = new List<string>() {
+        "nTouch",
+        "WikiITCare",
+        "NUS IT website",
+        "Yes",
+        "True",
+        "Yes",
+        "True",
+        "Reset via web portal",
+        "uNivUS",
+        "True",
+        "Click report phishing",
+        "Yes",
+        "Yes",
+        "Change",
+        "12",
+        "1 year",
+        "12Dec1980Peter",
+        "itcare@nus.edu.sg",
+        "Submit IT request",
+        "bITbIT",
+        };
+
+        answer2List = new List<string>() {
+        "CallMeNow",
+        "ALCA",
+        "NUS website",
+        "No",
+        "False",
+        "No",
+        "False",
+        "Do nothing",
+        "nSafe",
+        "False",
+        "Do nothing",
+        "No",
+        "No",
+        "Reset",
+        "5",
+        "6 months",
+        "%q2Wf2U4*d/NG",
+        "itcare@nus.com.sg ",
+        "Buy a notebook",
+        "ALCA"
+        };
+
+        correctList = new List<int>() { 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 1, 1 };
+        answeredQuestions = new List<string>() { };
+
         currentZ = 0f;
         currentRow = 0;
         for (int i = 0; i < mapList.Length; i++)
@@ -160,11 +246,12 @@ public class SpawnMap : MonoBehaviour
             prevGrass = 0;
             grass = grass2;
         }
-        for (float x = -20; x < 30; x = x + 1.9f)
+        for (float x = -20; x <= 30; x = x + 2)
         {
             //Spawn 20 blocks horizontally
             if (x == -20)
             {
+                //First block of row
                 GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
                 grassObj.transform.parent = gameObject.transform;
                 grassObj.GetComponent<SpawnFood>().spawnRight = true;
@@ -172,33 +259,48 @@ public class SpawnMap : MonoBehaviour
                 {
                     grassObj.GetComponent<SpawnFood>().enabled = false;
                 }
-                if ((currentZ / 2) % 30 == 0)
+                if ((currentZ / 2) % 30 == 0 && currentZ != 0)
                 {
                     //Spawn questions every 30 tiles
-                    GameObject grassTopObj = Instantiate(grass, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    grassTopObj.transform.parent = gameObject.transform;
+                    GameObject hillTopObj1 = Instantiate(hill1, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    hillTopObj1.transform.parent = gameObject.transform;
+                    GameObject hillTopObj2 = Instantiate(hill1, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
 
-                    GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 53.9f, -4.6f, currentZ + 6.5f), Quaternion.identity);
+                    GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 53.9f, -2.6f, currentZ + 6.5f), Quaternion.identity);
                     questionTextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                     questionTextObj.transform.SetParent(gameObject.transform, false);
+                    questionTextObj.GetComponent<TextMeshPro>().SetText(questionList[currentQuestion]);
+
+                    questionList.Remove(questionList[currentQuestion]);
+                    answer1List.Remove(answer1List[currentQuestion]);
+                    answer2List.Remove(answer2List[currentQuestion]);
+                    correctList.Remove(correctList[currentQuestion]);
                 }
                 else if ((currentZ / 2) % 30 == 29)
                 {
+                    currentQuestion = Random.Range(0, questionList.Count);
                     //Spawn answers every 30 tiles
-                    GameObject grassTopObj = Instantiate(grass, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    grassTopObj.transform.parent = gameObject.transform;
+                    GameObject hillTopObj1 = Instantiate(hill2, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    hillTopObj1.transform.parent = gameObject.transform;
+                    GameObject hillTopObj2 = Instantiate(hill2, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
 
-                    GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 53.9f, -4.6f, currentZ + 6.5f), Quaternion.identity);
+                    GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 58.9f, -2.6f, currentZ + 6.5f), Quaternion.identity);
                     answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                     answer1TextObj.transform.SetParent(gameObject.transform, false);
+                    answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
 
-                    GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 83.9f, -4.6f, currentZ + 6.5f), Quaternion.identity);
+                    GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 78.5f, -2.6f, currentZ + 6.5f), Quaternion.identity);
                     answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                     answer2TextObj.transform.SetParent(gameObject.transform, false);
+                    answer2TextObj.GetComponent<TextMeshPro>().SetText(answer2List[currentQuestion]);
+
                 }
             }
-            else if (x > (30f - 1.9f))
+            else if (x == 30)
             {
+                //Last block of row
                 GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
                 grassObj.transform.parent = gameObject.transform;
                 grassObj.GetComponent<SpawnFood>().spawnRight = false;
@@ -207,17 +309,85 @@ public class SpawnMap : MonoBehaviour
                     grassObj.GetComponent<SpawnFood>().enabled = false;
                 }
 
-                if ((currentZ / 2) % 30 == 0)
+                if ((currentZ / 2) % 30 == 0 && currentZ != 0)
                 {
                     //Spawn questions every 30 tiles
-                    GameObject grassTopObj = Instantiate(grass, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    grassTopObj.transform.parent = gameObject.transform;
+                    GameObject hillTopObj1 = Instantiate(hill1, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    hillTopObj1.transform.parent = gameObject.transform;
+                    GameObject hillTopObj2 = Instantiate(hill1, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
                 }
                 else if ((currentZ / 2) % 30 == 29)
                 {
                     //Spawn answers every 30 tiles
-                    GameObject grassTopObj = Instantiate(grass, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    grassTopObj.transform.parent = gameObject.transform;
+                    GameObject hillTopObj1 = Instantiate(hill2, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    hillTopObj1.transform.parent = gameObject.transform;
+                    GameObject hillTopObj2 = Instantiate(hill2, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
+                }
+            }
+            else if (x >= -20 + (2 * 5) && x <= -20 + (2 * 10))
+            {
+                //Region of first answer option
+                GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                grassObj.transform.parent = gameObject.transform;
+                grassObj.GetComponent<SpawnFood>().enabled = false;
+
+                if ((currentZ / 2) % 30 == 0 && currentZ != 0)
+                {
+                    //Spawn questions every 30 tiles
+                    GameObject hillTopObj2 = Instantiate(hill1, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
+                }
+                else if ((currentZ / 2) % 30 == 29)
+                {
+                    //Spawn answers every 30 tiles
+                    GameObject hillTopObj2 = Instantiate(hill2, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
+
+                    GameObject buttonObj = Instantiate(button, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    buttonObj.transform.SetParent(gameObject.transform);
+                    buttonObj.GetComponent<ButtonController>().currentQuestion = questionList[currentQuestion];
+                    if (correctList[currentQuestion] == 1)
+                    {
+                        buttonObj.GetComponent<ButtonController>().containsCorrectAnswer = true;
+                    }
+                    else
+                    {
+                        buttonObj.GetComponent<ButtonController>().containsCorrectAnswer = false;
+                    }
+                }
+            }
+            else if (x >= -20 + (2 * 15) && x <= -20 + (2 * 20))
+            {
+                //Region of second answer option
+                GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                grassObj.transform.parent = gameObject.transform;
+                grassObj.GetComponent<SpawnFood>().enabled = false;
+
+                if ((currentZ / 2) % 30 == 0 && currentZ != 0)
+                {
+                    //Spawn questions every 30 tiles
+                    GameObject hillTopObj2 = Instantiate(hill1, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
+                }
+                else if ((currentZ / 2) % 30 == 29)
+                {
+                    //Spawn answers every 30 tiles
+                    GameObject hillTopObj2 = Instantiate(hill2, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
+
+                    GameObject buttonObj = Instantiate(button, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    buttonObj.transform.SetParent(gameObject.transform);
+                    buttonObj.GetComponent<ButtonController>().currentQuestion = questionList[currentQuestion];
+                    if (correctList[currentQuestion] == 2)
+                    {
+                        buttonObj.GetComponent<ButtonController>().containsCorrectAnswer = true;
+                    }
+                    else
+                    {
+                        buttonObj.GetComponent<ButtonController>().containsCorrectAnswer = false;
+                    }
                 }
             }
             else
@@ -226,34 +396,41 @@ public class SpawnMap : MonoBehaviour
                 grassObj.transform.parent = gameObject.transform;
                 grassObj.GetComponent<SpawnFood>().enabled = false;
 
-                if ((currentZ / 2) % 30 == 0)
+                if ((currentZ / 2) % 30 == 0 && currentZ != 0)
                 {
                     //Spawn questions every 30 tiles
-                    GameObject grassTopObj = Instantiate(grass, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    grassTopObj.transform.parent = gameObject.transform;
+                    GameObject hillTopObj1 = Instantiate(hill1, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    hillTopObj1.transform.parent = gameObject.transform;
+                    GameObject hillTopObj2 = Instantiate(hill1, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
                 }
                 else if ((currentZ / 2) % 30 == 29)
                 {
                     //Spawn answers every 30 tiles
-                    GameObject grassTopObj = Instantiate(grass, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    grassTopObj.transform.parent = gameObject.transform;
+                    GameObject hillTopObj1 = Instantiate(hill2, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    hillTopObj1.transform.parent = gameObject.transform;
+                    GameObject hillTopObj2 = Instantiate(hill2, new Vector3(x, 2f, currentZ), Quaternion.identity);
+                    hillTopObj2.transform.parent = gameObject.transform;
                 }
             }
 
-            var shouldSpawnTree = Random.Range(0, 10);
-            if (shouldSpawnTree == 0)
+            if ((currentZ / 2) % 30 != 0 && (currentZ / 2) % 30 != 29)
             {
-                GameObject treeObj = Instantiate(tree1, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                treeObj.transform.parent = gameObject.transform;
-            }
-            else
-            {
-                var shouldSpawnCarrot = Random.Range(0, 50);
-                if (shouldSpawnCarrot == 0)
+                var shouldSpawnTree = Random.Range(0, 10);
+                if (shouldSpawnTree == 0)
                 {
-                    GameObject carrotObj = Instantiate(carrot, new Vector3(x, 0.22f, currentZ), Quaternion.identity);
-                    carrotObj.transform.rotation = Quaternion.Euler(-6, -90, 0);
-                    carrotObj.transform.parent = gameObject.transform;
+                    GameObject treeObj = Instantiate(tree1, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    treeObj.transform.parent = gameObject.transform;
+                }
+                else
+                {
+                    var shouldSpawnCarrot = Random.Range(0, 50);
+                    if (shouldSpawnCarrot == 0)
+                    {
+                        GameObject carrotObj = Instantiate(carrot, new Vector3(x, 0.22f, currentZ), Quaternion.identity);
+                        carrotObj.transform.rotation = Quaternion.Euler(-6, -90, 0);
+                        carrotObj.transform.parent = gameObject.transform;
+                    }
                 }
             }
 
@@ -277,10 +454,9 @@ public class SpawnMap : MonoBehaviour
             road = road2;
         }
 
-        for (float x = -20; x < 30; x = x + 1.9f)
+        for (float x = -20; x <= 30; x = x + 2)
         {
             //Create roads responsible for spawning cars first
-
             if (x == -20)
             {
                 GameObject roadObj = Instantiate(road, new Vector3(x, -2f, currentZ), Quaternion.Euler(new Vector3(0, -90, 0)));
@@ -291,7 +467,7 @@ public class SpawnMap : MonoBehaviour
                     roadObj.GetComponent<SpawnCar>().enabled = false;
                 }
             }
-            else if (x > (30f - 1.9f))
+            else if (x == 30)
             {
                 GameObject roadObj = Instantiate(road, new Vector3(x, -2f, currentZ), Quaternion.Euler(new Vector3(0, -90, 0)));
                 roadObj.transform.parent = gameObject.transform;
@@ -326,7 +502,7 @@ public class SpawnMap : MonoBehaviour
             prevRiver = 0;
             river = river2;
         }
-        for (float x = -20; x < 30; x = x + 1.9f)
+        for (float x = -20; x <= 30; x = x + 2)
         {
             //Create rivers responsible for spawning logs first
 
@@ -340,7 +516,7 @@ public class SpawnMap : MonoBehaviour
                     riverObj.GetComponent<SpawnRiver>().canSpawn = true;
                 }
             }
-            else if (x > (30f - 1.9f))
+            else if (x == 30)
             {
                 GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
                 riverObj.transform.parent = gameObject.transform;
