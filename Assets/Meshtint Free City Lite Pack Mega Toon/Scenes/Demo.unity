@@ -322,7 +322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3492344093595105385, guid: afa636edb218e0d4abf5a7c2ce4fdd73, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3492344093595105385, guid: afa636edb218e0d4abf5a7c2ce4fdd73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -714,7 +714,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1581862617
 GameObject:
@@ -757,8 +757,8 @@ MonoBehaviour:
   road2: {fileID: 3329728403298569669, guid: 17b9761463d81194d8282252d4710647, type: 3}
   tree1: {fileID: 1314636615204992, guid: a4892b7c79196cc43885f89cd881ea0d, type: 3}
   button: {fileID: 3864552371902135804, guid: ee8baa8600c8f004b8fb6405ab65e122, type: 3}
-  questionText: {fileID: 8335202223752391589, guid: 2cdcbd493cbeccf4b898244cecd85a3c, type: 3}
-  answerText: {fileID: 8618617796240421906, guid: b31b24a7f02188b4eb461d6b0781694f, type: 3}
+  questionText: {fileID: 7320095508364905396, guid: 2cdcbd493cbeccf4b898244cecd85a3c, type: 3}
+  answerText: {fileID: 4981287900440702790, guid: b31b24a7f02188b4eb461d6b0781694f, type: 3}
   carrot: {fileID: 368314170403831595, guid: ac0627c1a010ea742a3e3e49e21e6848, type: 3}
   prevGrass: 0
   prevRoad: 0
@@ -854,6 +854,11 @@ MonoBehaviour:
   - 
   - 
   - 
+  questionList: []
+  answer1List: []
+  answer2List: []
+  correctList: 
+  answeredQuestions: []
 --- !u!4 &1581862619
 Transform:
   m_ObjectHideFlags: 0
@@ -866,7 +871,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1672215195
 PrefabInstance:
@@ -1029,7 +1034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4303844821561524, guid: 312b31977ed9b2d48a14849ebb8c7fb3, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4303844821561524, guid: 312b31977ed9b2d48a14849ebb8c7fb3, type: 3}
       propertyPath: m_LocalScale.x
@@ -1450,7 +1455,7 @@ RectTransform:
   - {fileID: 1313896922}
   - {fileID: 1413702640}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1547,7 +1552,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50.000004, y: 132.388, z: 0}
 --- !u!1001 &4205315982948499119
 PrefabInstance:
