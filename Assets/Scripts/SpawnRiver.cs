@@ -53,20 +53,21 @@ public class SpawnRiver : MonoBehaviour
             //Only allow spawning once in a while to prevent log collision
             currentTime = Time.timeSinceLevelLoad;
             Vector3 newPos = transform.position;
+            newPos.y -= 0.5f;
 
             if (logType == 0 && spawnRight)
             {
-                newPos.z -= 2f;
+                newPos.z += 1.4f;
                 GameObject log = Instantiate(log1, newPos, Quaternion.identity);
-                log.transform.rotation = Quaternion.Euler(0, 90, 0);
+                log.transform.rotation = Quaternion.Euler(0, 90, -90);
                 log.transform.parent = gameObject.transform;
                 log.GetComponent<LogMovement>().movingRight = true;
             }
             else if (logType == 0 && !spawnRight)
             {
-                newPos.z += 2f;
+                newPos.z -= 0.5f;
                 GameObject log = Instantiate(log1, newPos, Quaternion.identity);
-                log.transform.rotation = Quaternion.Euler(0, -90, 0);
+                log.transform.rotation = Quaternion.Euler(0, 90, 90);
                 log.transform.parent = gameObject.transform;
                 log.GetComponent<LogMovement>().movingRight = false;
             }

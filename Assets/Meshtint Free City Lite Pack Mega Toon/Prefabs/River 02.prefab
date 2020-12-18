@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canSpawn: 0
   spawnRight: 0
-  log1: {fileID: 2256100185446383118, guid: 1f37e2b431cf8804083185adc2f269f8, type: 3}
+  log1: {fileID: 5995285976550263715, guid: 9ab41a1b7772b7a479751198e59e0739, type: 3}
 --- !u!65 &4402269661836400191
 BoxCollider:
   m_ObjectHideFlags: 0
