@@ -355,20 +355,21 @@ public class SpawnMap : MonoBehaviour
                         answer2List.Remove(answer2List[currentQuestion]);
                         correctList.Remove(correctList[currentQuestion]);
                     }
+
+                    if ((currentZ / 2) % 30 == 0 && x == -20)
+                    {
+                        GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 60.5f, 0f, currentZ - 5f), Quaternion.identity);
+                        answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+                        answer1TextObj.transform.SetParent(gameObject.transform, false);
+                        answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
+
+                        GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 80.5f, 0f, currentZ - 5f), Quaternion.identity);
+                        answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+                        answer2TextObj.transform.SetParent(gameObject.transform, false);
+                        answer2TextObj.GetComponent<TextMeshPro>().SetText(answer2List[currentQuestion]);
+                    }
                 }
 
-                if ((currentZ / 2) % 30 == 0 && x == -20)
-                {
-                    GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 60.5f, 0f, currentZ - 5f), Quaternion.identity);
-                    answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                    answer1TextObj.transform.SetParent(gameObject.transform, false);
-                    answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
-
-                    GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 80.5f, 0f, currentZ - 5f), Quaternion.identity);
-                    answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                    answer2TextObj.transform.SetParent(gameObject.transform, false);
-                    answer2TextObj.GetComponent<TextMeshPro>().SetText(answer2List[currentQuestion]);
-                }
             }
 
             else if (x == -20)
