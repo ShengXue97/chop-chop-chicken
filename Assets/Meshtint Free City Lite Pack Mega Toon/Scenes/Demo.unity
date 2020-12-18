@@ -879,6 +879,26 @@ MonoBehaviour:
   answer1List: []
   answer2List: []
   correctList: 
+  decorations:
+  - {fileID: 6043555596085960602, guid: fcf523460c88aa041ab0dff5dbce45fc, type: 3}
+  - {fileID: 2735926324215376377, guid: f16abcc387cf3bc49a5d1c4e693f1926, type: 3}
+  - {fileID: 6995547954463361768, guid: 4baeed69abe5e5145bf451c68b9613ea, type: 3}
+  - {fileID: 7593628407510333711, guid: d6383bf04d4b7df49bdbd5ec2835933d, type: 3}
+  - {fileID: 1880778312021112442, guid: fa21eddf7e9f2bb469e74b1c21067216, type: 3}
+  - {fileID: 1427824479028685861, guid: a3a3309dfae95ea4db9d640b0381248d, type: 3}
+  - {fileID: 1167285058991054578, guid: 0e4f0859b52594c44869c4f404b06ffc, type: 3}
+  - {fileID: 1736707054564918046, guid: 773d9203cd221bc40a34393abbb9cd02, type: 3}
+  - {fileID: 1279926499687603138, guid: 90b375b1fe1b3864ca336dd470fb1673, type: 3}
+  - {fileID: 4397647008326936108, guid: 8bdfe0671bf31884387d1a83dbb18e0f, type: 3}
+  - {fileID: 2351198550243446013, guid: 6e83ee7a031c8904099f04d1042c673f, type: 3}
+  - {fileID: 6843191352975048196, guid: 2d01ab1b84fb45c40947d1be1064e67b, type: 3}
+  - {fileID: 6448498897842154173, guid: 5e71c28c014c9d54bac3c7cdb193d1c3, type: 3}
+  - {fileID: 3659633281718323899, guid: ce27060d35bdd364b87a4559d9d09d39, type: 3}
+  - {fileID: 2431626330090967374, guid: 59449db721ea9e34288490a450ef6eab, type: 3}
+  - {fileID: 9209781104837862345, guid: f8857a0f5c7aced4dad2ce7789e4d018, type: 3}
+  - {fileID: 2309741679321409916, guid: a3cfa41c06f620f49bb11c12c00cc333, type: 3}
+  - {fileID: 58207524314579328, guid: 0c80a54d6cbbdec41a790d99fdc3a22f, type: 3}
+  - {fileID: 1257677114301985425, guid: f02bf6f7b49082e438547c10b7fbf58c, type: 3}
 --- !u!4 &1581862619
 Transform:
   m_ObjectHideFlags: 0

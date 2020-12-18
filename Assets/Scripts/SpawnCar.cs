@@ -18,6 +18,7 @@ public class SpawnCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //var spawnTimer = Mathf.FloorToInt(Random.Range(0, 2f + Mathf.Max(0, (10f - transform.position.z / 200))));
         var shouldSpawn = Random.Range(0, 50);
         var carType = Random.Range(0, 2);
         //1/3 probability every frame of spawning a car

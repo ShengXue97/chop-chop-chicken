@@ -59,6 +59,7 @@ public class SpawnMap : MonoBehaviour
     public List<int> correctList;
     public Dictionary<string, bool> userAnswers = new Dictionary<string, bool>();
 
+    public List<GameObject> decorations = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -147,7 +148,7 @@ public class SpawnMap : MonoBehaviour
         {
             int blockType;
 
-            if (i <= 20)
+            if (i <= 10)
             {
                 //first 20 blocks
                 blockType = 0;
@@ -181,6 +182,10 @@ public class SpawnMap : MonoBehaviour
             }
         }
         spawnNextBatch();
+        // for (int i = 0; i < 20; i++)
+        // {
+        //     spawnNextBatch();
+        // }
     }
 
     // Update is called once per frame
@@ -342,7 +347,7 @@ public class SpawnMap : MonoBehaviour
                         riverObj.GetComponent<SpawnRiver>().canSpawn = false;
                     }
 
-                    if ((currentZ / 2) % 30 == 0 && x == 30)
+                    if ((currentZ / 2) % 30 == 0 && x == 30 && questionList.Count > 1)
                     {
                         //Move on to next question on the last block
                         questionList.Remove(questionList[currentQuestion]);
@@ -397,11 +402,25 @@ public class SpawnMap : MonoBehaviour
 
             if ((currentZ / 2) % 30 != 0 && (currentZ / 2) % 30 < 27)
             {
+                //Spawn more tree the further you travel
+                //var shouldSpawnTree = Mathf.FloorToInt(Random.Range(0, 3 + Mathf.Max(0, (50 - currentZ / 20))));
                 var shouldSpawnTree = Random.Range(0, 10);
                 if (shouldSpawnTree == 0)
                 {
-                    GameObject treeObj = Instantiate(tree1, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                    treeObj.transform.parent = gameObject.transform;
+                    GameObject decoration;
+                    int currentDecoration = Mathf.FloorToInt(currentZ / 100);
+                    //Change decoration style every 50 blocks
+                    if (currentDecoration >= decorations.Count)
+                    {
+                        decoration = decorations[decorations.Count - 1];
+                    }
+                    else
+                    {
+                        decoration = decorations[Mathf.FloorToInt(currentZ / 100)];
+                    }
+
+                    GameObject decorationObj = Instantiate(decoration, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                    decorationObj.transform.parent = gameObject.transform;
                 }
                 else
                 {

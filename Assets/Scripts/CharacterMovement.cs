@@ -77,8 +77,8 @@ public class CharacterMovement : MonoBehaviour
         {
             //Dead if player is not visible by any cameras
             // EditorUtility.DisplayDialog("Info", "You died", "Ok");
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            // Scene scene = SceneManager.GetActiveScene();
+            // SceneManager.LoadScene(scene.name);
         }
 
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 0f)
