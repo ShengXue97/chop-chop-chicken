@@ -17,7 +17,6 @@ public class SpawnMap : MonoBehaviour
     public GameObject tree1;
     public GameObject questionText;
     public GameObject answerText;
-    public GameObject circle;
 
     public GameObject apple;
     public GameObject appleHalf;
@@ -359,10 +358,6 @@ public class SpawnMap : MonoBehaviour
                     answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                     answer1TextObj.transform.SetParent(gameObject.transform, false);
                     answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
-
-                    GameObject circleObj = Instantiate(circle, new Vector3(x + 41.4f, 0f, currentZ - 5f), Quaternion.identity);
-                    circleObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                    circleObj.transform.SetParent(gameObject.transform, false);
 
                     GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 80.5f, 0f, currentZ - 5f), Quaternion.identity);
                     answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
