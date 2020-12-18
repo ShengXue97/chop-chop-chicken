@@ -7,6 +7,7 @@ using TMPro;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public GameObject ScorePopup;
     public Animator anim;
     public Transform movePoint;
     public LayerMask whatStopsMovement;
@@ -20,6 +21,7 @@ public class CharacterMovement : MonoBehaviour
     public TextMeshProUGUI maxScoreText;
     private MeshRenderer meshRenderer;
 
+    private Hashtable foods;
 
     public int zPos = 0;
     private int zMax = 0;
@@ -39,6 +41,31 @@ public class CharacterMovement : MonoBehaviour
             highscore = PlayerPrefs.GetInt("highscore");
             maxScoreText.text = "Top: " + highscore;
         }
+
+        foods = new Hashtable();
+
+        foods.Add("apple(Clone)", 5);
+        foods.Add("appleHalf(Clone)", 2);
+        foods.Add("banana(Clone)", 5);
+        foods.Add("beet(Clone)", 5);
+        foods.Add("bread(Clone)", 5);
+        foods.Add("broccoli(Clone)", 5);
+        foods.Add("cabbage(Clone)", 20);
+        foods.Add("carrot(Clone)", 5);
+        foods.Add("cauliflower(Clone)", 20);
+        foods.Add("cherries(Clone)", 5);
+        foods.Add("coconutHalf(Clone)", 5);
+        foods.Add("corn(Clone)", 5);
+        foods.Add("egg(Clone)", 5);
+        foods.Add("eggHalf(Clone)", 2);
+        foods.Add("fish(Clone)", 10);
+        foods.Add("grapes(Clone)", 5);
+        foods.Add("oange(Clone)", 5);
+        foods.Add("pepper(Clone)", 5);
+        foods.Add("pineapple(Clone)", 20);
+        foods.Add("pumpkin(Clone)", 30);
+        foods.Add("strawberry(Clone)", 5);
+        foods.Add("watermelon(Clone)", 30);
 
 
     }
@@ -157,13 +184,18 @@ public class CharacterMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Carrot")
+        if (foods.ContainsKey(other.name))
         {
-            score += 10;
+            GameObject scorePopupObj = Instantiate(ScorePopup, new Vector3(transform.position.x + 37f, transform.position.y + 3f, transform.position.z), Quaternion.identity);
+            scorePopupObj.GetComponent<TextMeshPro>().text = ((int)foods[other.name]).ToString();
+            score += (int)foods[other.name];
             Destroy(other.gameObject);
         }
+
         else if (other.tag == "Snail")
         {
+            GameObject scorePopupObj = Instantiate(ScorePopup, new Vector3(transform.position.x + 37f, transform.position.y + 3f, transform.position.z), Quaternion.identity);
+            scorePopupObj.GetComponent<TextMeshPro>().text = "15";
             score += 15;
             Destroy(other.gameObject);
         }
@@ -180,6 +212,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void changeScore(int scoreDiff)
     {
+        GameObject scorePopupObj = Instantiate(ScorePopup, new Vector3(transform.position.x + 37f, transform.position.y + 3f, transform.position.z), Quaternion.identity);
+        scorePopupObj.GetComponent<TextMeshPro>().text = scoreDiff.ToString();
         score += scoreDiff;
         scoreText.text = "Score: " + score;
         if (score > highscore)

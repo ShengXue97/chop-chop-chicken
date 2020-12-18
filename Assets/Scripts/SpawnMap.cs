@@ -19,7 +19,31 @@ public class SpawnMap : MonoBehaviour
     public GameObject answerText;
     public GameObject circle;
 
+    public GameObject apple;
+    public GameObject appleHalf;
+    public GameObject banana;
+    public GameObject beet;
+    public GameObject bread;
+    public GameObject broccoli;
+    public GameObject cabbage;
     public GameObject carrot;
+    public GameObject cauliflower;
+    public GameObject cherries;
+    public GameObject coconutHalf;
+    public GameObject corn;
+    public GameObject egg;
+    public GameObject eggHalf;
+    public GameObject fish;
+    public GameObject grapes;
+    public GameObject orange;
+    public GameObject pepper;
+    public GameObject pineapple;
+    public GameObject pumpkin;
+    public GameObject strawberry;
+    public GameObject watermelon;
+    public List<GameObject> foods;
+
+
     public int prevGrass;
     public int prevRoad;
     public int prevRiver;
@@ -39,6 +63,14 @@ public class SpawnMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foods = new List<GameObject>()
+        { apple, appleHalf, banana, beet, bread, broccoli,
+          cabbage, carrot, cauliflower, cherries, coconutHalf,
+          corn, egg, eggHalf, fish, grapes, orange, pepper,
+          pineapple, pumpkin, strawberry, watermelon
+        };
+
+
         questionList = new List<string>() {
         "Which app can be used to submit a question to IT Care?",
         "What is the name of IT Care chatbot?",
@@ -378,12 +410,15 @@ public class SpawnMap : MonoBehaviour
                 }
                 else
                 {
-                    var shouldSpawnCarrot = Random.Range(0, 50);
-                    if (shouldSpawnCarrot == 0)
+                    var shouldSpawnFood = Random.Range(0, 100);
+                    if (shouldSpawnFood == 0)
                     {
-                        GameObject carrotObj = Instantiate(carrot, new Vector3(x, 0.22f, currentZ), Quaternion.identity);
-                        carrotObj.transform.rotation = Quaternion.Euler(-6, -90, 0);
-                        carrotObj.transform.parent = gameObject.transform;
+                        GameObject food;
+                        food = foods[Random.Range(0, foods.Count)];
+
+                        GameObject foodObj = Instantiate(food, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                        foodObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        foodObj.transform.parent = gameObject.transform;
                     }
                 }
             }
