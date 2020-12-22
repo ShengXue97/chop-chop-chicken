@@ -7,6 +7,8 @@ using TMPro;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public GameObject FinishPanel;
+    public UnityEngine.UI.Text ScoreDetails;
     public GameObject ScorePopup;
     public Animator anim;
     public Transform movePoint;
@@ -29,10 +31,12 @@ public class CharacterMovement : MonoBehaviour
     private int score = 0;
     private bool canMoveHorizontal = true;
     private bool canMoveVertical = true;
+    private bool ended;
 
     // Start is called before the first frame update
     void Start()
     {
+        ended = false;
         anim = GetComponent<Animator>();
         meshRenderer = GetComponent<MeshRenderer>();
         movePoint.parent = null;
@@ -85,8 +89,8 @@ public class CharacterMovement : MonoBehaviour
         {
             //Dead if player is not visible by any cameras
             // EditorUtility.DisplayDialog("Info", "You died", "Ok");
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            restartGame();
+
         }
 
         if (Mathf.Abs(pointer_x) == 0f)
@@ -107,8 +111,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 //If on water but not on logs, die!
                 //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                Scene scene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(scene.name);
+                restartGame();
             }
         }
 
@@ -116,8 +119,7 @@ public class CharacterMovement : MonoBehaviour
         if (Physics.OverlapSphere(movePoint.position, 0.2f, vehicleLayer).Length != 0)
         {
             //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            restartGame();
         }
 
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, 200f * Time.deltaTime);
@@ -142,8 +144,7 @@ public class CharacterMovement : MonoBehaviour
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 2, 0f, 0f), 0.2f, vehicleLayer).Length != 0)
                 {
                     //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                    Scene scene = SceneManager.GetActiveScene();
-                    SceneManager.LoadScene(scene.name);
+                    restartGame();
                 }
             }
             else if (Mathf.Abs(pointer_y) == 1f && canMoveVertical)
@@ -179,8 +180,7 @@ public class CharacterMovement : MonoBehaviour
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 2), 0.2f, vehicleLayer).Length != 0)
                 {
                     //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                    Scene scene = SceneManager.GetActiveScene();
-                    SceneManager.LoadScene(scene.name);
+                    restartGame();
                 }
             }
             else
@@ -230,6 +230,30 @@ public class CharacterMovement : MonoBehaviour
             highscore = score;
             maxScoreText.text = "Top: " + score;
         }
+    }
+
+    public void restartGame()
+    {
+        if (ended)
+        {
+            return;
+        }
+
+        ended = true;
+        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
+        string name = PlayerPrefs.GetString("myname");
+        string email = PlayerPrefs.GetString("myemail");
+        Debug.Log(name + ";" + email);
+
+        FinishPanel.SetActive(true);
+        ScoreDetails.text = "Your score is: " + score.ToString();
+
+        azureControl.GetComponent<AzureControl>().StartUpdate("score.txt", score, name, email);
+    }
+
+    public void setEnded()
+    {
+        ended = false;
     }
 }
 

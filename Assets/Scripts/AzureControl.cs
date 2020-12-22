@@ -6,14 +6,26 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using UnityEngine;
 using Random = System.Random;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
+public class PlayerInfo
+{
+    public string Name;
+    public string Email;
+    public string Score;
+    public string id;
+}
 public class AzureControl : MonoBehaviour
 {
     public CloudStorageAccount StorageAccount;
     public string value;
     public string result = "";
+    private List<PlayerInfo> _playerList = new List<PlayerInfo>();
     // Use this for initialization
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         //BlobStorageTest ();
         StartDownload("score.txt");
     }
@@ -27,6 +39,12 @@ public class AzureControl : MonoBehaviour
     {
         StartCoroutine(AzureUpload(dest, text));
     }
+
+    public void StartUpdate(string dest, int score, string name, string email)
+    {
+        StartCoroutine(AzureUpdate(dest, score, name, email));
+    }
+
     public void StartDownload(string dest)
     {
         StartCoroutine(AzureDownload(dest));
@@ -63,6 +81,99 @@ public class AzureControl : MonoBehaviour
         }
         yield break;
     }
+
+    private IEnumerator AzureUpdate(string dest, int score, string name, string email)
+    {
+        result = "";
+
+        // Download a blob to your file system
+
+        StorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=http;AccountName=xue;AccountKey=Xp5+gHw5N4e9mAhYFpNS8WNNbFJ/XfuhOlhSTGSLsOzySDlsIOoeucjdixRidL+1JX6NkEka9Umq4QVHka9xFg==;EndpointSuffix=core.windows.net");
+
+        CloudBlobClient blobClient = StorageAccount.CreateCloudBlobClient();
+
+
+        CloudBlobContainer container = blobClient.GetContainerReference("ccc");
+
+        CloudBlockBlob blockBlob = container.GetBlockBlobReference(dest);
+        //print ("Downloading" + dest);
+
+        try
+        {
+            string text = blockBlob.DownloadText();
+            result = text;
+            print("Downloaded: " + text);
+
+            string[] users = text.Split(';');
+            bool foundUser = false;
+            if (_playerList != null) _playerList.Clear();
+
+            for (int i = 0; i < users.Length; i++)
+            {
+                string user = users[i];
+                string[] details = user.Split(',');
+
+                PlayerInfo obj = new PlayerInfo();
+                obj.Name = details[0];
+                obj.Email = details[1];
+                obj.Score = details[2];
+                //Debug.Log(obj.Name + ";" + name + ";" + obj.Email + ";" + email);
+
+                if (obj.Name == name && obj.Email == email)
+                {
+                    //Update player score
+                    int oldScore = int.Parse(obj.Score);
+                    if (score > oldScore)
+                    {
+                        obj.Score = score.ToString();
+                    }
+                    foundUser = true;
+                }
+
+                obj.id = "";
+                _playerList.Add(obj);
+            }
+
+            if (!foundUser)
+            {
+                foundUser = true;
+                PlayerInfo obj = new PlayerInfo();
+                obj.Name = name;
+                obj.Email = email;
+                obj.Score = score.ToString();
+                _playerList.Add(obj);
+            }
+
+            string finalData = "";
+
+            for (int i = 0; i < _playerList.Count; i++)
+            {
+                PlayerInfo player = _playerList[i];
+                string playerName = player.Name;
+                string playerEmail = player.Email;
+                string playerScore = player.Score;
+                //Debug.Log(playerName + ";" + playerEmail + ";" + playerScore);
+
+                if (i == _playerList.Count - 1)
+                {
+                    finalData += playerName + "," + playerEmail + "," + playerScore;
+                }
+                else
+                {
+                    finalData += playerName + "," + playerEmail + "," + playerScore + ";";
+                }
+            }
+
+            StartUpload(dest, finalData);
+
+        }
+        catch (StorageException ex)
+        {
+            print("Error downloading");
+
+        }
+        yield break;
+    }
     private IEnumerator AzureUpload(string dest, string text)
     {
         result = "";
@@ -80,17 +191,18 @@ public class AzureControl : MonoBehaviour
         try
         {
             blockBlob.UploadText(text);
-            result = "true";
-            //print("Uploaded");
+            print("Uploaded");
         }
+
         catch (StorageException)
         {
-            result = "false";
-            //print ("Error uploading");
+            print("Error uploading");
         }
 
         yield break;
     }
+
+
 
     private string ConvertLastModifiedToSecocnds(string lastmodified)
     {

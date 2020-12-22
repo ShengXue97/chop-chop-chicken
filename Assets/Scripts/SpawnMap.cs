@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SpawnMap : MonoBehaviour
 {
@@ -60,6 +61,8 @@ public class SpawnMap : MonoBehaviour
     public Dictionary<string, bool> userAnswers = new Dictionary<string, bool>();
 
     public List<GameObject> decorations = new List<GameObject>();
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -539,6 +542,23 @@ public class SpawnMap : MonoBehaviour
             }
         }
         currentZ += 2f;
+    }
+
+    public void restartGame()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void goHome()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        string mainScene = "MainGame";
+        if (scene.name == mainScene)
+        {
+            SceneManager.LoadScene("HomeScreen");
+        }
+
     }
 }
 

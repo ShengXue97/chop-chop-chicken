@@ -8,6 +8,9 @@ TagManager:
   - Snail
   - Carrot
   - Controller
+  - Persistent
+  - Leaderboard
+  - ScrollRect
   layers:
   - Default
   - TransparentFX
