@@ -243,6 +243,10 @@ PrefabInstance:
       propertyPath: playerObj
       value: 
       objectReference: {fileID: 1311291404078881}
+    - target: {fileID: 3492344093595105386, guid: afa636edb218e0d4abf5a7c2ce4fdd73, type: 3}
+      propertyPath: shouldMove
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3492344093595105387, guid: afa636edb218e0d4abf5a7c2ce4fdd73, type: 3}
       propertyPath: m_Enabled
       value: 1

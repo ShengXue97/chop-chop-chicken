@@ -6,10 +6,16 @@ public class CameraMovement : MonoBehaviour
 {
     public GameObject playerObj;
     public float cameraMovementSpeed;
+
+    [SerializeField]
+    public bool shouldMove;
     // Start is called before the first frame update
     void Start()
     {
-        cameraMovementSpeed = 2f;
+        if (shouldMove)
+        {
+            cameraMovementSpeed = 2f;
+        }
     }
 
     // Update is called once per frame
