@@ -45,12 +45,13 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     {
         if (_contactList != null) _contactList.Clear();
 
-        if (data == "")
+        if (data == "\"\"")
         {
             return;
         }
+        data = data.Substring(1, data.Length - 3);
 
-        string[] users = data.Split('\n');
+        string[] users = data.Split(';');
 
         for (int i = 0; i < users.Length; i++)
         {
@@ -62,9 +63,9 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
             }
 
             ContactInfo obj = new ContactInfo();
-            obj.Name = details[0].Trim('\"');
-            obj.Email = details[3].Trim('\"');
-            obj.Score = details[1].Trim('\"');
+            obj.Name = details[0];
+            obj.Email = details[1];
+            obj.Score = details[3];
 
             obj.id = "";
             _contactList.Add(obj);

@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
 {
     public GameObject uploadingPanel;
     public GameObject FinishPanel;
-    public GameObject FinishText;
+    public UnityEngine.UI.Text FinishText;
     public UnityEngine.UI.Text ScoreDetails;
     public GameObject ScorePopup;
     public Animator anim;
@@ -251,7 +251,8 @@ public class CharacterMovement : MonoBehaviour
         string email = PlayerPrefs.GetString("myemail");
 
         FinishPanel.SetActive(true);
-        FinishText.GetComponent<UnityEngine.UI.Text>().text = "Uploaded Score! \nName: " + name + "\nEmail: " + email + "\nScore: " + score.ToString();
+        FinishText.text = "Uploaded Score! \nName: " + name + "\nEmail: " + email;
+        ScoreDetails.text = score.ToString();
 
 
         azureControl.GetComponent<AzureControl>().callUpdate(name, email, score);

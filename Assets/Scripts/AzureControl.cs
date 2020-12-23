@@ -19,6 +19,15 @@ public class PlayerInfo
     public string Score;
     public string id;
 }
+
+public class BypassCertificate : CertificateHandler
+{
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
+        //Simply return true no matter what
+        return true;
+    }
+}
 public class AzureControl : MonoBehaviour
 {
     public string path;
@@ -52,22 +61,22 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator GetRequest()
     {
-        string uri = "http://dreamlo.com/lb/5fe2bf960af26915282d8434/quote";
+        string uri = "https://chop-chop-chicken.herokuapp.com/getusers";
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
+            webRequest.certificateHandler = new BypassCertificate();
+
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
 
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
             if (webRequest.isNetworkError)
             {
-                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                Debug.Log("aError: " + webRequest.error);
+                Debug.Log("tReceived: " + webRequest.downloadHandler.text);
             }
             else
             {
-                Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 GetComponent<RecyclableScrollerDemo>().InitData(webRequest.downloadHandler.text);
             }
         }
@@ -75,23 +84,22 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator UpdateRequest(string name, string email, int score)
     {
-        string uri = "http://dreamlo.com/lb/dnjsX4qPwUWMxQSder0MWgkXS3uYYPRkyT6qpg_FZU4A/add/" + name + "/" + score.ToString() + "/0/" + email;
+        string uri = "https://chop-chop-chicken.herokuapp.com/updateusers?name=" + name + "&email=" + email + "&score=" + score.ToString();
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
+            webRequest.certificateHandler = new BypassCertificate();
+
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
 
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
             if (webRequest.isNetworkError)
             {
-                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                Debug.Log("bError: " + webRequest.error);
             }
             else
             {
-                Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                Debug.Log("bReceived: " + webRequest.downloadHandler.text);
             }
         }
     }

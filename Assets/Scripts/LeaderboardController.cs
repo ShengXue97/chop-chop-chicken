@@ -18,7 +18,7 @@ public class LeaderboardController : MonoBehaviour
     public UnityEngine.UI.Text tempEmail;
     public int highscore;
 
-    public TextMeshProUGUI welcomeText;
+    public UnityEngine.UI.Text welcomeText;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,12 +37,12 @@ public class LeaderboardController : MonoBehaviour
 
     public void updateDetails()
     {
-        if (tempName.text == "" || tempEmail.text == "")
+        if (tempName.text == "")
         {
             errorPanel.SetActive(true);
-            errorText.text = "Name and email address cannot be empty!";
+            errorText.text = "Name cannot be empty!";
         }
-        else if (!Regex.IsMatch(tempEmail.text, MatchEmailPattern))
+        else if (!Regex.IsMatch(tempEmail.text, MatchEmailPattern) && tempEmail.text != "")
         {
             errorPanel.SetActive(true);
             errorText.text = "Please enter a valid email address";
