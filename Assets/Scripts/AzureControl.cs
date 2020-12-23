@@ -8,6 +8,7 @@ using Random = System.Random;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class PlayerInfo
 {
@@ -22,12 +23,20 @@ public class AzureControl : MonoBehaviour
     public string value;
     public string result = "";
     private List<PlayerInfo> _playerList = new List<PlayerInfo>();
+    public GameObject MyProfile;
     // Use this for initialization
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+        if (!PlayerPrefs.HasKey("myname") && !PlayerPrefs.HasKey("myemail"))
+        {
+            MyProfile.SetActive(true);
+        }
+
         //BlobStorageTest ();
-        StartDownload("score.txt");
+        //StartDownload("score.txt");
+        StartCoroutine(Download());
+
     }
 
     // Update is called once per frame
@@ -35,6 +44,60 @@ public class AzureControl : MonoBehaviour
     {
 
     }
+
+    public void callUpdate(string name, string email, string score)
+    {
+        StartCoroutine(updateUser(name, email, score));
+    }
+
+    IEnumerator updateUser(string name, string email, string score)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("loginName", name);
+        form.AddField("loginEmail", email);
+        form.AddField("loginScore", score);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/chop/UpdateUsers.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                print(www.error);
+            }
+            else
+            {
+                print("Form update complete!");
+                print(www.downloadHandler.text);
+            }
+        }
+    }
+
+    IEnumerator Download()
+    {
+        Debug.Log("hii");
+        WWWForm form = new WWWForm();
+        form.AddField("loginName", "1");
+        form.AddField("loginEmail", "1");
+        form.AddField("loginScore", "1");
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/chop/GetUsers.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                print("damn error..." + www.error);
+            }
+            else
+            {
+                print("Form upload complete!");
+                print(www.downloadHandler.text);
+                //GetComponent<RecyclableScrollerDemo>().InitData(www.downloadHandler.text);
+            }
+        }
+    }
+
     public void StartUpload(string dest, string text)
     {
         StartCoroutine(AzureUpload(dest, text));
