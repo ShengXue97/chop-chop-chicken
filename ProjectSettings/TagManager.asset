@@ -11,6 +11,9 @@ TagManager:
   - Persistent
   - Leaderboard
   - ScrollRect
+  - UploadingPanel
+  - FinishPanel
+  - FinishText
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,9 @@ using TMPro;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public GameObject uploadingPanel;
     public GameObject FinishPanel;
+    public GameObject FinishText;
     public UnityEngine.UI.Text ScoreDetails;
     public GameObject ScorePopup;
     public Animator anim;
@@ -31,7 +33,7 @@ public class CharacterMovement : MonoBehaviour
     private int score = 0;
     private bool canMoveHorizontal = true;
     private bool canMoveVertical = true;
-    private bool ended;
+    public bool ended;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +79,10 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (ended)
+        {
+            return;
+        }
         float pointer_x = Input.GetAxisRaw("Horizontal");
         float pointer_y = Input.GetAxisRaw("Vertical");
         // if (Input.touchCount > 0)
@@ -243,12 +249,12 @@ public class CharacterMovement : MonoBehaviour
         GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
         string name = PlayerPrefs.GetString("myname");
         string email = PlayerPrefs.GetString("myemail");
-        Debug.Log(name + ";" + email);
 
         FinishPanel.SetActive(true);
-        ScoreDetails.text = "Your score is: " + score.ToString();
+        FinishText.GetComponent<UnityEngine.UI.Text>().text = "Uploaded Score! \nName: " + name + "\nEmail: " + email + "\nScore: " + score.ToString();
 
-        azureControl.GetComponent<AzureControl>().updateData(name, email, score);
+
+        azureControl.GetComponent<AzureControl>().callUpdate(name, email, score);
     }
 
     public void setEnded()

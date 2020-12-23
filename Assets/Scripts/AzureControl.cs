@@ -21,6 +21,7 @@ public class PlayerInfo
 }
 public class AzureControl : MonoBehaviour
 {
+    public string path;
     public CloudStorageAccount StorageAccount;
     public string value;
     public string result = "";
@@ -34,8 +35,7 @@ public class AzureControl : MonoBehaviour
         {
             MyProfile.SetActive(true);
         }
-
-        getData();
+        StartCoroutine(GetRequest());
 
     }
 
@@ -45,96 +45,54 @@ public class AzureControl : MonoBehaviour
 
     }
 
-    private void getData()
+    public void callUpdate(string name, string email, int score)
     {
-        using (StreamWriter w = File.AppendText("scores.txt")) ;
-
-        string path = "scores.txt";
-
-        //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(path);
-        string text = reader.ReadToEnd();
-        reader.Close();
-        print("Received: " + text);
-
-        GetComponent<RecyclableScrollerDemo>().InitData(text);
+        StartCoroutine(UpdateRequest(name, email, score));
     }
 
-    public void updateData(string name, string email, int score)
+    IEnumerator GetRequest()
     {
-        string path = "scores.txt";
-        //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(path);
-        string text = reader.ReadToEnd();
-        reader.Close();
-        print("Received: " + text);
-        bool foundUser = false;
-
-        if (text != "")
+        string uri = "http://dreamlo.com/lb/5fe2bf960af26915282d8434/quote";
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
-            string[] users = text.Split(';');
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
 
-            if (_playerList != null) _playerList.Clear();
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
 
-            for (int i = 0; i < users.Length; i++)
+            if (webRequest.isNetworkError)
             {
-
-                string user = users[i];
-                string[] details = user.Split(',');
-
-                PlayerInfo obj = new PlayerInfo();
-                obj.Name = details[0];
-                obj.Email = details[1];
-                obj.Score = details[2];
-                //Debug.Log(obj.Name + ";" + name + ";" + obj.Email + ";" + email);
-
-                if (obj.Name == name && obj.Email == email)
-                {
-                    //Update player score
-                    int oldScore = int.Parse(obj.Score);
-                    if (score > oldScore)
-                    {
-                        obj.Score = score.ToString();
-                    }
-                    foundUser = true;
-                }
-
-                obj.id = "";
-                _playerList.Add(obj);
-            }
-        }
-
-        if (!foundUser)
-        {
-            foundUser = true;
-            PlayerInfo obj = new PlayerInfo();
-            obj.Name = name;
-            obj.Email = email;
-            obj.Score = score.ToString();
-            _playerList.Add(obj);
-        }
-
-        string finalData = "";
-
-        for (int i = 0; i < _playerList.Count; i++)
-        {
-            PlayerInfo player = _playerList[i];
-            string playerName = player.Name;
-            string playerEmail = player.Email;
-            string playerScore = player.Score;
-            //Debug.Log(playerName + ";" + playerEmail + ";" + playerScore);
-
-            if (i == _playerList.Count - 1)
-            {
-                finalData += playerName + "," + playerEmail + "," + playerScore;
+                Debug.Log(pages[page] + ": Error: " + webRequest.error);
             }
             else
             {
-                finalData += playerName + "," + playerEmail + "," + playerScore + ";";
+                Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                GetComponent<RecyclableScrollerDemo>().InitData(webRequest.downloadHandler.text);
             }
         }
+    }
 
-        // Write some text to the test.txt file
-        File.WriteAllText(path, finalData);
+    IEnumerator UpdateRequest(string name, string email, int score)
+    {
+        string uri = "http://dreamlo.com/lb/dnjsX4qPwUWMxQSder0MWgkXS3uYYPRkyT6qpg_FZU4A/add/" + name + "/" + score.ToString() + "/0/" + email;
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+            }
+        }
     }
 }

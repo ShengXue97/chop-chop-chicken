@@ -50,17 +50,22 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
             return;
         }
 
-        string[] users = data.Split(';');
+        string[] users = data.Split('\n');
 
         for (int i = 0; i < users.Length; i++)
         {
             string user = users[i];
             string[] details = user.Split(',');
+            if (user == "")
+            {
+                break;
+            }
 
             ContactInfo obj = new ContactInfo();
-            obj.Name = details[0];
-            obj.Email = details[1];
-            obj.Score = details[2];
+            obj.Name = details[0].Trim('\"');
+            obj.Email = details[3].Trim('\"');
+            obj.Score = details[1].Trim('\"');
+
             obj.id = "";
             _contactList.Add(obj);
         }

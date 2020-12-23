@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text.RegularExpressions;
+
 
 public class LeaderboardController : MonoBehaviour
 {
+    public const string MatchEmailPattern =
+        @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+
+    public GameObject errorPanel;
+    public UnityEngine.UI.Text errorText;
     public string name;
     public string email;
     public UnityEngine.UI.Text tempName;
@@ -30,11 +37,24 @@ public class LeaderboardController : MonoBehaviour
 
     public void updateDetails()
     {
-        PlayerPrefs.SetString("myname", tempName.text);
-        PlayerPrefs.SetString("myemail", tempEmail.text);
-        name = tempName.text;
-        email = tempEmail.text;
-        welcomeText.text = "Welcome back, " + tempName.text;
+        if (tempName.text == "" || tempEmail.text == "")
+        {
+            errorPanel.SetActive(true);
+            errorText.text = "Name and email address cannot be empty!";
+        }
+        else if (!Regex.IsMatch(tempEmail.text, MatchEmailPattern))
+        {
+            errorPanel.SetActive(true);
+            errorText.text = "Please enter a valid email address";
+        }
+        else
+        {
+            PlayerPrefs.SetString("myname", tempName.text);
+            PlayerPrefs.SetString("myemail", tempEmail.text);
+            name = tempName.text;
+            email = tempEmail.text;
+            welcomeText.text = "Welcome back, " + tempName.text;
+        }
     }
     // Update is called once per frame
     void Update()
