@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SpawnMap : MonoBehaviour
 {
+    public TextMeshProUGUI feedbackText;
     public GameObject player;
     public GameObject grass1;
     public GameObject grass2;
@@ -559,6 +560,19 @@ public class SpawnMap : MonoBehaviour
             SceneManager.LoadScene("HomeScreen");
         }
 
+    }
+
+    public void sendFeedback()
+    {
+        if (feedbackText.text != "")
+        {
+            GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
+            string name = PlayerPrefs.GetString("myname");
+            string email = PlayerPrefs.GetString("myemail");
+
+            azureControl.GetComponent<AzureControl>().callFeddback(name, email, feedbackText.text);
+            feedbackText.text = "";
+        }
     }
 }
 

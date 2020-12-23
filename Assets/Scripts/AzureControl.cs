@@ -59,6 +59,11 @@ public class AzureControl : MonoBehaviour
         StartCoroutine(UpdateRequest(name, email, score));
     }
 
+    public void callFeddback(string name, string email, string feedback)
+    {
+        StartCoroutine(UpdateFeedback(name, email, feedback));
+    }
+
     IEnumerator GetRequest()
     {
         string uri = "https://chop-chop-chicken.herokuapp.com/getusers";
@@ -100,6 +105,28 @@ public class AzureControl : MonoBehaviour
             else
             {
                 Debug.Log("bReceived: " + webRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    IEnumerator UpdateFeedback(string name, string email, string feedback)
+    {
+        string uri = "https://chop-chop-chicken.herokuapp.com/updatefeedback?name=" + name + "&email=" + email + "&feedback=" + feedback;
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            webRequest.certificateHandler = new BypassCertificate();
+
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log("cError: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log("cReceived: " + webRequest.downloadHandler.text);
             }
         }
     }

@@ -14,6 +14,7 @@ public class LeaderboardController : MonoBehaviour
     public UnityEngine.UI.Text errorText;
     public string name;
     public string email;
+
     public UnityEngine.UI.Text tempName;
     public UnityEngine.UI.Text tempEmail;
     public int highscore;
@@ -56,6 +57,8 @@ public class LeaderboardController : MonoBehaviour
             welcomeText.text = "Welcome back, " + tempName.text;
         }
     }
+
+
     // Update is called once per frame
     void Update()
     {
