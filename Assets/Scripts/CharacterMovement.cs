@@ -248,7 +248,7 @@ public class CharacterMovement : MonoBehaviour
         FinishPanel.SetActive(true);
         ScoreDetails.text = "Your score is: " + score.ToString();
 
-        azureControl.GetComponent<AzureControl>().callUpdate(name, email, score.ToString());
+        azureControl.GetComponent<AzureControl>().updateData(name, email, score);
     }
 
     public void setEnded()

@@ -44,7 +44,11 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     public void InitData(string data)
     {
         if (_contactList != null) _contactList.Clear();
-        data = data.Substring(0, data.Length - 1);
+
+        if (data == "")
+        {
+            return;
+        }
 
         string[] users = data.Split(';');
 
