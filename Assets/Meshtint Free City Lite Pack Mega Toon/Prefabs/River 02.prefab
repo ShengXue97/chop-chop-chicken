@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7784292744522375917}
   - component: {fileID: 4402269661836400191}
   - component: {fileID: -5609070733436814528}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: River 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

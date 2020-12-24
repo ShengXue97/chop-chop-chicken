@@ -63,7 +63,7 @@ public class SpawnMap : MonoBehaviour
 
     public List<GameObject> decorations = new List<GameObject>();
 
-
+    public List<int> excludeList = new List<int>();
     // Start is called before the first frame update
     void Start()
     {
@@ -287,93 +287,128 @@ public class SpawnMap : MonoBehaviour
         for (float x = -20; x <= 30; x = x + 2)
         {
             //Spawn 20 blocks horizontally
-            if ((currentZ / 2) % 30 == 27)
+            if (excludeList.Count < questionList.Count)
             {
-                currentQuestion = Random.Range(0, questionList.Count);
-                //Spawn questions every 30 tiles
-                GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
-                pavementObj.transform.parent = gameObject.transform;
-            }
-            else if ((currentZ / 2) % 30 == 28)
-            {
-                //Spawn questions every 30 tiles
-                GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
-                pavementObj.transform.parent = gameObject.transform;
-
-                if (x == -20)
+                if ((currentZ / 2) % 30 == 27)
                 {
-                    GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 52.4f, 0f, currentZ - 4.6f), Quaternion.identity);
-                    questionTextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                    questionTextObj.transform.SetParent(gameObject.transform, false);
-                    questionTextObj.GetComponent<TextMeshPro>().SetText(questionList[currentQuestion]);
-                }
-            }
-            else if ((currentZ / 2) % 30 == 29 || (currentZ / 2) % 30 == 0)
-            {
-                //Spawn answers every 30 tiles
-                if (currentZ != 0)
-                {
-                    if (x >= -20 + (2 * 5) && x <= -20 + (2 * 10))
+                    if (x == -20)
                     {
-                        //Spawn the bridges for the answers
-                        GameObject bridgeObj = Instantiate(bridge, new Vector3(x, -0.5f, currentZ), Quaternion.identity);
-                        bridgeObj.transform.SetParent(gameObject.transform);
-                        bridgeObj.GetComponent<BridgeController>().currentQuestion = questionList[currentQuestion];
-                        if (correctList[currentQuestion] == 1)
+                        currentQuestion = random_except_list(questionList.Count, excludeList);
+                        excludeList.Add(currentQuestion);
+                    }
+                    //Spawn questions every 30 tiles
+                    GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
+                    pavementObj.transform.parent = gameObject.transform;
+                }
+                else if ((currentZ / 2) % 30 == 28)
+                {
+                    //Spawn questions every 30 tiles
+                    GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
+                    pavementObj.transform.parent = gameObject.transform;
+
+                    if (x == -20)
+                    {
+                        GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 52.4f, 0f, currentZ - 4.6f), Quaternion.identity);
+                        questionTextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+                        questionTextObj.transform.SetParent(gameObject.transform, false);
+                        questionTextObj.GetComponent<TextMeshPro>().SetText(questionList[currentQuestion]);
+                    }
+                }
+                else if ((currentZ / 2) % 30 == 29 || (currentZ / 2) % 30 == 0)
+                {
+                    //Spawn answers every 30 tiles
+                    if (currentZ != 0)
+                    {
+                        if (x >= -20 + (2 * 5) && x <= -20 + (2 * 10))
                         {
-                            bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = true;
+                            //Spawn the bridges for the answers
+                            GameObject bridgeObj = Instantiate(bridge, new Vector3(x, -0.5f, currentZ), Quaternion.identity);
+                            bridgeObj.transform.SetParent(gameObject.transform);
+                            bridgeObj.GetComponent<BridgeController>().currentQuestion = questionList[currentQuestion];
+                            if (correctList[currentQuestion] == 1)
+                            {
+                                bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = true;
+                            }
+                            else
+                            {
+                                bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = false;
+                            }
+                        }
+                        else if (x >= -20 + (2 * 15) && x <= -20 + (2 * 20))
+                        {
+                            //Spawn the bridges for the answers
+                            GameObject bridgeObj = Instantiate(bridge, new Vector3(x, -0.5f, currentZ), Quaternion.identity);
+                            bridgeObj.transform.SetParent(gameObject.transform);
+                            bridgeObj.GetComponent<BridgeController>().currentQuestion = questionList[currentQuestion];
+                            if (correctList[currentQuestion] == 2)
+                            {
+                                bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = true;
+                            }
+                            else
+                            {
+                                bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = false;
+                            }
                         }
                         else
                         {
-                            bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = false;
+                            //Spawn the rivers for the answers
+                            GameObject riverObj = Instantiate(river1, new Vector3(x, 0f, currentZ), Quaternion.identity);
+                            riverObj.transform.parent = gameObject.transform;
+                            riverObj.GetComponent<SpawnRiver>().canSpawn = false;
                         }
-                    }
-                    else if (x >= -20 + (2 * 15) && x <= -20 + (2 * 20))
-                    {
-                        //Spawn the bridges for the answers
-                        GameObject bridgeObj = Instantiate(bridge, new Vector3(x, -0.5f, currentZ), Quaternion.identity);
-                        bridgeObj.transform.SetParent(gameObject.transform);
-                        bridgeObj.GetComponent<BridgeController>().currentQuestion = questionList[currentQuestion];
-                        if (correctList[currentQuestion] == 2)
+
+                        if ((currentZ / 2) % 30 == 0 && x == 30 && questionList.Count > 1)
                         {
-                            bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = true;
+                            //Move on to next question on the last block
+                            // questionList.Remove(questionList[currentQuestion]);
+                            // answer1List.Remove(answer1List[currentQuestion]);
+                            // answer2List.Remove(answer2List[currentQuestion]);
+                            // correctList.Remove(correctList[currentQuestion]);
                         }
-                        else
+
+                        if ((currentZ / 2) % 30 == 0 && x == -20)
                         {
-                            bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = false;
+                            GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 60.5f, 0f, currentZ - 5f), Quaternion.identity);
+                            answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+                            answer1TextObj.transform.SetParent(gameObject.transform, false);
+                            answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
+
+                            GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 80.5f, 0f, currentZ - 5f), Quaternion.identity);
+                            answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+                            answer2TextObj.transform.SetParent(gameObject.transform, false);
+                            answer2TextObj.GetComponent<TextMeshPro>().SetText(answer2List[currentQuestion]);
                         }
                     }
-                    else
-                    {
-                        //Spawn the rivers for the answers
-                        GameObject riverObj = Instantiate(river1, new Vector3(x, 0f, currentZ), Quaternion.identity);
-                        riverObj.transform.parent = gameObject.transform;
-                        riverObj.GetComponent<SpawnRiver>().canSpawn = false;
-                    }
 
-                    if ((currentZ / 2) % 30 == 0 && x == 30 && questionList.Count > 1)
+                }
+                else if (x == -20)
+                {
+                    //First block of row
+                    GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                    grassObj.transform.parent = gameObject.transform;
+                    grassObj.GetComponent<SpawnFood>().spawnRight = true;
+                    if (canSpawn == 0)
                     {
-                        //Move on to next question on the last block
-                        questionList.Remove(questionList[currentQuestion]);
-                        answer1List.Remove(answer1List[currentQuestion]);
-                        answer2List.Remove(answer2List[currentQuestion]);
-                        correctList.Remove(correctList[currentQuestion]);
-                    }
-
-                    if ((currentZ / 2) % 30 == 0 && x == -20)
-                    {
-                        GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 60.5f, 0f, currentZ - 5f), Quaternion.identity);
-                        answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                        answer1TextObj.transform.SetParent(gameObject.transform, false);
-                        answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
-
-                        GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 80.5f, 0f, currentZ - 5f), Quaternion.identity);
-                        answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                        answer2TextObj.transform.SetParent(gameObject.transform, false);
-                        answer2TextObj.GetComponent<TextMeshPro>().SetText(answer2List[currentQuestion]);
+                        grassObj.GetComponent<SpawnFood>().enabled = false;
                     }
                 }
-
+                else if (x == 30)
+                {
+                    //Last block of row
+                    GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                    grassObj.transform.parent = gameObject.transform;
+                    grassObj.GetComponent<SpawnFood>().spawnRight = false;
+                    if (canSpawn == 1)
+                    {
+                        grassObj.GetComponent<SpawnFood>().enabled = false;
+                    }
+                }
+                else
+                {
+                    GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                    grassObj.transform.parent = gameObject.transform;
+                    grassObj.GetComponent<SpawnFood>().enabled = false;
+                }
             }
 
             else if (x == -20)
@@ -573,6 +608,26 @@ public class SpawnMap : MonoBehaviour
             azureControl.GetComponent<AzureControl>().callFeddback(name, email, feedbackText.text);
             feedbackText.text = "";
         }
+    }
+
+    public static int random_except_list(int n, List<int> x)
+    {
+        List<int> includeList = new List<int>();
+        for (int i = 0; i < n; i++)
+        {
+            if (!x.Contains(i))
+            {
+                includeList.Add(i);
+            }
+        }
+
+        if (includeList.Count == 0)
+        {
+            return 0;
+        }
+
+        int newNumber = Random.Range(0, includeList.Count);
+        return includeList[newNumber];
     }
 }
 

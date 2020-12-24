@@ -4500,6 +4500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e5f17a38921f84caad501c439390c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedbackText: {fileID: 0}
   player: {fileID: 1311291404078881}
   grass1: {fileID: 6165276756094284832, guid: ecb9f8ec41254e24b94795cd21c3972a, type: 3}
   grass2: {fileID: 2853340163563363684, guid: a5e84c554435f2045804a5662408f1e4, type: 3}
@@ -4653,6 +4654,7 @@ MonoBehaviour:
   - {fileID: 2309741679321409916, guid: a3cfa41c06f620f49bb11c12c00cc333, type: 3}
   - {fileID: 58207524314579328, guid: 0c80a54d6cbbdec41a790d99fdc3a22f, type: 3}
   - {fileID: 1257677114301985425, guid: f02bf6f7b49082e438547c10b7fbf58c, type: 3}
+  excludeList: 
 --- !u!4 &1581862619
 Transform:
   m_ObjectHideFlags: 0
