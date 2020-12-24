@@ -19,10 +19,10 @@ public class SpawnCar : MonoBehaviour
     void Update()
     {
         //var spawnTimer = Mathf.FloorToInt(Random.Range(0, 2f + Mathf.Max(0, (10f - transform.position.z / 200))));
-        var shouldSpawn = Random.Range(0, 50);
+        var shouldSpawn = Random.Range(0, 20);
         var carType = Random.Range(0, 2);
         //1/3 probability every frame of spawning a car
-        if (shouldSpawn == 0 && Time.timeSinceLevelLoad >= currentTime + 10.2f)
+        if (shouldSpawn == 0 && Time.timeSinceLevelLoad >= currentTime + 1.2f)
         {
             //Only allow spawning once in a while to prevent car collision
             currentTime = Time.timeSinceLevelLoad;

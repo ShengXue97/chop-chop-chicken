@@ -4996,6 +4996,10 @@ PrefabInstance:
       propertyPath: uploadingPanel
       value: 
       objectReference: {fileID: 2146077923}
+    - target: {fileID: 5601072734528881873, guid: 6b58271f04855f14da86084d19910efb, type: 3}
+      propertyPath: whatStopsMovement.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 5602382713621305524, guid: 6b58271f04855f14da86084d19910efb, type: 3}
       propertyPath: m_Name
       value: Toon Chicken

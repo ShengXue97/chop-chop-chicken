@@ -117,14 +117,16 @@ public class CharacterMovement : MonoBehaviour
             {
                 //If on water but not on logs, die!
                 //EditorUtility.DisplayDialog("Info", "You died", "Ok");
+                Debug.Log("1");
                 restartGame();
             }
         }
 
 
-        if (Physics.OverlapSphere(movePoint.position, 0.2f, vehicleLayer).Length != 0)
+        if (Physics.OverlapSphere(movePoint.position, 0.19f, vehicleLayer).Length != 0)
         {
             //EditorUtility.DisplayDialog("Info", "You died", "Ok");
+            Debug.Log("2");
             restartGame();
         }
 
@@ -147,10 +149,11 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("Hop", true);
                     movePoint.position += new Vector3(pointer_x * 2, 0f, 0f);
                 }
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 2, 0f, 0f), 0.2f, vehicleLayer).Length != 0)
+                if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 1, 0f, 0f), 0.2f, vehicleLayer).Length != 0)
                 {
                     //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                    restartGame();
+                    // Debug.Log("3");
+                    // restartGame();
                 }
             }
             else if (Mathf.Abs(pointer_y) == 1f && canMoveVertical)
@@ -183,10 +186,11 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("Hop", true);
                     movePoint.position += new Vector3(0f, 0f, pointer_y * 2);
                 }
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 2), 0.2f, vehicleLayer).Length != 0)
+                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 1.4f), 0.2f, vehicleLayer).Length != 0)
                 {
                     //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                    restartGame();
+                    // Debug.Log("5");
+                    // restartGame();
                 }
             }
             else
@@ -254,8 +258,10 @@ public class CharacterMovement : MonoBehaviour
         FinishText.text = "Uploaded Score! \nName: " + name + "\nEmail: " + email;
         ScoreDetails.text = score.ToString();
 
-
-        azureControl.GetComponent<AzureControl>().callUpdate(name, email, score);
+        if (azureControl != null)
+        {
+            azureControl.GetComponent<AzureControl>().callUpdate(name, email, score);
+        }
     }
 
     public void setEnded()

@@ -20,6 +20,7 @@ public class VehicleMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
+        float vehicleSpeed = 10f;
         float yValue = 1f;
         if (movingRight)
         {
@@ -32,6 +33,6 @@ public class VehicleMovement : MonoBehaviour
 
         Vector3 newPos = gameObject.transform.position;
         newPos.x += yValue;
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * 10f);
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * vehicleSpeed);
     }
 }
