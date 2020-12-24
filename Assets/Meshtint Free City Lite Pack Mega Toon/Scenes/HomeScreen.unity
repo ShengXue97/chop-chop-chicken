@@ -6810,6 +6810,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5601072734080801518, guid: 6b58271f04855f14da86084d19910efb, type: 3}
+      propertyPath: m_TagString
+      value: MovePoint
+      objectReference: {fileID: 0}
     - target: {fileID: 5601072734528881873, guid: 6b58271f04855f14da86084d19910efb, type: 3}
       propertyPath: m_Enabled
       value: 0

@@ -8,10 +8,12 @@ public class LogMovement : MonoBehaviour
     public LayerMask playerLayer;
     public GameObject playerObj;
     public bool playerOnLog;
+    public GameObject MovePoint;
     // Start is called before the first frame update
     void Start()
     {
         playerOnLog = false;
+        MovePoint = GameObject.FindGameObjectWithTag("MovePoint");
     }
 
     void OnTriggerEnter(Collider other)
@@ -52,9 +54,15 @@ public class LogMovement : MonoBehaviour
             yValue = -1f;
         }
 
-        Vector3 newPos = gameObject.transform.position;
+        if (playerOnLog)
+        {
+            Vector3 movePos = MovePoint.transform.position;
+            MovePoint.transform.position = Vector3.MoveTowards(movePos, new Vector3(movePos.x + yValue, movePos.y, movePos.z), Time.deltaTime * 3f);
+        }
+
+        Vector3 newPos = transform.position;
         newPos.x += yValue;
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * 3f);
+        transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * 3f);
 
         // if (playerOnLog)
         // {

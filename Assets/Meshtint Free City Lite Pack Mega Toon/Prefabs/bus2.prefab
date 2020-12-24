@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6957647971215493452}
   - component: {fileID: 5366978759261985035}
   - component: {fileID: 5299776459982174003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bus2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 3207563154562310635}
   - component: {fileID: 1483530143879766540}
   - component: {fileID: 8599413795985827953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
