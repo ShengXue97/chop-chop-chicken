@@ -20,7 +20,8 @@ public class VehicleMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
-        float vehicleSpeed = 10f;
+        float vehicleSpeed = 10f + Mathf.FloorToInt((transform.position.z / 100)) * 2;
+        Debug.Log(vehicleSpeed);
         float yValue = 1f;
         if (movingRight)
         {

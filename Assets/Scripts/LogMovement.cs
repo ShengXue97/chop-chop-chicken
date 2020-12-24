@@ -44,7 +44,7 @@ public class LogMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
-        float logSpeed = 10f;
+        float logSpeed = 5f + Mathf.FloorToInt((transform.position.z / 100)) * 2;
         float yValue = 1f;
         if (movingRight)
         {
