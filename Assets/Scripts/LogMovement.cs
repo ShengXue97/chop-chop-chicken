@@ -9,9 +9,11 @@ public class LogMovement : MonoBehaviour
     public GameObject playerObj;
     public bool playerOnLog;
     public GameObject MovePoint;
+    GameObject controller;
     // Start is called before the first frame update
     void Start()
     {
+        controller = GameObject.FindGameObjectWithTag("Controller");
         playerOnLog = false;
         MovePoint = GameObject.FindGameObjectWithTag("MovePoint");
     }
@@ -45,6 +47,17 @@ public class LogMovement : MonoBehaviour
         }
 
         float logSpeed = 5f + Mathf.FloorToInt((transform.position.z / 100)) * 2;
+        if (controller.GetComponent<SpawnMap>().currentRain == 1)
+        {
+            //Log moves faster when it is raining
+            logSpeed += 3f;
+        }
+        else if (controller.GetComponent<SpawnMap>().currentRain == 2)
+        {
+            //Log moves faster when it is raining
+            logSpeed += 7f;
+        }
+
         float yValue = 1f;
         if (movingRight)
         {

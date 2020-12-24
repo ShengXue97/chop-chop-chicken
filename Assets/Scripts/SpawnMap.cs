@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SpawnMap : MonoBehaviour
 {
+    public GameObject rain;
     public TextMeshProUGUI feedbackText;
     public GameObject player;
     public GameObject grass1;
@@ -60,9 +61,22 @@ public class SpawnMap : MonoBehaviour
     public List<GameObject> decorations = new List<GameObject>();
 
     public List<int> excludeList = new List<int>();
+
+    public int currentRain;
+    private float currentTime = -999999f;
     // Start is called before the first frame update
     void Start()
     {
+        int chance = Random.Range(0, 10);
+        if (chance < 3)
+        {
+            currentRain = 1;
+        }
+        else
+        {
+            currentRain = 0;
+        }
+
         foods = new List<GameObject>()
         { apple, appleHalf, banana, beet,
           carrot, cauliflower, cherries, coconutHalf,
@@ -191,6 +205,7 @@ public class SpawnMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(currentRain);
         //Times 2 because each block is 2f long in z axis
         int zPos = player.GetComponent<CharacterMovement>().zPos * 2;
         if (zPos > currentZ - 80)
@@ -199,6 +214,51 @@ public class SpawnMap : MonoBehaviour
         }
         // Debug.Log(zPos + ";" + currentZ);
         //Debug.Log(zPos);
+
+        if (Time.timeSinceLevelLoad >= currentTime + 1f)
+        {
+            //Check if should change rain status every 10 seconds
+            if (currentRain == 0)
+            {
+                currentTime = Time.timeSinceLevelLoad;
+                //Can start raining 
+                int chance = Random.Range(0, 10);
+                if (chance < 2)
+                {
+                    currentRain = 1;
+                }
+            }
+            else if (currentRain == 1 && Time.timeSinceLevelLoad >= currentTime + 20f)
+            {
+                currentTime = Time.timeSinceLevelLoad;
+                //More likely to rain heavier if it is already raining
+                int chance = Random.Range(0, 10);
+                if (chance < 3)
+                {
+                    currentRain = 0;
+                }
+                else
+                {
+                    currentRain = 2;
+                }
+            }
+            else if (currentRain == 2 && Time.timeSinceLevelLoad >= currentTime + 20f)
+            {
+                currentTime = Time.timeSinceLevelLoad;
+                //More likely to stop raining than to keep raining
+                int chance = Random.Range(0, 10);
+                if (chance < 3)
+                {
+                    currentRain = 2;
+                }
+                else
+                {
+                    currentRain = 0;
+                }
+            }
+
+
+        }
     }
 
     void spawnNextBatch()
@@ -267,6 +327,7 @@ public class SpawnMap : MonoBehaviour
 
     void spawnGrassRow()
     {
+
         var canSpawn = Random.Range(0, 2);
         GameObject grass;
         //Alternate between lighter and darker shades of grass
@@ -282,6 +343,10 @@ public class SpawnMap : MonoBehaviour
         }
         for (float x = -20; x <= 30; x = x + 2)
         {
+            if (canSpawn == 0)
+            {
+                GameObject rainObj = Instantiate(rain, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
+            }
             //Spawn 20 blocks horizontally
             if (excludeList.Count < questionList.Count)
             {

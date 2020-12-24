@@ -5,10 +5,12 @@ using UnityEngine;
 public class VehicleMovement : MonoBehaviour
 {
     public bool movingRight;
+    GameObject controller;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        controller = GameObject.FindGameObjectWithTag("Controller");
     }
 
     // Update is called once per frame
@@ -21,7 +23,17 @@ public class VehicleMovement : MonoBehaviour
         }
 
         float vehicleSpeed = 10f + Mathf.FloorToInt((transform.position.z / 100)) * 2;
-        Debug.Log(vehicleSpeed);
+        if (controller.GetComponent<SpawnMap>().currentRain == 1)
+        {
+            //vehicle moves slower when it is raining
+            vehicleSpeed -= 3f;
+        }
+        else if (controller.GetComponent<SpawnMap>().currentRain == 2)
+        {
+            //vehicle moves slower when it is raining
+            vehicleSpeed -= 7f;
+        }
+
         float yValue = 1f;
         if (movingRight)
         {
