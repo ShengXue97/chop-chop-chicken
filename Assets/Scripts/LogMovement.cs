@@ -44,6 +44,7 @@ public class LogMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
+        float logSpeed = 10f;
         float yValue = 1f;
         if (movingRight)
         {
@@ -57,12 +58,12 @@ public class LogMovement : MonoBehaviour
         if (playerOnLog)
         {
             Vector3 movePos = MovePoint.transform.position;
-            MovePoint.transform.position = Vector3.MoveTowards(movePos, new Vector3(movePos.x + yValue, movePos.y, movePos.z), Time.deltaTime * 3f);
+            MovePoint.transform.position = Vector3.MoveTowards(movePos, new Vector3(movePos.x + yValue, movePos.y, movePos.z), Time.deltaTime * logSpeed);
         }
 
         Vector3 newPos = transform.position;
         newPos.x += yValue;
-        transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * 3f);
+        transform.position = Vector3.MoveTowards(gameObject.transform.position, newPos, Time.deltaTime * logSpeed);
 
         // if (playerOnLog)
         // {
