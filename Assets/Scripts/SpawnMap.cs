@@ -24,9 +24,6 @@ public class SpawnMap : MonoBehaviour
     public GameObject appleHalf;
     public GameObject banana;
     public GameObject beet;
-    public GameObject bread;
-    public GameObject broccoli;
-    public GameObject cabbage;
     public GameObject carrot;
     public GameObject cauliflower;
     public GameObject cherries;
@@ -34,7 +31,6 @@ public class SpawnMap : MonoBehaviour
     public GameObject corn;
     public GameObject egg;
     public GameObject eggHalf;
-    public GameObject fish;
     public GameObject grapes;
     public GameObject orange;
     public GameObject pepper;
@@ -68,9 +64,9 @@ public class SpawnMap : MonoBehaviour
     void Start()
     {
         foods = new List<GameObject>()
-        { apple, appleHalf, banana, beet, bread, broccoli,
-          cabbage, carrot, cauliflower, cherries, coconutHalf,
-          corn, egg, eggHalf, fish, grapes, orange, pepper,
+        { apple, appleHalf, banana, beet,
+          carrot, cauliflower, cherries, coconutHalf,
+          corn, egg, eggHalf, grapes, orange, pepper,
           pineapple, pumpkin, strawberry, watermelon
         };
 

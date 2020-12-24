@@ -16,7 +16,9 @@ public class SpawnFood : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var shouldSpawn = Random.Range(0, 999);
+        // var shouldSpawn = Random.Range(0, 999);
+        var shouldSpawn = 1;
+
         var foodType = Random.Range(0, 2);
         //1/3 probability every frame of spawning a food
         if (shouldSpawn == 0 && Time.timeSinceLevelLoad >= currentTime + 10.2f)

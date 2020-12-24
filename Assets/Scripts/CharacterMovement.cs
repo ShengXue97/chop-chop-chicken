@@ -52,20 +52,16 @@ public class CharacterMovement : MonoBehaviour
 
         foods.Add("apple(Clone)", 5);
         foods.Add("appleHalf(Clone)", 2);
-        foods.Add("banana(Clone)", 5);
+        foods.Add("banana(Clone)", 10);
         foods.Add("beet(Clone)", 5);
-        foods.Add("bread(Clone)", 5);
-        foods.Add("broccoli(Clone)", 5);
-        foods.Add("cabbage(Clone)", 20);
-        foods.Add("carrot(Clone)", 5);
+        foods.Add("carrot(Clone)", 10);
         foods.Add("cauliflower(Clone)", 20);
         foods.Add("cherries(Clone)", 5);
-        foods.Add("coconutHalf(Clone)", 5);
-        foods.Add("corn(Clone)", 5);
+        foods.Add("coconutHalf(Clone)", 10);
+        foods.Add("corn(Clone)", 10);
         foods.Add("egg(Clone)", 5);
         foods.Add("eggHalf(Clone)", 2);
-        foods.Add("fish(Clone)", 10);
-        foods.Add("grapes(Clone)", 5);
+        foods.Add("grapes(Clone)", 10);
         foods.Add("oange(Clone)", 5);
         foods.Add("pepper(Clone)", 5);
         foods.Add("pineapple(Clone)", 20);
