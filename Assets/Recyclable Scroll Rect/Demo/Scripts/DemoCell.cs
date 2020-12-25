@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using PolyAndCode.UI;
-using TMPro;
 
 //Cell class for demo. A cell in Recyclable Scroll Rect must have a cell class inheriting from ICell.
 //The class is required to configure the cell(updating UI elements etc) according to the data during recycling of cells.
@@ -10,20 +9,13 @@ using TMPro;
 public class DemoCell : MonoBehaviour, ICell
 {
     //UI
-    public UnityEngine.UI.Text nameLabel;
-    public UnityEngine.UI.Text scoreLabel;
-    public UnityEngine.UI.Text idLabel;
+    public Text nameLabel;
+    public Text scoreLabel;
+    public Text idLabel;
 
     //Model
     private ContactInfo _contactInfo;
     private int _cellIndex;
-
-    private void Start()
-    {
-        //Can also be done in the inspector
-        GetComponent<Button>().onClick.AddListener(ButtonListener);
-    }
-
     //This is called from the SetCell method in DataSource
     public void ConfigureCell(ContactInfo contactInfo, int cellIndex)
     {
@@ -32,12 +24,7 @@ public class DemoCell : MonoBehaviour, ICell
 
         nameLabel.text = contactInfo.Name;
         scoreLabel.text = contactInfo.Score;
-        idLabel.text = "#" + contactInfo.id;
+        idLabel.text = contactInfo.id;
     }
 
-
-    private void ButtonListener()
-    {
-        Debug.Log("Index : " + _cellIndex + ", Name : " + _contactInfo.Name + ", Email : " + _contactInfo.Email + ", Score : " + _contactInfo.Score + ", ID : " + _contactInfo.id);
-    }
 }

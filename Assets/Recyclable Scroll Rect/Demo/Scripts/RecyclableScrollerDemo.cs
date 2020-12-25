@@ -28,10 +28,64 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     //Dummy data List
     private List<ContactInfo> _contactList = new List<ContactInfo>();
 
+
     //Recyclable scroll rect's data source must be assigned in Awake.
     private void Awake()
     {
+        InitData("\"\"");
+        _recyclableScrollRect = GameObject.FindGameObjectWithTag("ScrollView").GetComponent<RecyclableScrollRect>();
         _recyclableScrollRect.DataSource = this;
+        GameObject.FindGameObjectWithTag("Leaderboard").SetActive(false);
+    }
+
+    //Initialising _contactList with dummy data 
+    public void InitData(string data)
+    {
+        if (_contactList != null) _contactList.Clear();
+        if (data != "\"\"")
+        {
+            data = data.Substring(1, data.Length - 3);
+
+            string[] users = data.Split(';');
+
+            for (int i = 0; i < users.Length; i++)
+            {
+                string user = users[i];
+                string[] details = user.Split(',');
+                if (user == "")
+                {
+                    break;
+                }
+
+                ContactInfo obj = new ContactInfo();
+                obj.Name = details[0];
+                obj.Email = details[1];
+                obj.Score = details[3];
+
+                obj.id = "";
+                Debug.Log(obj.Name);
+                _contactList.Add(obj);
+            }
+
+            _contactList.Sort(SortByScore);
+        }
+
+        for (int i = 0; i < _contactList.Count; i++)
+        {
+            _contactList[i].id = "#" + (i + 1).ToString();
+        }
+
+        GameObject ScrollView = GameObject.FindGameObjectWithTag("ScrollView");
+        if (ScrollView != null)
+        {
+            ScrollView.GetComponent<RecyclableScrollRect>().Start();
+        }
+
+        GameObject LoadingLeaderboard = GameObject.FindGameObjectWithTag("LoadingLeaderboard");
+        if (LoadingLeaderboard != null)
+        {
+            LoadingLeaderboard.SetActive(false);
+        }
     }
 
     static int SortByScore(ContactInfo p1, ContactInfo p2)
@@ -39,45 +93,6 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
         int p1Score = int.Parse(p1.Score);
         int p2Score = int.Parse(p2.Score);
         return p2Score.CompareTo(p1Score);
-    }
-    //Initialising _contactList with dummy data 
-    public void InitData(string data)
-    {
-        if (_contactList != null) _contactList.Clear();
-
-        if (data == "\"\"")
-        {
-            return;
-        }
-        data = data.Substring(1, data.Length - 3);
-
-        string[] users = data.Split(';');
-
-        for (int i = 0; i < users.Length; i++)
-        {
-            string user = users[i];
-            string[] details = user.Split(',');
-            if (user == "")
-            {
-                break;
-            }
-
-            ContactInfo obj = new ContactInfo();
-            obj.Name = details[0];
-            obj.Email = details[1];
-            obj.Score = details[3];
-
-            obj.id = "";
-            _contactList.Add(obj);
-        }
-
-        _contactList.Sort(SortByScore);
-
-        for (int i = 0; i < _contactList.Count; i++)
-        {
-            _contactList[i].id = (i + 1).ToString();
-        }
-
     }
 
     #region DATA-SOURCE

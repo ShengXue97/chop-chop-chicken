@@ -661,6 +661,9 @@ public class SpawnMap : MonoBehaviour
 
     public void goHome()
     {
+        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
+        Destroy(azureControl);
+
         Scene scene = SceneManager.GetActiveScene();
         string mainScene = "MainGame";
         if (scene.name == mainScene)
@@ -668,6 +671,12 @@ public class SpawnMap : MonoBehaviour
             SceneManager.LoadScene("HomeScreen");
         }
 
+    }
+
+    public void getLeaderboard()
+    {
+        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
+        azureControl.GetComponent<AzureControl>().getLeaderboard();
     }
 
     public void sendFeedback()

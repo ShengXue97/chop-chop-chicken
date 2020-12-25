@@ -29,6 +29,7 @@ public class BypassCertificate : CertificateHandler
         return true;
     }
 }
+
 public class AzureControl : MonoBehaviour
 {
     public string path;
@@ -37,6 +38,7 @@ public class AzureControl : MonoBehaviour
     public string result = "";
     private List<PlayerInfo> _playerList = new List<PlayerInfo>();
     public GameObject MyProfile;
+    public GameObject VerticalCell;
     // Use this for initialization
     void Start()
     {
@@ -50,7 +52,7 @@ public class AzureControl : MonoBehaviour
         {
             MyProfile.SetActive(true);
         }
-        StartCoroutine(GetRequest());
+        getLeaderboard();
 
     }
 
@@ -62,13 +64,26 @@ public class AzureControl : MonoBehaviour
             Scene scene = SceneManager.GetActiveScene();
             if (scene.name == "HomeScreen")
             {
-                SceneManager.LoadScene("MainGame");
+                GameObject MyProfile = GameObject.FindGameObjectWithTag("MyProfile");
+                if (MyProfile == null)
+                {
+                    SceneManager.LoadScene("MainGame");
+                }
             }
             else if (scene.name == "MainGame")
             {
-                SceneManager.LoadScene("MainGame");
+                GameObject CommentPanel = GameObject.FindGameObjectWithTag("CommentPanel");
+                if (CommentPanel == null)
+                {
+                    SceneManager.LoadScene("MainGame");
+                }
             }
         }
+    }
+
+    public void getLeaderboard()
+    {
+        StartCoroutine(GetRequest());
     }
 
     public void callUpdate(string name, string email, int score)
@@ -80,6 +95,7 @@ public class AzureControl : MonoBehaviour
     {
         StartCoroutine(UpdateFeedback(name, email, feedback));
     }
+
 
     IEnumerator GetRequest()
     {
@@ -99,7 +115,10 @@ public class AzureControl : MonoBehaviour
             else
             {
                 Debug.Log("aReceived: " + webRequest.downloadHandler.text);
-                GetComponent<RecyclableScrollerDemo>().InitData(webRequest.downloadHandler.text);
+                string data = webRequest.downloadHandler.text;
+                GameObject LeaderboardContent = GameObject.FindGameObjectWithTag("LeaderboardContent");
+                LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(data);
+
             }
         }
     }
@@ -147,4 +166,6 @@ public class AzureControl : MonoBehaviour
             }
         }
     }
+
+
 }

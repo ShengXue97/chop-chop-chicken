@@ -49,7 +49,7 @@ namespace PolyAndCode.UI
         private RecyclingSystem _recyclingSystem;
         private Vector2 _prevAnchoredPos;
 
-        protected override void Start()
+        public void Start()
         {
             //defafult(built-in) in scroll rect can have both directions enabled, Recyclable scroll rect can be scrolled in only one direction.
             //setting default as vertical, Initialize() will set this again. 

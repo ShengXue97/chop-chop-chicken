@@ -15,6 +15,11 @@ TagManager:
   - FinishPanel
   - FinishText
   - MovePoint
+  - CommentPanel
+  - LeaderboardContent
+  - LoadingLeaderboard
+  - ScrollView
+  - MyProfile
   layers:
   - Default
   - TransparentFX
