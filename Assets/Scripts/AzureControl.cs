@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using UnityEditor;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class PlayerInfo
 {
@@ -39,6 +40,11 @@ public class AzureControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GameObject[] persistents = GameObject.FindGameObjectsWithTag("Persistent");
+        if (persistents.Length > 1)
+        {
+            Destroy(gameObject);
+        }
         DontDestroyOnLoad(this.gameObject);
         if (!PlayerPrefs.HasKey("myname") && !PlayerPrefs.HasKey("myemail"))
         {
@@ -51,7 +57,18 @@ public class AzureControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown("space"))
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.name == "HomeScreen")
+            {
+                SceneManager.LoadScene("MainGame");
+            }
+            else if (scene.name == "MainGame")
+            {
+                SceneManager.LoadScene("MainGame");
+            }
+        }
     }
 
     public void callUpdate(string name, string email, int score)

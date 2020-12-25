@@ -34,10 +34,12 @@ public class CharacterMovement : MonoBehaviour
     private bool canMoveHorizontal = true;
     private bool canMoveVertical = true;
     public bool ended;
+    public GameObject controller;
 
     // Start is called before the first frame update
     void Start()
     {
+        controller = GameObject.FindGameObjectWithTag("Controller");
         ended = false;
         anim = GetComponent<Animator>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -62,7 +64,6 @@ public class CharacterMovement : MonoBehaviour
         foods.Add("egg(Clone)", 5);
         foods.Add("eggHalf(Clone)", 2);
         foods.Add("grapes(Clone)", 10);
-        foods.Add("oange(Clone)", 5);
         foods.Add("pepper(Clone)", 5);
         foods.Add("pineapple(Clone)", 20);
         foods.Add("pumpkin(Clone)", 30);
@@ -113,7 +114,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 //If on water but not on logs, die!
                 //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                Debug.Log("1");
+                controller.GetComponent<SoundController>().playSound("splashSound");
                 restartGame();
             }
         }
@@ -122,7 +123,7 @@ public class CharacterMovement : MonoBehaviour
         if (Physics.OverlapSphere(movePoint.position, 0.19f, vehicleLayer).Length != 0)
         {
             //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-            Debug.Log("2");
+            controller.GetComponent<SoundController>().playSound("carSound");
             restartGame();
         }
 
@@ -204,6 +205,7 @@ public class CharacterMovement : MonoBehaviour
             scorePopupObj.GetComponent<TextMeshPro>().text = ((int)foods[other.name]).ToString();
             score += (int)foods[other.name];
             Destroy(other.gameObject);
+            controller.GetComponent<SoundController>().playSound("itemSound");
         }
 
         else if (other.tag == "Snail")
@@ -226,6 +228,14 @@ public class CharacterMovement : MonoBehaviour
 
     public void changeScore(int scoreDiff)
     {
+        if (scoreDiff > 0)
+        {
+            controller.GetComponent<SoundController>().playSound("answerCorrect");
+        }
+        else
+        {
+            controller.GetComponent<SoundController>().playSound("answerWrong");
+        }
         GameObject scorePopupObj = Instantiate(ScorePopup, new Vector3(transform.position.x + 37f, transform.position.y + 3f, transform.position.z), Quaternion.identity);
         scorePopupObj.GetComponent<TextMeshPro>().text = scoreDiff.ToString();
         score += scoreDiff;

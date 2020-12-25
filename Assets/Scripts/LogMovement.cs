@@ -50,12 +50,12 @@ public class LogMovement : MonoBehaviour
         if (controller.GetComponent<SpawnMap>().currentRain == 1)
         {
             //Log moves faster when it is raining
-            logSpeed += 3f;
+            logSpeed += 2f;
         }
         else if (controller.GetComponent<SpawnMap>().currentRain == 2)
         {
             //Log moves faster when it is raining
-            logSpeed += 7f;
+            logSpeed += 4f;
         }
 
         float yValue = 1f;

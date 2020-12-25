@@ -71,7 +71,14 @@ public class SpawnMap : MonoBehaviour
         if (chance < 3)
         {
             currentRain = 1;
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.name == "MainGame")
+            {
+                GetComponent<SoundController>().playSound("rainSound");
+            }
         }
+
+
         else
         {
             currentRain = 0;
@@ -80,7 +87,7 @@ public class SpawnMap : MonoBehaviour
         foods = new List<GameObject>()
         { apple, appleHalf, banana, beet,
           carrot, cauliflower, cherries, coconutHalf,
-          corn, egg, eggHalf, grapes, orange, pepper,
+          corn, egg, eggHalf, grapes, pepper,
           pineapple, pumpkin, strawberry, watermelon
         };
 
@@ -205,7 +212,12 @@ public class SpawnMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentRain);
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name != "MainGame")
+        {
+            return;
+        }
+
         //Times 2 because each block is 2f long in z axis
         int zPos = player.GetComponent<CharacterMovement>().zPos * 2;
         if (zPos > currentZ - 80)
@@ -222,10 +234,11 @@ public class SpawnMap : MonoBehaviour
             {
                 currentTime = Time.timeSinceLevelLoad;
                 //Can start raining 
-                int chance = Random.Range(0, 10);
+                int chance = Random.Range(0, 30);
                 if (chance < 2)
                 {
                     currentRain = 1;
+                    GetComponent<SoundController>().playSound("rainSound");
                 }
             }
             else if (currentRain == 1 && Time.timeSinceLevelLoad >= currentTime + 20f)
@@ -236,6 +249,7 @@ public class SpawnMap : MonoBehaviour
                 if (chance < 3)
                 {
                     currentRain = 0;
+                    GetComponent<SoundController>().stopSound("rainSound");
                 }
                 else
                 {
@@ -254,6 +268,8 @@ public class SpawnMap : MonoBehaviour
                 else
                 {
                     currentRain = 0;
+                    GetComponent<SoundController>().stopSound("rainSound");
+
                 }
             }
 
@@ -343,10 +359,6 @@ public class SpawnMap : MonoBehaviour
         }
         for (float x = -20; x <= 30; x = x + 2)
         {
-            if (canSpawn == 0)
-            {
-                GameObject rainObj = Instantiate(rain, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
-            }
             //Spawn 20 blocks horizontally
             if (excludeList.Count < questionList.Count)
             {
@@ -525,7 +537,7 @@ public class SpawnMap : MonoBehaviour
                 }
                 else
                 {
-                    var shouldSpawnFood = Random.Range(0, 100);
+                    var shouldSpawnFood = Random.Range(0, 40);
                     if (shouldSpawnFood == 0)
                     {
                         GameObject food;

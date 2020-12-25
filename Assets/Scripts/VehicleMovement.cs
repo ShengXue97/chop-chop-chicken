@@ -26,12 +26,12 @@ public class VehicleMovement : MonoBehaviour
         if (controller.GetComponent<SpawnMap>().currentRain == 1)
         {
             //vehicle moves slower when it is raining
-            vehicleSpeed -= 3f;
+            vehicleSpeed -= 2f;
         }
         else if (controller.GetComponent<SpawnMap>().currentRain == 2)
         {
             //vehicle moves slower when it is raining
-            vehicleSpeed -= 7f;
+            vehicleSpeed -= 4f;
         }
 
         float yValue = 1f;
