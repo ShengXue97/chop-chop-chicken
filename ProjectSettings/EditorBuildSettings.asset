@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Meshtint Free City Lite Pack Mega Toon/Scenes/MainGame.unity
     guid: e9740fed4c3ad174da46b45b085d71ac
-  - enabled: 1
-    path: Assets/ClassicSRIA/VerticalClassicListView.unity
-    guid: 67e05f35d8a97524f8445d70edfef89a
-  - enabled: 1
-    path: Assets/ClassicSRIA/ClassicGridView.unity
-    guid: 5783a76ad3ef74f4498715807db56126
-  - enabled: 1
-    path: Assets/ClassicSRIA/HorizontalClassicListView.unity
-    guid: 81be1fd0fec16864b85cb167464021c4
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
