@@ -32,7 +32,6 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     //Recyclable scroll rect's data source must be assigned in Awake.
     private void Awake()
     {
-        InitData("\"\"");
         _recyclableScrollRect = GameObject.FindGameObjectWithTag("ScrollView").GetComponent<RecyclableScrollRect>();
         _recyclableScrollRect.DataSource = this;
         GameObject.FindGameObjectWithTag("Leaderboard").SetActive(false);
