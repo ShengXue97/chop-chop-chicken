@@ -537,7 +537,7 @@ public class SpawnMap : MonoBehaviour
                 }
                 else
                 {
-                    var shouldSpawnFood = Random.Range(0, 40);
+                    var shouldSpawnFood = Random.Range(0, 76);
                     if (shouldSpawnFood == 0)
                     {
                         GameObject food;
