@@ -10,7 +10,7 @@ public class LeaderboardController : MonoBehaviour
     public const string MatchEmailPattern =
         @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
 
-    public const string MatchAlphaNumeric = "^[a-zA-Z0-9]*$";
+    public const string MatchAlphaNumeric = "^[a-zA-Z0-9 ]*$";
 
     public GameObject errorPanel;
     public UnityEngine.UI.Text errorText;
