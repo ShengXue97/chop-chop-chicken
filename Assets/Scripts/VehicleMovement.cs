@@ -16,13 +16,14 @@ public class VehicleMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < -40 || transform.position.x > 45)
+        if (transform.position.x < -36 || transform.position.x > 45)
         {
             //Outside of screen, destroy!
             Destroy(gameObject);
         }
 
-        float vehicleSpeed = 10f + Mathf.FloorToInt((transform.position.z / 100)) * 2;
+        float extraVehicleSpeed = Mathf.Min(15f, Mathf.FloorToInt((transform.position.z / 100)) * 1);
+        float vehicleSpeed = 10f + extraVehicleSpeed;
         if (controller.GetComponent<SpawnMap>().currentRain == 1)
         {
             //vehicle moves slower when it is raining

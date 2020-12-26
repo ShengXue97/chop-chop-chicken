@@ -40,13 +40,14 @@ public class LogMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < -40 || transform.position.x > 45)
+        if (transform.position.x < -36 || transform.position.x > 45)
         {
             //Outside of screen, destroy!
             Destroy(gameObject);
         }
 
-        float logSpeed = 5f + Mathf.FloorToInt((transform.position.z / 100)) * 2;
+        float extraLogSpeed = Mathf.Min(15f, Mathf.FloorToInt((transform.position.z / 100)) * 1);
+        float logSpeed = 5f + extraLogSpeed;
         if (controller.GetComponent<SpawnMap>().currentRain == 1)
         {
             //Log moves faster when it is raining

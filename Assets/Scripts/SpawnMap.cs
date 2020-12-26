@@ -358,14 +358,14 @@ public class SpawnMap : MonoBehaviour
             prevGrass = 0;
             grass = grass2;
         }
-        for (float x = -20; x <= 30; x = x + 2)
+        for (float x = -30; x <= 40; x = x + 2)
         {
             //Spawn 20 blocks horizontally
             if (excludeList.Count < questionList.Count)
             {
                 if ((currentZ / 2) % 30 == 27)
                 {
-                    if (x == -20)
+                    if (x == -30)
                     {
                         currentQuestion = random_except_list(questionList.Count, excludeList);
                         excludeList.Add(currentQuestion);
@@ -380,9 +380,9 @@ public class SpawnMap : MonoBehaviour
                     GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
                     pavementObj.transform.parent = gameObject.transform;
 
-                    if (x == -20)
+                    if (x == -30)
                     {
-                        GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 52.4f, 0f, currentZ - 4.6f), Quaternion.identity);
+                        GameObject questionTextObj = Instantiate(questionText, new Vector3(x + 62.4f, 0f, currentZ - 4.6f), Quaternion.identity);
                         questionTextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                         questionTextObj.transform.SetParent(gameObject.transform, false);
                         questionTextObj.GetComponent<TextMeshPro>().SetText(questionList[currentQuestion]);
@@ -440,14 +440,14 @@ public class SpawnMap : MonoBehaviour
                             // correctList.Remove(correctList[currentQuestion]);
                         }
 
-                        if ((currentZ / 2) % 30 == 0 && x == -20)
+                        if ((currentZ / 2) % 30 == 0 && x == -30)
                         {
-                            GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 60.5f, 0f, currentZ - 5f), Quaternion.identity);
+                            GameObject answer1TextObj = Instantiate(answerText, new Vector3(x + 70.5f, 0f, currentZ - 5f), Quaternion.identity);
                             answer1TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                             answer1TextObj.transform.SetParent(gameObject.transform, false);
                             answer1TextObj.GetComponent<TextMeshPro>().SetText(answer1List[currentQuestion]);
 
-                            GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 80.5f, 0f, currentZ - 5f), Quaternion.identity);
+                            GameObject answer2TextObj = Instantiate(answerText, new Vector3(x + 90.5f, 0f, currentZ - 5f), Quaternion.identity);
                             answer2TextObj.transform.rotation = Quaternion.Euler(90, 0, 0);
                             answer2TextObj.transform.SetParent(gameObject.transform, false);
                             answer2TextObj.GetComponent<TextMeshPro>().SetText(answer2List[currentQuestion]);
@@ -455,7 +455,7 @@ public class SpawnMap : MonoBehaviour
                     }
 
                 }
-                else if (x == -20)
+                else if (x == -30)
                 {
                     //First block of row
                     GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
@@ -466,7 +466,7 @@ public class SpawnMap : MonoBehaviour
                         grassObj.GetComponent<SpawnFood>().enabled = false;
                     }
                 }
-                else if (x == 30)
+                else if (x == 40)
                 {
                     //Last block of row
                     GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
@@ -485,7 +485,7 @@ public class SpawnMap : MonoBehaviour
                 }
             }
 
-            else if (x == -20)
+            else if (x == -30)
             {
                 //First block of row
                 GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
@@ -496,7 +496,7 @@ public class SpawnMap : MonoBehaviour
                     grassObj.GetComponent<SpawnFood>().enabled = false;
                 }
             }
-            else if (x == 30)
+            else if (x == 40)
             {
                 //Last block of row
                 GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
@@ -519,7 +519,7 @@ public class SpawnMap : MonoBehaviour
                 //Spawn more tree the further you travel
                 //var shouldSpawnTree = Mathf.FloorToInt(Random.Range(0, 3 + Mathf.Max(0, (50 - currentZ / 20))));
                 var shouldSpawnTree = Random.Range(0, 10);
-                if (shouldSpawnTree == 0)
+                if (shouldSpawnTree == 0 && currentZ > 15)
                 {
                     GameObject decoration;
                     int currentDecoration = Mathf.FloorToInt(currentZ / 100);
@@ -571,10 +571,10 @@ public class SpawnMap : MonoBehaviour
             road = road2;
         }
 
-        for (float x = -20; x <= 30; x = x + 2)
+        for (float x = -30; x <= 40; x = x + 2)
         {
             //Create roads responsible for spawning cars first
-            if (x == -20)
+            if (x == -30)
             {
                 GameObject roadObj = Instantiate(road, new Vector3(x, -2f, currentZ), Quaternion.Euler(new Vector3(0, -90, 0)));
                 roadObj.transform.parent = gameObject.transform;
@@ -584,7 +584,7 @@ public class SpawnMap : MonoBehaviour
                     roadObj.GetComponent<SpawnCar>().enabled = false;
                 }
             }
-            else if (x == 30)
+            else if (x == 40)
             {
                 GameObject roadObj = Instantiate(road, new Vector3(x, -2f, currentZ), Quaternion.Euler(new Vector3(0, -90, 0)));
                 roadObj.transform.parent = gameObject.transform;
@@ -619,11 +619,11 @@ public class SpawnMap : MonoBehaviour
             prevRiver = 0;
             river = river2;
         }
-        for (float x = -20; x <= 30; x = x + 2)
+        for (float x = -30; x <= 40; x = x + 2)
         {
             //Create rivers responsible for spawning logs first
 
-            if (x == -20)
+            if (x == -30)
             {
                 GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
                 riverObj.transform.parent = gameObject.transform;
@@ -633,7 +633,7 @@ public class SpawnMap : MonoBehaviour
                     riverObj.GetComponent<SpawnRiver>().canSpawn = true;
                 }
             }
-            else if (x == 30)
+            else if (x == 40)
             {
                 GameObject riverObj = Instantiate(river, new Vector3(x, 0, currentZ), Quaternion.identity);
                 riverObj.transform.parent = gameObject.transform;

@@ -134,7 +134,7 @@ public class CharacterMovement : MonoBehaviour
             if (Mathf.Abs(pointer_x) == 1f && canMoveHorizontal)
             {
                 canMoveHorizontal = false;
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 2, 0f, 0f), 0.2f, whatStopsMovement).Length == 0)
+                if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 1, 0f, 0f), 0.6f, whatStopsMovement).Length == 0)
                 {
                     if (pointer_x == -1f)
                     {
@@ -157,7 +157,7 @@ public class CharacterMovement : MonoBehaviour
             else if (Mathf.Abs(pointer_y) == 1f && canMoveVertical)
             {
                 canMoveVertical = false;
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 2), 0.2f, whatStopsMovement).Length == 0)
+                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 1), 0.3f, whatStopsMovement).Length == 0)
                 {
                     if (pointer_y == -1f)
                     {
