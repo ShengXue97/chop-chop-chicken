@@ -9,11 +9,13 @@ public class MusicController : MonoBehaviour
     public Sprite musicOff;
     public GameObject musicButton;
     public AudioSource audio;
+    public bool audioEnabled;
 
     // Start is called before the first frame update
     void Start()
     {
         audio = GetComponent<AudioSource>();
+        audioEnabled = true;
     }
 
     // Update is called once per frame
@@ -30,11 +32,13 @@ public class MusicController : MonoBehaviour
         {
             audio.Pause();
             musicButton.GetComponent<Image>().sprite = musicOff;
+            audioEnabled = false;
         }
         else
         {
             audio.Play();
             musicButton.GetComponent<Image>().sprite = musicOn;
+            audioEnabled = true;
         }
     }
 }
