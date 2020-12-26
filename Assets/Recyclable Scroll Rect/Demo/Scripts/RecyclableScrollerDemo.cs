@@ -62,7 +62,6 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
                 obj.Score = details[3];
 
                 obj.id = "";
-                Debug.Log(obj.Name);
                 _contactList.Add(obj);
             }
 
@@ -74,17 +73,20 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
             _contactList[i].id = "#" + (i + 1).ToString();
         }
 
+        GameObject LoadingLeaderboard = GameObject.FindGameObjectWithTag("LoadingLeaderboard");
+        if (LoadingLeaderboard != null)
+        {
+            Debug.Log(LoadingLeaderboard.name);
+            LoadingLeaderboard.SetActive(false);
+        }
+
         GameObject ScrollView = GameObject.FindGameObjectWithTag("ScrollView");
         if (ScrollView != null)
         {
             ScrollView.GetComponent<RecyclableScrollRect>().Start();
         }
 
-        GameObject LoadingLeaderboard = GameObject.FindGameObjectWithTag("LoadingLeaderboard");
-        if (LoadingLeaderboard != null)
-        {
-            LoadingLeaderboard.SetActive(false);
-        }
+
     }
 
     static int SortByScore(ContactInfo p1, ContactInfo p2)

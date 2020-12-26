@@ -99,6 +99,8 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator GetRequest()
     {
+        GameObject LeaderboardContent = GameObject.FindGameObjectWithTag("LeaderboardContent");
+        LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData("\"\"");
         string uri = "https://chop-chop-chicken.herokuapp.com/getusers";
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -116,7 +118,6 @@ public class AzureControl : MonoBehaviour
             {
                 Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
-                GameObject LeaderboardContent = GameObject.FindGameObjectWithTag("LeaderboardContent");
                 LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(data);
 
             }

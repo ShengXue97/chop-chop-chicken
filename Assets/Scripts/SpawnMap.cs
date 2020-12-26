@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SpawnMap : MonoBehaviour
 {
+
     public GameObject rain;
-    public TextMeshProUGUI feedbackText;
+    public TMP_InputField feedbackText;
     public GameObject player;
     public GameObject grass1;
     public GameObject grass2;
@@ -711,5 +712,7 @@ public class SpawnMap : MonoBehaviour
         int newNumber = Random.Range(0, includeList.Count);
         return includeList[newNumber];
     }
+
+
 }
 

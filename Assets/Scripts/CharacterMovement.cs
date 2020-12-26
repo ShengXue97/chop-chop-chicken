@@ -7,6 +7,7 @@ using TMPro;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public GameObject GameTip;
     public GameObject uploadingPanel;
     public GameObject FinishPanel;
     public UnityEngine.UI.Text FinishText;
@@ -259,6 +260,7 @@ public class CharacterMovement : MonoBehaviour
         GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
         string name = PlayerPrefs.GetString("myname");
         string email = PlayerPrefs.GetString("myemail");
+        randomTip();
 
         FinishPanel.SetActive(true);
         FinishText.text = "Uploaded Score! \nName: " + name + "\nEmail: " + email;
@@ -273,6 +275,20 @@ public class CharacterMovement : MonoBehaviour
     public void setEnded()
     {
         ended = false;
+    }
+
+    public void randomTip()
+    {
+        List<string> tips = new List<string>() {
+        "Did you know? Larger food give you more points!",
+        "Did you know? The tree types will change every 100 blocks!",
+        "Did you know? The cars and logs move faster every 100 blocks!",
+        "Did you know? The rain makes the cars slower and logs faster!",
+        "You were not chop-chop so you became chicken chop!",
+        };
+
+        int num = Random.Range(0, tips.Count);
+        GameTip.GetComponent<UnityEngine.UI.Text>().text = tips[num];
     }
 }
 

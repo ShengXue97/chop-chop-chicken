@@ -311,7 +311,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 4506bf6ca285b494ab0993e12703d5e6, type: 3}
     m_FontSize: 38
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 131
     m_Alignment: 3
@@ -1981,7 +1981,7 @@ RectTransform:
   m_AnchorMin: {x: 0.38258561, y: 0.80185187}
   m_AnchorMax: {x: 0.6174309, y: 0.9999999}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 92.73791, y: 0.000038262835}
+  m_SizeDelta: {x: 97.3583, y: 0.000038262835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781168188
 MonoBehaviour:
@@ -2488,19 +2488,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2105546188}
-        m_TargetAssemblyTypeName: LeaderboardController, Assembly-CSharp
-        m_MethodName: setEmail
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 156474112}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -4329,19 +4317,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2105546188}
-        m_TargetAssemblyTypeName: LeaderboardController, Assembly-CSharp
-        m_MethodName: setName
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1399005087}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -5611,6 +5587,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2105546189}
+        m_TargetAssemblyTypeName: AzureControl, Assembly-CSharp
+        m_MethodName: getLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1784686238
 GameObject:
   m_ObjectHideFlags: 0
@@ -6616,7 +6604,7 @@ RectTransform:
   m_AnchorMin: {x: 0.7945386, y: 0.59111536}
   m_AnchorMax: {x: 1.2054614, y: 1.4088846}
   m_AnchoredPosition: {x: -213.29, y: -79.108}
-  m_SizeDelta: {x: 22.236769, y: 0.000010657477}
+  m_SizeDelta: {x: 24.7059, y: 0.000010657477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2032922706
 MonoBehaviour:
@@ -6739,8 +6727,8 @@ MonoBehaviour:
   errorText: {fileID: 1963923178}
   name: 
   email: 
-  tempName: {fileID: 1399005087}
-  tempEmail: {fileID: 156474112}
+  tempName: {fileID: 1528351462}
+  tempEmail: {fileID: 935115211}
   highscore: 0
   welcomeText: {fileID: 287218932}
 --- !u!114 &2105546189
