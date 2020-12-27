@@ -42,7 +42,10 @@ public class GameController : MonoBehaviour
                 if (chance < 2)
                 {
                     currentRain = 1;
-                    GetComponent<SoundController>().playSound("rainSound");
+                    if (GetComponent<SoundController>() != null)
+                    {
+                        GetComponent<SoundController>().playSound("rainSound");
+                    }
                 }
             }
             else if (currentRain == 1 && Time.timeSinceLevelLoad >= currentTime + 20f)
@@ -53,7 +56,10 @@ public class GameController : MonoBehaviour
                 if (chance < 3)
                 {
                     currentRain = 0;
-                    GetComponent<SoundController>().stopSound("rainSound");
+                    if (GetComponent<SoundController>() != null)
+                    {
+                        GetComponent<SoundController>().playSound("rainSound");
+                    }
                 }
                 else
                 {

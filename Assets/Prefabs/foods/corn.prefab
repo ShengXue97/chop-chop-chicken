@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 6978410669180049339}
   - component: {fileID: 7445280292639125586}
   - component: {fileID: 7445280292639125581}
+  - component: {fileID: -2684970043212437802}
   m_Layer: 0
   m_Name: corn
   m_TagString: Untagged
@@ -144,3 +145,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.43464345, y: 0.4714259, z: 0.381837}
   m_Center: {x: -0.022434682, y: 0.16573936, z: 0.004479587}
+--- !u!114 &-2684970043212437802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7751709994029255937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f8240104d339348b9258691bf446b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 99

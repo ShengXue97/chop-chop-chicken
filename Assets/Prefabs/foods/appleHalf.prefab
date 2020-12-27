@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3683884375560947087}
   - component: {fileID: 3789058009478554210}
   - component: {fileID: 3789058009478554211}
+  - component: {fileID: -311591161372769516}
   m_Layer: 0
   m_Name: appleHalf
   m_TagString: Untagged
@@ -62,6 +63,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.13850442, y: 0.20265925, z: 0.23849511}
   m_Center: {x: -0.044869468, y: 0.07615048, z: 0.0044795275}
+--- !u!114 &-311591161372769516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058897746442870581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f8240104d339348b9258691bf446b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 99
 --- !u!1 &7470569463347108560
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7686658390576439944}
   - component: {fileID: 7865191957258618209}
   - component: {fileID: 7865191957258618214}
+  - component: {fileID: 2836305116654304967}
   m_Layer: 0
   m_Name: grapes
   m_TagString: Untagged
@@ -62,6 +63,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35387808, y: 0.5699736, z: 0.3370428}
   m_Center: {x: -0.000000029802322, y: 0.2150132, z: 0.017917871}
+--- !u!114 &2836305116654304967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7054800547091970098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f8240104d339348b9258691bf446b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 99
 --- !u!1 &7725906641503625632
 GameObject:
   m_ObjectHideFlags: 0
