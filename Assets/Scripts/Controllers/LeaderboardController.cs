@@ -40,7 +40,6 @@ public class LeaderboardController : MonoBehaviour
 
     public void updateDetails()
     {
-        Debug.Log(tempName.text.Length);
         if (tempName.text == "")
         {
             errorPanel.SetActive(true);

@@ -22,7 +22,6 @@ public class LogMovement : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log(other.name + " enter");
             playerOnLog = true;
             playerObj = other.gameObject;
         }
@@ -32,7 +31,6 @@ public class LogMovement : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log(other.name + " exit");
             playerOnLog = false;
             playerObj = null;
         }
@@ -48,12 +46,12 @@ public class LogMovement : MonoBehaviour
 
         float extraLogSpeed = Mathf.Min(15f, Mathf.FloorToInt((transform.position.z / 100)) * 1);
         float logSpeed = 5f + extraLogSpeed;
-        if (controller.GetComponent<SpawnMap>().currentRain == 1)
+        if (controller.GetComponent<GameController>().currentRain == 1)
         {
             //Log moves faster when it is raining
             logSpeed += 2f;
         }
-        else if (controller.GetComponent<SpawnMap>().currentRain == 2)
+        else if (controller.GetComponent<GameController>().currentRain == 2)
         {
             //Log moves faster when it is raining
             logSpeed += 4f;

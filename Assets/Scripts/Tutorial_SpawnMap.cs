@@ -4,11 +4,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class SpawnMap : MonoBehaviour
+public class Tutorial_SpawnMap : MonoBehaviour
 {
 
+    public UnityEngine.UI.Text HelpPanelText;
     public GameObject rain;
-    public TMP_InputField feedbackText;
     public GameObject player;
     public GameObject grass1;
     public GameObject grass2;
@@ -65,17 +65,11 @@ public class SpawnMap : MonoBehaviour
     private bool isTutorial;
 
     public GameController gameController;
+    public int currentTutorialStage;
     // Start is called before the first frame update
     void Start()
     {
-        if (!PlayerPrefs.HasKey("isTutorial") || PlayerPrefs.GetInt("isTutorial") == 0)
-        {
-            isTutorial = false;
-        }
-        else
-        {
-            isTutorial = true;
-        }
+        currentTutorialStage = 0;
 
         gameController = GetComponent<GameController>();
 
@@ -166,20 +160,30 @@ public class SpawnMap : MonoBehaviour
         {
             int blockType;
 
-            if (i <= 10)
+            if (i <= 30)
             {
                 //first 20 blocks
                 blockType = 0;
             }
-            else if (i <= 50)
+            else if (i <= 40)
             {
                 //next 30 blocks
-                blockType = Random.Range(0, 2);
+                blockType = 1;
+            }
+            else if (i <= 50)
+            {
+                //next 40 blocks
+                blockType = 0;
+            }
+            else if (i <= 60)
+            {
+                //next 40 blocks
+                blockType = 2;
             }
             else
             {
                 //next 40 blocks
-                blockType = Random.Range(0, 3);
+                blockType = 0;
             }
 
 
@@ -211,7 +215,7 @@ public class SpawnMap : MonoBehaviour
     void Update()
     {
         Scene scene = SceneManager.GetActiveScene();
-        if (scene.name != "MainGame")
+        if (scene.name != "TutorialGame")
         {
             return;
         }
@@ -222,9 +226,98 @@ public class SpawnMap : MonoBehaviour
         {
             spawnNextBatch();
         }
-        // Debug.Log(zPos + ";" + currentZ);
-        //Debug.Log(zPos);
+
+        float pointer_x = Input.GetAxisRaw("Horizontal");
+        float pointer_y = Input.GetAxisRaw("Vertical");
+
+        if (Mathf.Abs(pointer_x) != 0f || Mathf.Abs(pointer_y) != 0f)
+        {
+            if (currentTutorialStage == 0)
+            {
+                currentTutorialStage = 1;
+                HelpPanelText.text = "Good job! Now collect these fruits on the grass patches.";
+            }
+        }
+
     }
+
+    ////--------This region is for tutorial-related functions--------////
+    public void forceFood()
+    {
+        if (currentTutorialStage == 1)
+        {
+            HelpPanelText.text = "Collect the food on the grass patches to proceed.";
+        }
+    }
+
+    public void collectFood()
+    {
+        if (currentTutorialStage == 1)
+        {
+            currentTutorialStage = 2;
+            HelpPanelText.text = "Different food have different points, discover them as you explore. Continue going up.";
+        }
+    }
+
+    public void answerStage()
+    {
+        if (currentTutorialStage <= 2)
+        {
+            currentTutorialStage = 3;
+            HelpPanelText.text = "Cross the bridge with the correct answer.";
+        }
+    }
+
+    public void answerQuestion(bool answeredCorrectly)
+    {
+        if (currentTutorialStage <= 3)
+        {
+            currentTutorialStage = 4;
+            if (answeredCorrectly)
+            {
+                HelpPanelText.text = "That answer is correct. Now cross the roads and avoid the cars.";
+            }
+            else
+            {
+                HelpPanelText.text = "That answer is wrong. Now cross the roads and avoid the cars.";
+            }
+        }
+    }
+
+    public void exitRoad()
+    {
+        if (currentTutorialStage <= 4)
+        {
+            currentTutorialStage = 5;
+            HelpPanelText.text = "Great! You avoided all the cars. Cross the river by jumping on the moving logs.";
+        }
+    }
+
+    public void endMessage()
+    {
+        if (currentTutorialStage <= 5)
+        {
+            currentTutorialStage = 6;
+            HelpPanelText.text = "You have completed the tutorial successfully. Go to the next tile to begin the actual game!";
+        }
+    }
+
+    public void completeTutorial()
+    {
+        if (currentTutorialStage <= 6)
+        {
+            currentTutorialStage = 7;
+            HelpPanelText.text = "You have completed the tutorial successfully. Go to the next tile to begin the actual game!";
+            SceneManager.LoadScene("MainGame");
+        }
+    }
+
+    public void skipTutorial()
+    {
+        SceneManager.LoadScene("MainGame");
+    }
+
+    ////--------This region is for tutorial-related functions--------////
 
     void spawnNextBatch()
     {
@@ -486,7 +579,7 @@ public class SpawnMap : MonoBehaviour
                 }
                 else
                 {
-                    var shouldSpawnFood = Random.Range(0, 76);
+                    var shouldSpawnFood = Random.Range(0, 10);
                     if (shouldSpawnFood == 0)
                     {
                         GameObject food;
@@ -606,39 +699,6 @@ public class SpawnMap : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-    }
-
-    public void goHome()
-    {
-        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
-        Destroy(azureControl);
-
-        Scene scene = SceneManager.GetActiveScene();
-        string mainScene = "MainGame";
-        if (scene.name == mainScene)
-        {
-            SceneManager.LoadScene("HomeScreen");
-        }
-
-    }
-
-    public void getLeaderboard()
-    {
-        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
-        azureControl.GetComponent<AzureControl>().getLeaderboard();
-    }
-
-    public void sendFeedback()
-    {
-        if (feedbackText.text != "")
-        {
-            GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
-            string name = PlayerPrefs.GetString("myname");
-            string email = PlayerPrefs.GetString("myemail");
-
-            azureControl.GetComponent<AzureControl>().callFeddback(name, email, feedbackText.text);
-            feedbackText.text = "";
-        }
     }
 
     public static int random_except_list(int n, List<int> x)

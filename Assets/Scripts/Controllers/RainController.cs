@@ -23,19 +23,19 @@ public class RainController : MonoBehaviour
         Vector3 newPos = player.transform.position;
         newPos.y -= 15f;
         gameObject.transform.position = newPos;
-        if (controller.GetComponent<SpawnMap>().currentRain == 0)
+        if (controller.GetComponent<GameController>().currentRain == 0)
         {
             transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
             transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
             currentRain = 0;
         }
-        else if (controller.GetComponent<SpawnMap>().currentRain == 1)
+        else if (controller.GetComponent<GameController>().currentRain == 1)
         {
             transform.GetChild(0).GetComponent<ParticleSystem>().Play();
             transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
             currentRain = 1;
         }
-        else if (controller.GetComponent<SpawnMap>().currentRain == 2)
+        else if (controller.GetComponent<GameController>().currentRain == 2)
         {
             transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
             transform.GetChild(1).GetComponent<ParticleSystem>().Play();

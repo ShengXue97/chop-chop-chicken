@@ -24,12 +24,12 @@ public class VehicleMovement : MonoBehaviour
 
         float extraVehicleSpeed = Mathf.Min(15f, Mathf.FloorToInt((transform.position.z / 100)) * 1);
         float vehicleSpeed = 10f + extraVehicleSpeed;
-        if (controller.GetComponent<SpawnMap>().currentRain == 1)
+        if (controller.GetComponent<GameController>().currentRain == 1)
         {
             //vehicle moves slower when it is raining
             vehicleSpeed -= 2f;
         }
-        else if (controller.GetComponent<SpawnMap>().currentRain == 2)
+        else if (controller.GetComponent<GameController>().currentRain == 2)
         {
             //vehicle moves slower when it is raining
             vehicleSpeed -= 4f;

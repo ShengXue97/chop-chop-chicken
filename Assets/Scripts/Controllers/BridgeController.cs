@@ -10,7 +10,7 @@ public class BridgeController : MonoBehaviour
     public string currentQuestion;
     public bool changedColor;
 
-    public SpawnMap spawnMap;
+    public GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +23,10 @@ public class BridgeController : MonoBehaviour
     {
         if (!changedColor)
         {
-            spawnMap = controller.GetComponent<SpawnMap>();
-            if (spawnMap.userAnswers.ContainsKey(currentQuestion))
+            gameController = controller.GetComponent<GameController>();
+            if (gameController.userAnswers.ContainsKey(currentQuestion))
             {
                 changedColor = true;
-                //spawnMap.userAnswers[currentQuestion] contains whether user answer correctly
                 if (containsCorrectAnswer)
                 {
                     Color correctColor = new Color(1f, 0.604f, 0.157f, 1f);
@@ -46,22 +45,30 @@ public class BridgeController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            spawnMap = controller.GetComponent<SpawnMap>();
-            if (!spawnMap.userAnswers.ContainsKey(currentQuestion))
+            gameController = controller.GetComponent<GameController>();
+            if (!gameController.userAnswers.ContainsKey(currentQuestion))
             {
                 playerObj = other.gameObject;
                 if (containsCorrectAnswer)
                 {
                     playerObj.GetComponent<CharacterMovement>().changeScore(50);
-                    spawnMap.userAnswers.Add(currentQuestion, true);
+                    gameController.userAnswers.Add(currentQuestion, true);
+
+
                 }
                 else
                 {
                     playerObj.GetComponent<CharacterMovement>().changeScore(-30);
-                    spawnMap.userAnswers.Add(currentQuestion, false);
+                    gameController.userAnswers.Add(currentQuestion, false);
+                }
+
+                if (controller.GetComponent<Tutorial_SpawnMap>() != null)
+                {
+                    controller.GetComponent<Tutorial_SpawnMap>().answerQuestion(containsCorrectAnswer);
                 }
 
             }
+
 
         }
     }

@@ -51,6 +51,11 @@ public class AzureControl : MonoBehaviour
         if (!PlayerPrefs.HasKey("myname") && !PlayerPrefs.HasKey("myemail"))
         {
             MyProfile.SetActive(true);
+            Camera.main.GetComponent<StartGame>().isTutorial = true;
+        }
+        else
+        {
+            Camera.main.GetComponent<StartGame>().isTutorial = false;
         }
         getLeaderboard();
 
@@ -77,6 +82,10 @@ public class AzureControl : MonoBehaviour
                 {
                     SceneManager.LoadScene("MainGame");
                 }
+            }
+            else if (scene.name == "TutorialGame")
+            {
+                SceneManager.LoadScene("TutorialGame");
             }
         }
     }
@@ -118,7 +127,10 @@ public class AzureControl : MonoBehaviour
             {
                 Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
-                LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(data);
+                if (LeaderboardContent.GetComponent<RecyclableScrollerDemo>() != null)
+                {
+                    LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(data);
+                }
 
             }
         }

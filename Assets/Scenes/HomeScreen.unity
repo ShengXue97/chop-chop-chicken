@@ -1661,7 +1661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030304372, y: 0.46370795}
   m_AnchorMax: {x: 0.19187734, y: 0.56389165}
-  m_AnchoredPosition: {x: 13.099976, y: -81.85901}
+  m_AnchoredPosition: {x: 13.100098, y: -81.85901}
   m_SizeDelta: {x: 81.376434, y: 0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739369910
@@ -4565,6 +4565,7 @@ GameObject:
   - component: {fileID: 1581862619}
   - component: {fileID: 1581862618}
   - component: {fileID: 1581862620}
+  - component: {fileID: 1581862621}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Controller
@@ -4736,7 +4737,7 @@ MonoBehaviour:
   - {fileID: 58207524314579328, guid: 0c80a54d6cbbdec41a790d99fdc3a22f, type: 3}
   - {fileID: 1257677114301985425, guid: f02bf6f7b49082e438547c10b7fbf58c, type: 3}
   excludeList: 
-  currentRain: 0
+  gameController: {fileID: 0}
 --- !u!4 &1581862619
 Transform:
   m_ObjectHideFlags: 0
@@ -4847,6 +4848,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1581862621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581862617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8391bca2a19fab142beea1146b1f7e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRain: 0
 --- !u!1 &1651682886
 GameObject:
   m_ObjectHideFlags: 0
@@ -5384,7 +5398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030304372, y: 0.46370795}
   m_AnchorMax: {x: 0.19187734, y: 0.56389165}
-  m_AnchoredPosition: {x: 13.099976, y: -380.72}
+  m_AnchoredPosition: {x: 13.100098, y: -380.72}
   m_SizeDelta: {x: 81.376434, y: 0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1739562934
@@ -6507,7 +6521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030304313, y: 0.36352935}
   m_AnchorMax: {x: 0.19187734, y: 0.46371296}
-  m_AnchoredPosition: {x: 13.099976, y: -167.83936}
+  m_AnchoredPosition: {x: 13.0998535, y: -167.83936}
   m_SizeDelta: {x: 81.376495, y: 0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009130662
@@ -6860,6 +6874,7 @@ MonoBehaviour:
   musicOff: {fileID: 21300000, guid: d94dc6f9c03f32a409729e341f828bbe, type: 3}
   musicButton: {fileID: 715435955}
   audio: {fileID: 0}
+  audioEnabled: 0
 --- !u!1 &2108239176
 GameObject:
   m_ObjectHideFlags: 0

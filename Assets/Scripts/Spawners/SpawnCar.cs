@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class SpawnCar : MonoBehaviour
 {
     [SerializeField]
@@ -19,7 +19,17 @@ public class SpawnCar : MonoBehaviour
     void Update()
     {
         //var spawnTimer = Mathf.FloorToInt(Random.Range(0, 2f + Mathf.Max(0, (10f - transform.position.z / 200))));
-        var shouldSpawn = Random.Range(0, 50);
+        var shouldSpawn = 1;
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "MainGame")
+        {
+            shouldSpawn = Random.Range(0, 50);
+        }
+        else
+        {
+            shouldSpawn = Random.Range(0, 150);
+        }
+
         var carType = Random.Range(0, 2);
         //1/3 probability every frame of spawning a car
         if (shouldSpawn == 0 && Time.timeSinceLevelLoad >= currentTime + 1.2f)

@@ -97,6 +97,38 @@ public class CharacterMovement : MonoBehaviour
 
         }
 
+        Tutorial_SpawnMap Tutorial_SpawnMap = controller.GetComponent<Tutorial_SpawnMap>();
+        if (Tutorial_SpawnMap != null)
+        {
+            if (transform.position.z > 40)
+            {
+                if (Tutorial_SpawnMap.currentTutorialStage == 1)
+                {
+                    Tutorial_SpawnMap.forceFood();
+                    if (pointer_y > 0f)
+                    {
+                        pointer_y = 0f;
+                    }
+                }
+                else
+                {
+                    Tutorial_SpawnMap.answerStage();
+                }
+            }
+            if (transform.position.z > 82)
+            {
+                Tutorial_SpawnMap.exitRoad();
+            }
+            if (transform.position.z > 122)
+            {
+                Tutorial_SpawnMap.endMessage();
+            }
+            if (transform.position.z > 124)
+            {
+                Tutorial_SpawnMap.completeTutorial();
+            }
+        }
+
         if (Mathf.Abs(pointer_x) == 0f)
         {
             //Prevents holding down arrow keys to move, must release
@@ -207,6 +239,11 @@ public class CharacterMovement : MonoBehaviour
             score += (int)foods[other.name];
             Destroy(other.gameObject);
             controller.GetComponent<SoundController>().playSound("itemSound");
+
+            if (controller.GetComponent<Tutorial_SpawnMap>() != null)
+            {
+                controller.GetComponent<Tutorial_SpawnMap>().collectFood();
+            }
         }
 
         else if (other.tag == "Snail")
@@ -257,19 +294,26 @@ public class CharacterMovement : MonoBehaviour
         }
 
         ended = true;
-        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
-        string name = PlayerPrefs.GetString("myname");
-        string email = PlayerPrefs.GetString("myemail");
-        randomTip();
+
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name != "TutorialGame")
+        {
+            randomTip();
+            GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
+            string name = PlayerPrefs.GetString("myname");
+            string email = PlayerPrefs.GetString("myemail");
+
+            FinishText.text = "Uploaded Score! \nName: " + name + "\nEmail: " + email;
+            ScoreDetails.text = score.ToString();
+
+            if (azureControl != null)
+            {
+                azureControl.GetComponent<AzureControl>().callUpdate(name, email, score);
+            }
+        }
+
 
         FinishPanel.SetActive(true);
-        FinishText.text = "Uploaded Score! \nName: " + name + "\nEmail: " + email;
-        ScoreDetails.text = score.ToString();
-
-        if (azureControl != null)
-        {
-            azureControl.GetComponent<AzureControl>().callUpdate(name, email, score);
-        }
     }
 
     public void setEnded()
@@ -288,7 +332,11 @@ public class CharacterMovement : MonoBehaviour
         };
 
         int num = Random.Range(0, tips.Count);
-        GameTip.GetComponent<UnityEngine.UI.Text>().text = tips[num];
+
+        if (GameTip != null)
+        {
+            GameTip.GetComponent<UnityEngine.UI.Text>().text = tips[num];
+        }
     }
 }
 
