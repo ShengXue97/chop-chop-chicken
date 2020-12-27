@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Meshtint Free City Lite Pack Mega Toon/Scenes/HomeScreen.unity
+    path: Assets/Scenes/HomeScreen.unity
     guid: e065a37488940fa48af4efaf7741bb86
   - enabled: 1
-    path: Assets/Meshtint Free City Lite Pack Mega Toon/Scenes/MainGame.unity
+    path: Assets/Scenes/MainGame.unity
     guid: e9740fed4c3ad174da46b45b085d71ac
   - enabled: 0
     path: 
