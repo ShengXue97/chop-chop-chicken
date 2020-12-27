@@ -65,9 +65,19 @@ public class SpawnMap : MonoBehaviour
 
     public int currentRain;
     private float currentTime = -999999f;
+    private bool isTutorial;
     // Start is called before the first frame update
     void Start()
     {
+        if (!PlayerPrefs.HasKey("isTutorial") || PlayerPrefs.GetInt("isTutorial") == 0)
+        {
+            isTutorial = false;
+        }
+        else
+        {
+            isTutorial = true;
+        }
+
         int chance = Random.Range(0, 10);
         if (chance < 3)
         {
@@ -170,20 +180,46 @@ public class SpawnMap : MonoBehaviour
         {
             int blockType;
 
-            if (i <= 10)
+            if (isTutorial)
             {
-                //first 20 blocks
-                blockType = 0;
-            }
-            else if (i <= 50)
-            {
-                //next 30 blocks
-                blockType = Random.Range(0, 2);
+                if (i <= 10)
+                {
+                    //first 20 blocks
+                    blockType = 0;
+                }
+                else if (i <= 15)
+                {
+                    //next 30 blocks
+                    blockType = 1;
+                }
+                else if (i <= 20)
+                {
+                    //next 40 blocks
+                    blockType = 2;
+                }
+                else
+                {
+                    //next 40 blocks
+                    blockType = Random.Range(0, 3);
+                }
             }
             else
             {
-                //next 40 blocks
-                blockType = Random.Range(0, 3);
+                if (i <= 10)
+                {
+                    //first 20 blocks
+                    blockType = 0;
+                }
+                else if (i <= 50)
+                {
+                    //next 30 blocks
+                    blockType = Random.Range(0, 2);
+                }
+                else
+                {
+                    //next 40 blocks
+                    blockType = Random.Range(0, 3);
+                }
             }
 
             //Populates map list with predefined blocks
