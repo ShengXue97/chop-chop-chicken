@@ -8,6 +8,7 @@ public class SpawnFood : MonoBehaviour
     public bool spawnRight;
     public GameObject snail;
     private float currentTime = -999999f;
+    public bool canSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,10 @@ public class SpawnFood : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canSpawn)
+        {
+            return;
+        }
         // var shouldSpawn = Random.Range(0, 999);
         var shouldSpawn = 1;
 

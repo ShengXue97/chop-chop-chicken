@@ -175,7 +175,7 @@ public class Tutorial_SpawnMap : MonoBehaviour
                 //next 40 blocks
                 blockType = 0;
             }
-            else if (i <= 60)
+            else if (i <= 52)
             {
                 //next 40 blocks
                 blockType = 2;

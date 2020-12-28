@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3789058009478554210}
   - component: {fileID: 3789058009478554211}
   - component: {fileID: -311591161372769516}
+  - component: {fileID: -6775915839117550621}
   m_Layer: 0
   m_Name: appleHalf
   m_TagString: Untagged
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 99
+--- !u!114 &-6775915839117550621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058897746442870581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca63f92c9c07fdc4ca50dd445ca2c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7470569463347108560
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6962550093722454289}
   - component: {fileID: 6962550093722454290}
   - component: {fileID: 7215693695991713312}
+  - component: {fileID: 4174149785010720011}
   m_Layer: 0
   m_Name: strawberry
   m_TagString: Untagged
@@ -159,3 +160,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 99
+--- !u!114 &4174149785010720011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808850027865814142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca63f92c9c07fdc4ca50dd445ca2c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4583673582174825557}
   - component: {fileID: 4583673582174825556}
   - component: {fileID: 4408190426173503874}
+  - component: {fileID: 7243760464732842091}
   m_Layer: 0
   m_Name: egg
   m_TagString: Untagged
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 99
+--- !u!114 &7243760464732842091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701135391899930886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca63f92c9c07fdc4ca50dd445ca2c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3725818517680561225
 GameObject:
   m_ObjectHideFlags: 0

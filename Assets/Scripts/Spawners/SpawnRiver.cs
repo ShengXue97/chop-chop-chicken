@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnRiver : MonoBehaviour
 {
+    GameObject player;
     [SerializeField]
     public bool canSpawn = false;
     public bool spawnRight;
@@ -16,6 +17,7 @@ public class SpawnRiver : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         anim = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -30,10 +32,18 @@ public class SpawnRiver : MonoBehaviour
             anim.enabled = false;
         }
 
+        int zPos = player.GetComponent<CharacterMovement>().zPos;
+
+        if (Mathf.Abs(player.transform.position.z - transform.position.z) > 30f)
+        {
+            return;
+        }
+
         if (!canSpawn)
         {
             return;
         }
+        Debug.Log(spawnRight);
 
         var shouldSpawn = Random.Range(0, 4);
         var logType = Random.Range(0, 2);

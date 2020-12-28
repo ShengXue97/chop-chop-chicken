@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 1306261502814602161}
   - component: {fileID: 1306261502814602162}
   - component: {fileID: -5914187181828820650}
+  - component: {fileID: -737842584596557336}
   m_Layer: 0
   m_Name: orange
   m_TagString: Untagged
@@ -158,3 +159,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 99
+--- !u!114 &-737842584596557336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225249062968721126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca63f92c9c07fdc4ca50dd445ca2c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

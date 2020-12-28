@@ -16,7 +16,7 @@ public class CameraMovement : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         if (shouldMove)
         {
-            cameraMovementSpeed = 2f;
+            cameraMovementSpeed = 3.5f;
         }
     }
 
@@ -28,12 +28,12 @@ public class CameraMovement : MonoBehaviour
             return;
         }
 
-        if (playerObj.transform.position.z - 30.5 >= gameObject.transform.position.z)
+        if (playerObj.transform.position.z - 50.5 >= gameObject.transform.position.z)
         {
             //Only follow player if the player is not moving backwards
             Vector3 newPos = gameObject.transform.position;
             //Camera should be 30f z behind player.
-            newPos.z = playerObj.transform.position.z - 30f;
+            newPos.z = playerObj.transform.position.z - 50f;
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, newPos, Time.deltaTime);
         }
         else

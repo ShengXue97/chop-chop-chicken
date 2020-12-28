@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2631955710316998357}
   - component: {fileID: 2631955710316998358}
   - component: {fileID: -150377666054429570}
+  - component: {fileID: -3718346524486152318}
   m_Layer: 0
   m_Name: cherries
   m_TagString: Untagged
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 99
+--- !u!114 &-3718346524486152318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902565664840242050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca63f92c9c07fdc4ca50dd445ca2c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7824029008639701629
 GameObject:
   m_ObjectHideFlags: 0

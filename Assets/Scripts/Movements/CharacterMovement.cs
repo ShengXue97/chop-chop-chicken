@@ -21,9 +21,9 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask logLayer;
     public float moveSpeed = 20f;
     [SerializeField]
-    public TextMeshProUGUI scoreText;
+    public UnityEngine.UI.Text scoreText;
     [SerializeField]
-    public TextMeshProUGUI maxScoreText;
+    public UnityEngine.UI.Text maxScoreText;
     private MeshRenderer meshRenderer;
 
     private Hashtable foods;
@@ -48,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
         if (PlayerPrefs.HasKey("highscore"))
         {
             highscore = PlayerPrefs.GetInt("highscore");
-            maxScoreText.text = "Top: " + highscore;
+            maxScoreText.text = "Your top: " + highscore;
         }
 
         foods = new Hashtable();
@@ -208,7 +208,7 @@ public class CharacterMovement : MonoBehaviour
                             {
                                 PlayerPrefs.SetInt("highscore", score);
                                 highscore = score;
-                                maxScoreText.text = "Top: " + score;
+                                maxScoreText.text = "Your top: " + score;
                             }
                         }
                         gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -259,7 +259,7 @@ public class CharacterMovement : MonoBehaviour
         {
             PlayerPrefs.SetInt("highscore", score);
             highscore = score;
-            maxScoreText.text = "Top: " + score;
+            maxScoreText.text = "Your top: " + score;
         }
 
     }
@@ -282,7 +282,7 @@ public class CharacterMovement : MonoBehaviour
         {
             PlayerPrefs.SetInt("highscore", score);
             highscore = score;
-            maxScoreText.text = "Top: " + score;
+            maxScoreText.text = "Your top: " + score;
         }
     }
 

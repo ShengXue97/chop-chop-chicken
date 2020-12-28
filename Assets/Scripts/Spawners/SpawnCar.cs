@@ -4,26 +4,40 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SpawnCar : MonoBehaviour
 {
+    GameObject player;
+    public bool canSpawn;
     [SerializeField]
     public bool spawnRight;
     public GameObject car1;
     public GameObject car2;
     private float currentTime = -999999f;
     private MeshRenderer meshRenderer;
+    public bool isVisible;
     // Start is called before the first frame update
     void Start()
     {
+        meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Mathf.Abs(player.transform.position.z - transform.position.z) > 30f)
+        {
+            return;
+        }
+
+        if (!canSpawn)
+        {
+            return;
+        }
         //var spawnTimer = Mathf.FloorToInt(Random.Range(0, 2f + Mathf.Max(0, (10f - transform.position.z / 200))));
         var shouldSpawn = 1;
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "MainGame")
         {
-            shouldSpawn = Random.Range(0, 50);
+            shouldSpawn = Random.Range(0, 100);
         }
         else
         {

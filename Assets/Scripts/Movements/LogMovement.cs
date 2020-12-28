@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LogMovement : MonoBehaviour
 {
+    GameObject player;
     public bool movingRight;
     public LayerMask playerLayer;
     public GameObject playerObj;
@@ -16,6 +17,7 @@ public class LogMovement : MonoBehaviour
         controller = GameObject.FindGameObjectWithTag("Controller");
         playerOnLog = false;
         MovePoint = GameObject.FindGameObjectWithTag("MovePoint");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void OnTriggerEnter(Collider other)
@@ -45,7 +47,7 @@ public class LogMovement : MonoBehaviour
         }
 
         float extraLogSpeed = Mathf.Min(15f, Mathf.FloorToInt((transform.position.z / 100)) * 1);
-        float logSpeed = 5f + extraLogSpeed;
+        float logSpeed = 3.5f + extraLogSpeed;
         if (controller.GetComponent<GameController>().currentRain == 1)
         {
             //Log moves faster when it is raining

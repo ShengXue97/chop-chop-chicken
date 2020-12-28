@@ -78,14 +78,19 @@ public class AzureControl : MonoBehaviour
             else if (scene.name == "MainGame")
             {
                 GameObject CommentPanel = GameObject.FindGameObjectWithTag("CommentPanel");
-                if (CommentPanel == null)
+                GameObject FinishPanel = GameObject.FindGameObjectWithTag("FinishPanel");
+                if (CommentPanel == null && FinishPanel != null && FinishPanel.activeSelf)
                 {
                     SceneManager.LoadScene("MainGame");
                 }
             }
             else if (scene.name == "TutorialGame")
             {
-                SceneManager.LoadScene("TutorialGame");
+                GameObject FinishPanel = GameObject.FindGameObjectWithTag("FinishPanel");
+                if (FinishPanel != null)
+                {
+                    SceneManager.LoadScene("TutorialGame");
+                }
             }
         }
     }

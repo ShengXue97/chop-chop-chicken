@@ -14,8 +14,7 @@ public class AutoDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int zPos = player.GetComponent<CharacterMovement>().zPos;
-        if (zPos > transform.position.z + 10f)
+        if (player.transform.position.z > transform.position.z + 50f)
         {
             //Destroy tile if player passed it by 20f z 
             Destroy(gameObject);
