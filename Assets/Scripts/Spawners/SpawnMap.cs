@@ -39,7 +39,6 @@ public class SpawnMap : MonoBehaviour
     public GameObject pineapple;
     public GameObject pumpkin;
     public GameObject strawberry;
-    public GameObject watermelon;
     public List<GameObject> foods;
 
 
@@ -56,7 +55,7 @@ public class SpawnMap : MonoBehaviour
 
     public List<string> answer2List;
 
-    public List<int> correctList;
+    public List<string> correctList;
 
     public List<GameObject> decorations = new List<GameObject>();
 
@@ -65,6 +64,8 @@ public class SpawnMap : MonoBehaviour
     private bool isTutorial;
 
     public GameController gameController;
+
+    GameObject persistent;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,14 +79,14 @@ public class SpawnMap : MonoBehaviour
         }
 
         gameController = GetComponent<GameController>();
-
+        persistent = GameObject.FindGameObjectWithTag("Persistent");
 
 
         foods = new List<GameObject>()
         { apple, appleHalf, banana, beet,
           carrot, cauliflower, cherries, coconutHalf,
           corn, egg, eggHalf, grapes, pepper,
-          pineapple, pumpkin, strawberry, watermelon
+          pineapple, pumpkin, strawberry
         };
 
 
@@ -158,7 +159,17 @@ public class SpawnMap : MonoBehaviour
         "ALCA"
         };
 
-        correctList = new List<int>() { 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 1, 1 };
+        correctList = new List<string>() { "1", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "1", "1", "2", "2", "1", "1" };
+
+
+        if (persistent.GetComponent<AzureControl>().correctList.Count > 0)
+        {
+            questionList = persistent.GetComponent<AzureControl>().questionList;
+            answer1List = persistent.GetComponent<AzureControl>().answer1List;
+            answer2List = persistent.GetComponent<AzureControl>().answer2List;
+            correctList = persistent.GetComponent<AzureControl>().correctList;
+        }
+
 
         currentZ = 0f;
         currentRow = 0;
@@ -316,7 +327,6 @@ public class SpawnMap : MonoBehaviour
                     if (x == -30)
                     {
                         currentQuestion = random_except_list(questionList.Count, excludeList);
-                        excludeList.Add(currentQuestion);
                     }
                     //Spawn questions every 30 tiles
                     GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
@@ -347,7 +357,7 @@ public class SpawnMap : MonoBehaviour
                             GameObject bridgeObj = Instantiate(bridge, new Vector3(x, -0.5f, currentZ), Quaternion.identity);
                             bridgeObj.transform.SetParent(gameObject.transform);
                             bridgeObj.GetComponent<BridgeController>().currentQuestion = questionList[currentQuestion];
-                            if (correctList[currentQuestion] == 1)
+                            if (correctList[currentQuestion] == "1")
                             {
                                 bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = true;
                             }
@@ -362,7 +372,7 @@ public class SpawnMap : MonoBehaviour
                             GameObject bridgeObj = Instantiate(bridge, new Vector3(x, -0.5f, currentZ), Quaternion.identity);
                             bridgeObj.transform.SetParent(gameObject.transform);
                             bridgeObj.GetComponent<BridgeController>().currentQuestion = questionList[currentQuestion];
-                            if (correctList[currentQuestion] == 2)
+                            if (correctList[currentQuestion] == "2")
                             {
                                 bridgeObj.GetComponent<BridgeController>().containsCorrectAnswer = true;
                             }
@@ -379,13 +389,10 @@ public class SpawnMap : MonoBehaviour
                             riverObj.GetComponent<SpawnRiver>().canSpawn = false;
                         }
 
-                        if ((currentZ / 2) % 30 == 0 && x == 30 && questionList.Count > 1)
+                        if ((currentZ / 2) % 30 == 0 && x == 38)
                         {
                             //Move on to next question on the last block
-                            // questionList.Remove(questionList[currentQuestion]);
-                            // answer1List.Remove(answer1List[currentQuestion]);
-                            // answer2List.Remove(answer2List[currentQuestion]);
-                            // correctList.Remove(correctList[currentQuestion]);
+                            excludeList.Add(currentQuestion);
                         }
 
                         if ((currentZ / 2) % 30 == 0 && x == -30)
@@ -642,8 +649,7 @@ public class SpawnMap : MonoBehaviour
 
     public void goHome()
     {
-        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
-        Destroy(azureControl);
+        Destroy(persistent);
 
         Scene scene = SceneManager.GetActiveScene();
         string mainScene = "MainGame";
@@ -656,19 +662,17 @@ public class SpawnMap : MonoBehaviour
 
     public void getLeaderboard()
     {
-        GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
-        azureControl.GetComponent<AzureControl>().getLeaderboard();
+        persistent.GetComponent<AzureControl>().getLeaderboard();
     }
 
     public void sendFeedback()
     {
         if (feedbackText.text != "")
         {
-            GameObject azureControl = GameObject.FindGameObjectWithTag("Persistent");
             string name = PlayerPrefs.GetString("myname");
             string email = PlayerPrefs.GetString("myemail");
 
-            azureControl.GetComponent<AzureControl>().callFeddback(name, email, feedbackText.text);
+            persistent.GetComponent<AzureControl>().callFeddback(name, email, feedbackText.text);
             feedbackText.text = "";
         }
     }
@@ -683,6 +687,7 @@ public class SpawnMap : MonoBehaviour
                 includeList.Add(i);
             }
         }
+
 
         if (includeList.Count == 0)
         {

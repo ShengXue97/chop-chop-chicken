@@ -43,7 +43,6 @@ public class SpawnRiver : MonoBehaviour
         {
             return;
         }
-        Debug.Log(spawnRight);
 
         var shouldSpawn = Random.Range(0, 4);
         var logType = Random.Range(0, 2);

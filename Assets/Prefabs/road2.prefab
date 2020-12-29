@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82944d0d097e00c4c95a72f937765a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSpawn: 0
   spawnRight: 0
-  car1: {fileID: 8579966274384277236, guid: a58b8a64b0d167d418650670ce6a0e67, type: 3}
-  car2: {fileID: 6958194751533685499, guid: c770f37dbe977fe49bf48fe11f9f14d0, type: 3}
+  car1: {fileID: 992249566077723017, guid: 1227799e40267224286b9fe752d2adb2, type: 3}
+  car2: {fileID: 4723452857851034017, guid: a58b8a64b0d167d418650670ce6a0e67, type: 3}
+  isVisible: 0
 --- !u!114 &-2627711759333397356
 MonoBehaviour:
   m_ObjectHideFlags: 0

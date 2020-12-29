@@ -32,13 +32,26 @@ public class BypassCertificate : CertificateHandler
 
 public class AzureControl : MonoBehaviour
 {
+    public GameObject loading;
+    public UnityEngine.UI.Text loadingText;
+    public GameObject play;
     public string path;
     public CloudStorageAccount StorageAccount;
     public string value;
     public string result = "";
     private List<PlayerInfo> _playerList = new List<PlayerInfo>();
     public GameObject MyProfile;
+    public UnityEngine.UI.Text profileText1;
+    public UnityEngine.UI.Text profileText2;
     public GameObject VerticalCell;
+
+    public List<string> questionList = new List<string>();
+
+    public List<string> answer1List = new List<string>();
+
+    public List<string> answer2List = new List<string>();
+
+    public List<string> correctList = new List<string>();
     // Use this for initialization
     void Start()
     {
@@ -58,6 +71,8 @@ public class AzureControl : MonoBehaviour
             Camera.main.GetComponent<StartGame>().isTutorial = false;
         }
         getLeaderboard();
+        callProfileText();
+        callQuestions();
 
     }
 
@@ -100,6 +115,16 @@ public class AzureControl : MonoBehaviour
         StartCoroutine(GetRequest());
     }
 
+    public void callProfileText()
+    {
+        StartCoroutine(GetProfileText());
+    }
+
+    public void callQuestions()
+    {
+        StartCoroutine(GetQuestions());
+    }
+
     public void callUpdate(string name, string email, int score)
     {
         StartCoroutine(UpdateRequest(name, email, score));
@@ -110,7 +135,96 @@ public class AzureControl : MonoBehaviour
         StartCoroutine(UpdateFeedback(name, email, feedback));
     }
 
+    IEnumerator GetQuestions()
+    {
+        string uri = "https://chop-chop-chicken.herokuapp.com/getquestions";
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            webRequest.certificateHandler = new BypassCertificate();
 
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log("aError: " + webRequest.error);
+                Debug.Log("tReceived: " + webRequest.downloadHandler.text);
+                loadingText.text = "Error occured. Please refresh.";
+            }
+            else
+            {
+                // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
+                string data = webRequest.downloadHandler.text;
+                data = data.Substring(1, data.Length - 3);
+                string[] dataSplit = data.Split('|');
+                for (int i = 0; i < dataSplit.Length; i++)
+                {
+                    string[] detailSplit = dataSplit[i].Split(';');
+                    for (int j = 0; j < detailSplit.Length; j++)
+                    {
+                        string detail = detailSplit[j];
+                        Debug.Log(j + ";" + detail);
+                        if (j == 0)
+                        {
+                            //question list
+                            questionList.Add(detail);
+                        }
+                        else if (j == 1)
+                        {
+                            //question list
+                            answer1List.Add(detail);
+                        }
+                        else if (j == 2)
+                        {
+                            //question list
+                            answer2List.Add(detail);
+                        }
+                        else if (j == 3)
+                        {
+                            //question list
+                            correctList.Add(detail);
+                        }
+
+                    }
+                }
+
+                loading.SetActive(false);
+                play.SetActive(true);
+
+            }
+        }
+    }
+
+    IEnumerator GetProfileText()
+    {
+        string uri = "https://chop-chop-chicken.herokuapp.com/getprofile";
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            webRequest.certificateHandler = new BypassCertificate();
+
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log("aError: " + webRequest.error);
+                Debug.Log("tReceived: " + webRequest.downloadHandler.text);
+            }
+            else
+            {
+                // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
+                string data = webRequest.downloadHandler.text;
+                data = data.Substring(1, data.Length - 3);
+                string[] profileSplit = data.Split(';');
+                if (profileText1 != null && profileText2 != null)
+                {
+                    profileText1.text = profileSplit[0];
+                    profileText2.text = profileSplit[1];
+                }
+
+            }
+        }
+    }
     IEnumerator GetRequest()
     {
         GameObject LeaderboardContent = GameObject.FindGameObjectWithTag("LeaderboardContent");
@@ -130,9 +244,9 @@ public class AzureControl : MonoBehaviour
             }
             else
             {
-                Debug.Log("aReceived: " + webRequest.downloadHandler.text);
+                // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
-                if (LeaderboardContent.GetComponent<RecyclableScrollerDemo>() != null)
+                if (LeaderboardContent != null)
                 {
                     LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(data);
                 }

@@ -11,12 +11,13 @@ public class StartGame : MonoBehaviour
     {
         if (isTutorial)
         {
-            SceneManager.LoadScene("TutorialGame");
+            //SceneManager.LoadScene("TutorialGame");
         }
         else
         {
-            SceneManager.LoadScene("MainGame");
+            //SceneManager.LoadScene("MainGame");
         }
+        SceneManager.LoadScene("MainGame");
     }
 
 }

@@ -34,23 +34,23 @@ public class SoundController : MonoBehaviour
 
             if (soundType == "itemSound")
             {
-                audio.PlayOneShot(itemSound);
+                audio.PlayOneShot(itemSound, 0.5f);
             }
             else if (soundType == "answerCorrect")
             {
-                audio.PlayOneShot(answerCorrect);
+                audio.PlayOneShot(answerCorrect, 0.5f);
             }
             else if (soundType == "answerWrong")
             {
-                audio.PlayOneShot(answerWrong);
+                audio.PlayOneShot(answerWrong, 0.5f);
             }
             else if (soundType == "rainSound")
             {
-                audio.PlayOneShot(rainSound);
+                audio.PlayOneShot(rainSound, 0.5f);
             }
             else if (soundType == "splashSound")
             {
-                audio.PlayOneShot(splashSound);
+                audio.PlayOneShot(splashSound, 0.5f);
             }
             else if (soundType == "carSound")
             {

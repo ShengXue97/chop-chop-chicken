@@ -66,10 +66,9 @@ public class CharacterMovement : MonoBehaviour
         foods.Add("eggHalf(Clone)", 2);
         foods.Add("grapes(Clone)", 10);
         foods.Add("pepper(Clone)", 5);
-        foods.Add("pineapple(Clone)", 20);
+        foods.Add("pineapple(Clone)", 30);
         foods.Add("pumpkin(Clone)", 30);
         foods.Add("strawberry(Clone)", 5);
-        foods.Add("watermelon(Clone)", 30);
 
 
     }
@@ -324,10 +323,10 @@ public class CharacterMovement : MonoBehaviour
     public void randomTip()
     {
         List<string> tips = new List<string>() {
-        "Did you know? Larger food give you more points!",
-        "Did you know? The tree types will change every 100 blocks!",
-        "Did you know? The cars and logs move faster every 100 blocks!",
-        "Did you know? The rain makes the cars slower and logs faster!",
+        // "Did you know? Larger food give you more points!",
+        // "Did you know? The tree types will change every 100 blocks!",
+        // "Did you know? The cars and logs move faster every 100 blocks!",
+        // "Did you know? The rain makes the cars slower and logs faster!",
         "You were not chop-chop so you became chicken chop!",
         };
 

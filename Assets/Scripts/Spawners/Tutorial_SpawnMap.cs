@@ -39,7 +39,6 @@ public class Tutorial_SpawnMap : MonoBehaviour
     public GameObject pineapple;
     public GameObject pumpkin;
     public GameObject strawberry;
-    public GameObject watermelon;
     public List<GameObject> foods;
 
 
@@ -79,7 +78,7 @@ public class Tutorial_SpawnMap : MonoBehaviour
         { apple, appleHalf, banana, beet,
           carrot, cauliflower, cherries, coconutHalf,
           corn, egg, eggHalf, grapes, pepper,
-          pineapple, pumpkin, strawberry, watermelon
+          pineapple, pumpkin, strawberry
         };
 
 
