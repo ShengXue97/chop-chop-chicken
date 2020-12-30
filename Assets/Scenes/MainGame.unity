@@ -2719,7 +2719,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2291988, y: 0.38752815}
   m_AnchorMax: {x: 0.8004386, y: 0.83500004}
   m_AnchoredPosition: {x: -11.982971, y: 18}
-  m_SizeDelta: {x: -2.0643444, y: 41.4216}
+  m_SizeDelta: {x: 0, y: 41.4216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1261917182
 MonoBehaviour:
@@ -4054,7 +4054,6 @@ MonoBehaviour:
   pineapple: {fileID: 7854203532168340284, guid: 7a08d1a364389924dbe5ce426151c8be, type: 3}
   pumpkin: {fileID: 697153399362812571, guid: dcc1c7f3e47424741a7f292c13f35ac7, type: 3}
   strawberry: {fileID: 7808850027865814142, guid: 802e969d24aa3894e804d78addfefbc7, type: 3}
-  watermelon: {fileID: 3313512345979983064, guid: 15e16a8dfab4403479de7d9aafb60a25, type: 3}
   foods: []
   prevGrass: 0
   prevRoad: 0
@@ -4153,7 +4152,7 @@ MonoBehaviour:
   questionList: []
   answer1List: []
   answer2List: []
-  correctList: 
+  correctList: []
   decorations:
   - {fileID: 6043555596085960602, guid: fcf523460c88aa041ab0dff5dbce45fc, type: 3}
   - {fileID: 2735926324215376377, guid: f16abcc387cf3bc49a5d1c4e693f1926, type: 3}
@@ -4482,7 +4481,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2291988, y: 0}
   m_AnchorMax: {x: 0.7743567, y: 0.3157677}
   m_AnchoredPosition: {x: -1.710022, y: 40.000015}
-  m_SizeDelta: {x: 4.2731586, y: 44.939087}
+  m_SizeDelta: {x: 0, y: 44.939087}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1615254166
 MonoBehaviour:
@@ -4801,7 +4800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1700924823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5189,7 +5188,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: You were not chop-chop so you became chicken chop.
+  m_Text: Oops! You were not chop-chop enough!
 --- !u!222 &1831669943
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5235,7 +5234,7 @@ RectTransform:
   m_AnchorMin: {x: 0.37219337, y: 0.2007608}
   m_AnchorMax: {x: 0.6657887, y: 0.73123926}
   m_AnchoredPosition: {x: -15.447998, y: 9.932999}
-  m_SizeDelta: {x: 19.973848, y: 19.865967}
+  m_SizeDelta: {x: 0, y: 19.865967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1845406280
 MonoBehaviour:

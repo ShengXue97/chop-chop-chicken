@@ -163,7 +163,6 @@ public class AzureControl : MonoBehaviour
                     for (int j = 0; j < detailSplit.Length; j++)
                     {
                         string detail = detailSplit[j];
-                        Debug.Log(j + ";" + detail);
                         if (j == 0)
                         {
                             //question list

@@ -213,7 +213,11 @@ public class CharacterMovement : MonoBehaviour
                         gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                     }
                     anim.SetBool("Hop", true);
-                    movePoint.position += new Vector3(0f, 0f, pointer_y * 2);
+                    float newX = RoundTo(movePoint.position.x, 2f);
+                    float diff = newX - movePoint.transform.position.x;
+                    movePoint.position += new Vector3(diff, 0f, pointer_y * 2);
+                    // Debug.Log(movePoint.position.x);
+
                 }
                 if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 1.4f), 0.2f, vehicleLayer).Length != 0)
                 {
@@ -336,6 +340,11 @@ public class CharacterMovement : MonoBehaviour
         {
             GameTip.GetComponent<UnityEngine.UI.Text>().text = tips[num];
         }
+    }
+
+    static float RoundTo(float value, float multipleOf)
+    {
+        return Mathf.Round(value / multipleOf) * multipleOf;
     }
 }
 
