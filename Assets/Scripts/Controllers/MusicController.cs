@@ -15,7 +15,24 @@ public class MusicController : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
-        audioEnabled = true;
+        int audioon = 1;
+        if (PlayerPrefs.HasKey("audioon"))
+        {
+            audioon = PlayerPrefs.GetInt("audioon");
+        }
+
+        if (audioon == 1)
+        {
+            audio.Play();
+            musicButton.GetComponent<Image>().sprite = musicOn;
+            audioEnabled = true;
+        }
+        else
+        {
+            audio.Pause();
+            musicButton.GetComponent<Image>().sprite = musicOff;
+            audioEnabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -33,12 +50,14 @@ public class MusicController : MonoBehaviour
             audio.Pause();
             musicButton.GetComponent<Image>().sprite = musicOff;
             audioEnabled = false;
+            PlayerPrefs.SetInt("audioon", 0);
         }
         else
         {
             audio.Play();
             musicButton.GetComponent<Image>().sprite = musicOn;
             audioEnabled = true;
+            PlayerPrefs.SetInt("audioon", 1);
         }
     }
 }

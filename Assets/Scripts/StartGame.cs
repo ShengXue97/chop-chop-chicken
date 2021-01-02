@@ -17,7 +17,11 @@ public class StartGame : MonoBehaviour
         {
             //SceneManager.LoadScene("MainGame");
         }
-        SceneManager.LoadScene("MainGame");
+        GameObject persistent = GameObject.FindGameObjectWithTag("Persistent");
+        if (persistent.GetComponent<LeaderboardController>().checkDetails())
+        {
+            SceneManager.LoadScene("MainGame");
+        }
     }
 
 }

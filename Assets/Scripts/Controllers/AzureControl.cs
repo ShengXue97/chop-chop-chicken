@@ -12,6 +12,7 @@ using UnityEngine.Networking;
 using UnityEditor;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerInfo
 {
@@ -32,6 +33,9 @@ public class BypassCertificate : CertificateHandler
 
 public class AzureControl : MonoBehaviour
 {
+    public InputField TextPanel_Name;
+    public InputField TextPanel_Email;
+    public GameObject OnScreenKeyboard;
     public GameObject loading;
     public UnityEngine.UI.Text loadingText;
     public GameObject play;
@@ -52,6 +56,7 @@ public class AzureControl : MonoBehaviour
     public List<string> answer2List = new List<string>();
 
     public List<string> correctList = new List<string>();
+
     // Use this for initialization
     void Start()
     {
@@ -106,6 +111,21 @@ public class AzureControl : MonoBehaviour
                 {
                     SceneManager.LoadScene("TutorialGame");
                 }
+            }
+        }
+
+        if (TextPanel_Name != null)
+        //if (TextPanel_Name != null && (Application.isMobilePlatform || SystemInfo.deviceModel.Contains("iPad")))
+        {
+            if (TextPanel_Name.isFocused)
+            {
+                OnScreenKeyboard.SetActive(true);
+                OnScreenKeyboard.GetComponent<KeyboardScript>().setTextField(TextPanel_Name);
+            }
+            else if (TextPanel_Email.isFocused)
+            {
+                OnScreenKeyboard.SetActive(true);
+                OnScreenKeyboard.GetComponent<KeyboardScript>().setTextField(TextPanel_Email);
             }
         }
     }

@@ -25,6 +25,8 @@ public class LeaderboardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        name = "";
+        email = "";
         if (PlayerPrefs.HasKey("myname"))
         {
             name = PlayerPrefs.GetString("myname");
@@ -37,6 +39,39 @@ public class LeaderboardController : MonoBehaviour
 
     }
 
+
+    public bool checkDetails()
+    {
+        if (name == "")
+        {
+            errorPanel.SetActive(true);
+            errorText.text = "Name cannot be empty!";
+            return false;
+        }
+        else if (!Regex.IsMatch(name, MatchAlphaNumeric))
+        {
+            errorPanel.SetActive(true);
+            errorText.text = "Name must be alphanumeric!";
+            return false;
+        }
+        else if (name.Length > 25)
+        {
+
+            errorPanel.SetActive(true);
+            errorText.text = "Name must be at most 25 characters!";
+            return false;
+        }
+        else if (!Regex.IsMatch(email, MatchEmailPattern) && email != "")
+        {
+            errorPanel.SetActive(true);
+            errorText.text = "Please enter a valid email address!";
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     public void updateDetails()
     {

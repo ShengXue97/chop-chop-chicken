@@ -16,7 +16,14 @@ public class CameraMovement : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         if (shouldMove)
         {
-            //ameraMovementSpeed = 3.5f;
+            if (Application.isMobilePlatform || SystemInfo.deviceModel.Contains("iPad"))
+            {
+                cameraMovementSpeed = 3.0f;
+            }
+            else
+            {
+                cameraMovementSpeed = 3.5f;
+            }
         }
     }
 
