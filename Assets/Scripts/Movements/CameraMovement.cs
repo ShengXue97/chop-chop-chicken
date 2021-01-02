@@ -16,7 +16,7 @@ public class CameraMovement : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         if (shouldMove)
         {
-            cameraMovementSpeed = 3.5f;
+            //ameraMovementSpeed = 3.5f;
         }
     }
 

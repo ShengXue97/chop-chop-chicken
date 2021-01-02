@@ -165,71 +165,69 @@ public class CharacterMovement : MonoBehaviour
             if (Mathf.Abs(pointer_x) == 1f && canMoveHorizontal)
             {
                 canMoveHorizontal = false;
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 1, 0f, 0f), 0.6f, whatStopsMovement).Length == 0)
-                {
-                    if (pointer_x == -1f)
-                    {
-                        gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
-                    }
-                    else
-                    {
-                        gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-                    }
-                    anim.SetBool("Hop", true);
-                    movePoint.position += new Vector3(pointer_x * 2, 0f, 0f);
-                }
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(pointer_x * 1, 0f, 0f), 0.2f, vehicleLayer).Length != 0)
-                {
-                    //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                    // Debug.Log("3");
-                    // restartGame();
-                }
+                moveHorizontal(pointer_x);
             }
             else if (Mathf.Abs(pointer_y) == 1f && canMoveVertical)
             {
                 canMoveVertical = false;
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 1), 0.3f, whatStopsMovement).Length == 0)
-                {
-                    if (pointer_y == -1f)
-                    {
-                        zPos -= 1;
-                        gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-                    }
-                    else
-                    {
-                        zPos += 1;
-                        if (zPos > zMax)
-                        {
-                            score += 1;
-                            zMax = zPos;
-                            scoreText.text = "Score: " + score;
-                            if (score > highscore)
-                            {
-                                PlayerPrefs.SetInt("highscore", score);
-                                highscore = score;
-                                maxScoreText.text = "Your top: " + score;
-                            }
-                        }
-                        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    }
-                    anim.SetBool("Hop", true);
-                    float newX = RoundTo(movePoint.position.x, 2f);
-                    float diff = newX - movePoint.transform.position.x;
-                    movePoint.position += new Vector3(diff, 0f, pointer_y * 2);
-                    // Debug.Log(movePoint.position.x);
-
-                }
-                if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, pointer_y * 1.4f), 0.2f, vehicleLayer).Length != 0)
-                {
-                    //EditorUtility.DisplayDialog("Info", "You died", "Ok");
-                    // Debug.Log("5");
-                    // restartGame();
-                }
+                moveVertical(pointer_y);
             }
             else
             {
                 anim.SetBool("Hop", false);
             }
+        }
+    }
+
+    public void moveVertical(float dir)
+    {
+        if (Physics.OverlapSphere(movePoint.position + new Vector3(0f, 0f, dir * 1), 0.3f, whatStopsMovement).Length == 0)
+        {
+            if (dir == -1f)
+            {
+                zPos -= 1;
+                gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else
+            {
+                zPos += 1;
+                if (zPos > zMax)
+                {
+                    score += 1;
+                    zMax = zPos;
+                    scoreText.text = "Score: " + score;
+                    if (score > highscore)
+                    {
+                        PlayerPrefs.SetInt("highscore", score);
+                        highscore = score;
+                        maxScoreText.text = "Your top: " + score;
+                    }
+                }
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            anim.SetBool("Hop", true);
+            float newX = RoundTo(movePoint.position.x, 2f);
+            float diff = newX - movePoint.transform.position.x;
+            movePoint.position += new Vector3(diff, 0f, dir * 2);
+            // Debug.Log(movePoint.position.x);
+
+        }
+    }
+
+    public void moveHorizontal(float dir)
+    {
+        if (Physics.OverlapSphere(movePoint.position + new Vector3(dir * 1, 0f, 0f), 0.6f, whatStopsMovement).Length == 0)
+        {
+            if (dir == -1f)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
+            else
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
+            anim.SetBool("Hop", true);
+            movePoint.position += new Vector3(dir * 2, 0f, 0f);
         }
     }
 
