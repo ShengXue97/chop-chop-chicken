@@ -43,8 +43,6 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
         if (_contactList != null) _contactList.Clear();
         if (data != "\"\"")
         {
-            data = data.Substring(1, data.Length - 3);
-
             string[] users = data.Split(';');
 
             for (int i = 0; i < users.Length; i++)
@@ -62,7 +60,10 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
                 obj.Score = details[3];
 
                 obj.id = "";
-                _contactList.Add(obj);
+                if (obj.Name != "")
+                {
+                    _contactList.Add(obj);
+                }
             }
 
             _contactList.Sort(SortByScore);
@@ -76,7 +77,6 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
         GameObject LoadingLeaderboard = GameObject.FindGameObjectWithTag("LoadingLeaderboard");
         if (LoadingLeaderboard != null)
         {
-            Debug.Log(LoadingLeaderboard.name);
             LoadingLeaderboard.SetActive(false);
         }
 

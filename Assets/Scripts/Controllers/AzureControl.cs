@@ -13,6 +13,9 @@ using UnityEditor;
 using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Security.Cryptography;
+using System;
+using System.Text;
 
 public class PlayerInfo
 {
@@ -114,8 +117,8 @@ public class AzureControl : MonoBehaviour
             }
         }
 
-        if (TextPanel_Name != null)
-        //if (TextPanel_Name != null && (Application.isMobilePlatform || SystemInfo.deviceModel.Contains("iPad")))
+        // if (TextPanel_Name != null)
+        if (TextPanel_Name != null && (Application.isMobilePlatform || SystemInfo.deviceModel.Contains("iPad")))
         {
             if (TextPanel_Name.isFocused)
             {
@@ -176,7 +179,10 @@ public class AzureControl : MonoBehaviour
                 // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
                 data = data.Substring(1, data.Length - 3);
-                string[] dataSplit = data.Split('|');
+                byte[] decodedBytes = Convert.FromBase64String(data);
+                string decodedText = Encoding.UTF8.GetString(decodedBytes);
+
+                string[] dataSplit = decodedText.Split('|');
                 for (int i = 0; i < dataSplit.Length; i++)
                 {
                     string[] detailSplit = dataSplit[i].Split(';');
@@ -234,7 +240,10 @@ public class AzureControl : MonoBehaviour
                 // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
                 data = data.Substring(1, data.Length - 3);
-                string[] profileSplit = data.Split(';');
+                byte[] decodedBytes = Convert.FromBase64String(data);
+                string decodedText = Encoding.UTF8.GetString(decodedBytes);
+
+                string[] profileSplit = decodedText.Split(';');
                 if (profileText1 != null && profileText2 != null)
                 {
                     profileText1.text = profileSplit[0];
@@ -265,9 +274,13 @@ public class AzureControl : MonoBehaviour
             {
                 // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
+                data = data.Substring(1, data.Length - 3);
+                byte[] decodedBytes = Convert.FromBase64String(data);
+                string decodedText = Encoding.UTF8.GetString(decodedBytes);
+
                 if (LeaderboardContent != null)
                 {
-                    LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(data);
+                    LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData(decodedText);
                 }
 
             }
@@ -276,7 +289,17 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator UpdateRequest(string name, string email, int score)
     {
-        string uri = "https://chop-chop-chicken.herokuapp.com/updateusers?name=" + name + "&email=" + email + "&score=" + score.ToString();
+        string epoch = getEpochTime();
+        if (email == "")
+        {
+            email = "-";
+        }
+
+        string message = name + ";" + email + ";" + score + ";" + epoch;
+
+        string hmac = CreateToken(message, "u!1j^aSm5MdF9w@%peXcYY").Replace("+", "-");
+
+        string uri = "https://chop-chop-chicken.herokuapp.com/updateusers?name=" + name + "&email=" + email + "&score=" + score.ToString() + "&epoch=" + epoch + "&hmac=" + hmac;
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -316,6 +339,26 @@ public class AzureControl : MonoBehaviour
                 Debug.Log("cReceived: " + webRequest.downloadHandler.text);
             }
         }
+    }
+
+    private string CreateToken(string message, string secret)
+    {
+        secret = secret ?? "";
+        var encoding = new System.Text.ASCIIEncoding();
+        byte[] keyByte = encoding.GetBytes(secret);
+        byte[] messageBytes = encoding.GetBytes(message);
+        using (var hmacsha256 = new HMACSHA256(keyByte))
+        {
+            byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+            return Convert.ToBase64String(hashmessage);
+        }
+    }
+
+    private string getEpochTime()
+    {
+        TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
+        int secondsSinceEpoch = (int)t.TotalSeconds;
+        return secondsSinceEpoch.ToString();
     }
 
 

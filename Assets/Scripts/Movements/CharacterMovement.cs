@@ -329,7 +329,7 @@ public class CharacterMovement : MonoBehaviour
         // "Did you know? The tree types will change every 100 blocks!",
         // "Did you know? The cars and logs move faster every 100 blocks!",
         // "Did you know? The rain makes the cars slower and logs faster!",
-        "You were not chop-chop so you became chicken chop!",
+        "Oopps! You were not chop-chop enough!",
         };
 
         int num = Random.Range(0, tips.Count);
