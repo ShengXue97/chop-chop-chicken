@@ -15,13 +15,13 @@ public class MusicController : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
-        int audioon = 1;
+        string audioon = "1";
         if (PlayerPrefs.HasKey("audioon"))
         {
-            audioon = PlayerPrefs.GetInt("audioon");
+            audioon = PlayerPrefs.GetString("audioon");
         }
 
-        if (audioon == 1)
+        if (audioon == "1")
         {
             audio.Play();
             musicButton.GetComponent<Image>().sprite = musicOn;
@@ -29,7 +29,7 @@ public class MusicController : MonoBehaviour
         }
         else
         {
-            audio.Pause();
+            audio.Stop();
             musicButton.GetComponent<Image>().sprite = musicOff;
             audioEnabled = false;
         }
@@ -47,17 +47,17 @@ public class MusicController : MonoBehaviour
     {
         if (audio.isPlaying)
         {
-            audio.Pause();
+            audio.Stop();
             musicButton.GetComponent<Image>().sprite = musicOff;
             audioEnabled = false;
-            PlayerPrefs.SetInt("audioon", 0);
+            PlayerPrefs.SetString("audioon", "0");
         }
         else
         {
             audio.Play();
             musicButton.GetComponent<Image>().sprite = musicOn;
             audioEnabled = true;
-            PlayerPrefs.SetInt("audioon", 1);
+            PlayerPrefs.SetString("audioon", "1");
         }
     }
 }

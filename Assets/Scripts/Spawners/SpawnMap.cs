@@ -243,7 +243,7 @@ public class SpawnMap : MonoBehaviour
         for (int i = 0; i < 100; i++)
         {
             string blockType = "";
-            if ((currentRow % 30) == 0 || (currentRow % 30) >= 27)
+            if ((currentRow % 30) == 0 || (currentRow % 30) >= 26)
             {
                 //Spawn question every 30 tiles
                 blockType = "grass";
@@ -322,12 +322,18 @@ public class SpawnMap : MonoBehaviour
             //Spawn 20 blocks horizontally
             if (excludeList.Count < questionList.Count)
             {
-                if ((currentZ / 2) % 30 == 27)
+                if ((currentZ / 2) % 30 == 26)
                 {
                     if (x == -30)
                     {
                         currentQuestion = random_except_list(questionList.Count, excludeList);
                     }
+                    //Spawn questions every 30 tiles
+                    GameObject grassObj = Instantiate(grass, new Vector3(x, -2f, currentZ), Quaternion.identity);
+                    grassObj.transform.parent = gameObject.transform;
+                }
+                else if ((currentZ / 2) % 30 == 27)
+                {
                     //Spawn questions every 30 tiles
                     GameObject pavementObj = Instantiate(pavement, new Vector3(x, -0.1f, currentZ), Quaternion.identity);
                     pavementObj.transform.parent = gameObject.transform;
@@ -485,7 +491,7 @@ public class SpawnMap : MonoBehaviour
                 grassObj.GetComponent<SpawnFood>().enabled = false;
             }
 
-            if ((currentZ / 2) % 30 != 0 && (currentZ / 2) % 30 < 27)
+            if ((currentZ / 2) % 30 != 0 && (currentZ / 2) % 30 < 26)
             {
                 //Spawn more tree the further you travel
                 //var shouldSpawnTree = Mathf.FloorToInt(Random.Range(0, 3 + Mathf.Max(0, (50 - currentZ / 20))));

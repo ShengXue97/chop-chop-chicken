@@ -13,15 +13,15 @@ public class LeaderboardController : MonoBehaviour
     public const string MatchAlphaNumeric = "^[a-zA-Z0-9 ]*$";
 
     public GameObject errorPanel;
-    public UnityEngine.UI.Text errorText;
+    public TextMeshProUGUI errorText;
     public string name;
     public string email;
 
-    public UnityEngine.UI.InputField tempName;
-    public UnityEngine.UI.InputField tempEmail;
+    public TMP_InputField tempName;
+    public TMP_InputField tempEmail;
     public int highscore;
 
-    public UnityEngine.UI.Text welcomeText;
+    public TextMeshProUGUI welcomeText;
     // Start is called before the first frame update
     void Start()
     {

@@ -16,6 +16,7 @@ using UnityEngine.UI;
 using System.Security.Cryptography;
 using System;
 using System.Text;
+using TMPro;
 
 public class PlayerInfo
 {
@@ -36,8 +37,8 @@ public class BypassCertificate : CertificateHandler
 
 public class AzureControl : MonoBehaviour
 {
-    public InputField TextPanel_Name;
-    public InputField TextPanel_Email;
+    public TMP_InputField TextPanel_Name;
+    public TMP_InputField TextPanel_Email;
     public GameObject OnScreenKeyboard;
     public GameObject loading;
     public UnityEngine.UI.Text loadingText;
@@ -48,8 +49,8 @@ public class AzureControl : MonoBehaviour
     public string result = "";
     private List<PlayerInfo> _playerList = new List<PlayerInfo>();
     public GameObject MyProfile;
-    public UnityEngine.UI.Text profileText1;
-    public UnityEngine.UI.Text profileText2;
+    public TextMeshProUGUI profileText1;
+    public TextMeshProUGUI profileText2;
     public GameObject VerticalCell;
 
     public List<string> questionList = new List<string>();
@@ -59,6 +60,10 @@ public class AzureControl : MonoBehaviour
     public List<string> answer2List = new List<string>();
 
     public List<string> correctList = new List<string>();
+
+    public string link = "https://chop-chop-chicken-no-azure.herokuapp.com";
+
+    // public string link = "https://chop-chop-chicken.herokuapp.com";
 
     // Use this for initialization
     void Start()
@@ -160,7 +165,7 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator GetQuestions()
     {
-        string uri = "https://chop-chop-chicken.herokuapp.com/getquestions";
+        string uri = link + "/getquestions";
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             webRequest.certificateHandler = new BypassCertificate();
@@ -222,7 +227,7 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator GetProfileText()
     {
-        string uri = "https://chop-chop-chicken.herokuapp.com/getprofile";
+        string uri = link + "/getprofile";
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             webRequest.certificateHandler = new BypassCertificate();
@@ -234,20 +239,36 @@ public class AzureControl : MonoBehaviour
             {
                 Debug.Log("aError: " + webRequest.error);
                 Debug.Log("tReceived: " + webRequest.downloadHandler.text);
+                if (profileText1 != null && profileText2 != null)
+                {
+                    profileText1.text = "Leave us your email address if you'd like to have a chance to receive a surprise from us!";
+                    profileText2.text = "Use the arrow keys to move around and answer the questions correctly to score more! Chop! Chop! Now!";
+                }
             }
             else
             {
                 // Debug.Log("aReceived: " + webRequest.downloadHandler.text);
                 string data = webRequest.downloadHandler.text;
-                data = data.Substring(1, data.Length - 3);
-                byte[] decodedBytes = Convert.FromBase64String(data);
-                string decodedText = Encoding.UTF8.GetString(decodedBytes);
-
-                string[] profileSplit = decodedText.Split(';');
-                if (profileText1 != null && profileText2 != null)
+                if (data == "\"\"\n" || data == "\"\"")
                 {
-                    profileText1.text = profileSplit[0];
-                    profileText2.text = profileSplit[1];
+                    if (profileText1 != null && profileText2 != null)
+                    {
+                        profileText1.text = "Leave us your email address if you'd like to have a chance to receive a surprise from us!";
+                        profileText2.text = "Use the arrow keys to move around and answer the questions correctly to score more! Chop! Chop! Now!";
+                    }
+                }
+                else
+                {
+                    data = data.Substring(1, data.Length - 3);
+                    byte[] decodedBytes = Convert.FromBase64String(data);
+                    string decodedText = Encoding.UTF8.GetString(decodedBytes);
+
+                    string[] profileSplit = decodedText.Split(';');
+                    if (profileText1 != null && profileText2 != null)
+                    {
+                        profileText1.text = profileSplit[0];
+                        profileText2.text = profileSplit[1];
+                    }
                 }
 
             }
@@ -257,7 +278,7 @@ public class AzureControl : MonoBehaviour
     {
         GameObject LeaderboardContent = GameObject.FindGameObjectWithTag("LeaderboardContent");
         LeaderboardContent.GetComponent<RecyclableScrollerDemo>().InitData("\"\"");
-        string uri = "https://chop-chop-chicken.herokuapp.com/getusers";
+        string uri = link + "/getusers";
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             webRequest.certificateHandler = new BypassCertificate();
@@ -299,7 +320,7 @@ public class AzureControl : MonoBehaviour
 
         string hmac = CreateToken(message, "u!1j^aSm5MdF9w@%peXcYY").Replace("+", "-");
 
-        string uri = "https://chop-chop-chicken.herokuapp.com/updateusers?name=" + name + "&email=" + email + "&score=" + score.ToString() + "&epoch=" + epoch + "&hmac=" + hmac;
+        string uri = link + "/updateusers?name=" + name + "&email=" + email + "&score=" + score.ToString() + "&epoch=" + epoch + "&hmac=" + hmac;
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -321,7 +342,7 @@ public class AzureControl : MonoBehaviour
 
     IEnumerator UpdateFeedback(string name, string email, string feedback)
     {
-        string uri = "https://chop-chop-chicken.herokuapp.com/updatefeedback?name=" + name + "&email=" + email + "&feedback=" + feedback;
+        string uri = link + "/updatefeedback?name=" + name + "&email=" + email + "&feedback=" + feedback;
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {

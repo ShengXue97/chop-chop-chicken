@@ -10,8 +10,8 @@ public class CharacterMovement : MonoBehaviour
     public GameObject GameTip;
     public GameObject uploadingPanel;
     public GameObject FinishPanel;
-    public UnityEngine.UI.Text FinishText;
-    public UnityEngine.UI.Text ScoreDetails;
+    public TextMeshProUGUI FinishText;
+    public TextMeshProUGUI ScoreDetails;
     public GameObject ScorePopup;
     public Animator anim;
     public Transform movePoint;
@@ -21,9 +21,9 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask logLayer;
     public float moveSpeed = 20f;
     [SerializeField]
-    public UnityEngine.UI.Text scoreText;
+    public TextMeshProUGUI scoreText;
     [SerializeField]
-    public UnityEngine.UI.Text maxScoreText;
+    public TextMeshProUGUI maxScoreText;
     private MeshRenderer meshRenderer;
 
     private Hashtable foods;
@@ -54,7 +54,7 @@ public class CharacterMovement : MonoBehaviour
         foods = new Hashtable();
 
         foods.Add("apple(Clone)", 5);
-        foods.Add("appleHalf(Clone)", 2);
+        foods.Add("appleHalf(Clone)", 5);
         foods.Add("banana(Clone)", 10);
         foods.Add("beet(Clone)", 5);
         foods.Add("carrot(Clone)", 10);
@@ -63,7 +63,7 @@ public class CharacterMovement : MonoBehaviour
         foods.Add("coconutHalf(Clone)", 10);
         foods.Add("corn(Clone)", 10);
         foods.Add("egg(Clone)", 5);
-        foods.Add("eggHalf(Clone)", 2);
+        foods.Add("eggHalf(Clone)", 5);
         foods.Add("grapes(Clone)", 10);
         foods.Add("pepper(Clone)", 5);
         foods.Add("pineapple(Clone)", 30);
@@ -336,7 +336,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (GameTip != null)
         {
-            GameTip.GetComponent<UnityEngine.UI.Text>().text = tips[num];
+            GameTip.GetComponent<TextMeshProUGUI>().text = tips[num];
         }
     }
 
