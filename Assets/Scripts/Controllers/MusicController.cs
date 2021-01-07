@@ -12,7 +12,7 @@ public class MusicController : MonoBehaviour
     public bool audioEnabled;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         audio = GetComponent<AudioSource>();
         string audioon = "1";

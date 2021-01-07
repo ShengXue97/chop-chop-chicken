@@ -61,13 +61,14 @@ public class AzureControl : MonoBehaviour
 
     public List<string> correctList = new List<string>();
 
-    // public string link = "https://chop-chop-chicken-no-azure.herokuapp.com";
-
-    public string link = "https://chop-chop-chicken.herokuapp.com";
+    public string link = "";
 
     // Use this for initialization
     void Start()
     {
+        link = "https://chop-chop-chicken.herokuapp.com";
+        // link = "https://chop-chop-chicken-no-azure.herokuapp.com";
+
         GameObject[] persistents = GameObject.FindGameObjectsWithTag("Persistent");
         if (persistents.Length > 1)
         {
