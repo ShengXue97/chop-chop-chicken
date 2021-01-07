@@ -61,9 +61,9 @@ public class AzureControl : MonoBehaviour
 
     public List<string> correctList = new List<string>();
 
-    public string link = "https://chop-chop-chicken-no-azure.herokuapp.com";
+    // public string link = "https://chop-chop-chicken-no-azure.herokuapp.com";
 
-    // public string link = "https://chop-chop-chicken.herokuapp.com";
+    public string link = "https://chop-chop-chicken.herokuapp.com";
 
     // Use this for initialization
     void Start()
