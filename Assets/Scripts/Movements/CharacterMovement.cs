@@ -295,6 +295,8 @@ public class CharacterMovement : MonoBehaviour
         }
 
         ended = true;
+        GetComponent<BoxCollider>().enabled = false;
+        transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
 
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name != "TutorialGame")

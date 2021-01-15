@@ -66,8 +66,8 @@ public class AzureControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        link = "https://chop-chop-chicken.herokuapp.com";
-        // link = "https://chop-chop-chicken-no-azure.herokuapp.com";
+        // link = "https://chop-chop-chicken.herokuapp.com";
+        link = "https://chop-chop-chicken-no-azure.herokuapp.com";
 
         GameObject[] persistents = GameObject.FindGameObjectsWithTag("Persistent");
         if (persistents.Length > 1)
